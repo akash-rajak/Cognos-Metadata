@@ -1151,10 +1151,5 @@ Process finished with exit code 0
 
 
 
-Updated the Cognos API with chunk excel
-Parse both XML for Cognos
-share both the Excel file in task today with Anuben, she will refactor it
-
-
 
 
