@@ -1,0 +1,1636 @@
+<report xmlns="http://developer.cognos.com/schemas/report/15.5/" expressionLocale="en">
+	<modelPath>/content/package[@name=&apos;PassportDW&apos;]/model[@name=&apos;2022-08-23T19:11:08.240Z&apos;]</modelPath>
+	<queries>
+		<query name="Matter Org Query">
+			<source>
+				<model/>
+			</source>
+			<selection>
+				<dataItem aggregate="none" name="Matter Org KEY" rollupAggregate="none">
+					<expression>[Business View].[BTMATTERORGANIZATION].[MATTER_ORGANIZATION_KEY]</expression>
+				</dataItem>
+				<dataItem aggregate="none" name="Matter Number">
+					<expression>[Business View].[BTMATTERORGANIZATION].[MATTER_NUMBER]</expression>
+				</dataItem>
+				<dataItem aggregate="none" name="Matter Name">
+					<expression>[Business View].[BTMATTERORGANIZATION].[MATTER_NUMBER]+&apos; - &apos;+[Business View].[BTMATTERORGANIZATION].[MATTER_NAME]</expression>
+				</dataItem>
+				<dataItem aggregate="none" name="Application Url">
+					<expression>[Business View].[Application Url]</expression>
+				</dataItem>
+			</selection>
+			<detailFilters>
+				<detailFilter>
+					<filterExpression>[Business View].[BTMATTERORGANIZATION].[MATTER_ORGANIZATION_KEY] is not missing</filterExpression>
+				</detailFilter>
+				<detailFilter>
+					<filterExpression>[Business View].[BTMATTERORGANIZATION].[ORG_TYPE_CODE]=&apos;External&apos;</filterExpression>
+				</detailFilter>
+				<detailFilter use="optional">
+					<filterExpression>[Business View].[BTMATTERORGANIZATION].[ORGANIZATION_KEY] in ?p_Org?</filterExpression>
+				</detailFilter>
+			</detailFilters>
+		</query>
+		<query name="Invoice Query">
+			<source>
+				<model/>
+			</source>
+			<selection>
+				<dataItem aggregate="none" name="Matter Org KEY" rollupAggregate="none">
+					<expression>[Business View].[FACTINVOICEHEADER].[MATTER_ORG_KEY]</expression>
+				</dataItem>
+				<dataItem aggregate="none" rollupAggregate="none" name="ID">
+					<expression>[Business View].[FACTINVOICEHEADER].[ID]</expression>
+					<XMLAttributes>
+						<XMLAttribute output="no" name="RS_dataType" value="1"/>
+						<XMLAttribute output="no" name="RS_dataUsage" value="1"/>
+					</XMLAttributes>
+				</dataItem>
+				<dataItem aggregate="none" name="Activity Code">
+					<expression>case when (
+case when ([Business View].[FACTDETAILLINEITEM].[ACTIVITY_CODE_CODE] is missing) then(&apos;Unspecified&apos;) else ([Business View].[FACTDETAILLINEITEM].[ACTIVITY_CODE_CODE]) end=&apos;Unspecified&apos;)then(&apos;Unspecified&apos;) else(
+case when ([Business View].[FACTDETAILLINEITEM].[ACTIVITY_CODE_CODE] is missing) then(&apos;Unspecified&apos;) else ([Business View].[FACTDETAILLINEITEM].[ACTIVITY_CODE_CODE]) end +&apos; - &apos;+
+case when ([Business View].[FACTDETAILLINEITEM].[ACTIVITY_CODE_NAME] is missing) then(&apos;Unspecified&apos;) else ([Business View].[FACTDETAILLINEITEM].[ACTIVITY_CODE_NAME]) end)
+ end</expression>
+				</dataItem>
+				<dataItem aggregate="none" name="Detail Line Item Key" rollupAggregate="none">
+					<expression>[Business View].[FACTDETAILLINEITEM].[DETAIL_LINE_ITEM_KEY]</expression>
+					<XMLAttributes>
+						<XMLAttribute name="RS_dataType" output="no" value="1"/>
+						<XMLAttribute name="RS_dataUsage" output="no" value="identifier"/>
+					</XMLAttributes>
+				</dataItem>
+				<dataItem aggregate="none" name="Invoice Number" rollupAggregate="none">
+					<expression>[Business View].[FACTINVOICEHEADER].[INVOICE_NUMBER]</expression>
+				</dataItem>
+				<dataItem aggregate="none" name="Invoice Date" rollupAggregate="none">
+					<expression>[Business View].[FACTINVOICEHEADER].[INVOICE_DATE]</expression>
+				</dataItem>
+				<dataItem aggregate="total" name="User Expense Total Net Amount">
+					<expression>Case when ([Business View].[FACTDETAILLINEITEM].[LINE_ITEM_TYPE_CODE] = &apos;Expense&apos;)
+then
+coalesce([Business View].[FACTDETAILLINEITEM].[User Net Amount],0)
+else
+0
+end</expression>
+				</dataItem>
+				<dataItem aggregate="total" name="User Fee Total Net Amount">
+					<expression>Case when ([Business View].[FACTDETAILLINEITEM].[LINE_ITEM_TYPE_CODE] = &apos;Fee&apos;)
+then
+coalesce([Business View].[FACTDETAILLINEITEM].[User Net Amount],0)
+else
+0
+end</expression>
+				</dataItem>
+				<dataItem aggregate="total" name="User Total Net Amount">
+					<expression>coalesce([Business View].[FACTDETAILLINEITEM].[User Net Amount],0)</expression>
+				</dataItem>
+			</selection>
+			<detailFilters>
+				<detailFilter>
+					<filterExpression>[Business View].[FACTDETAILLINEITEM].[HEADER_KEY] is not missing</filterExpression>
+				</detailFilter>
+				<detailFilter>
+					<filterExpression>[Business View].[FACTINVOICEHEADER].[INVOICE_DISPOSITION_ID] in (?p_Invoice_State?)</filterExpression>
+				</detailFilter>
+				<detailFilter>
+					<filterExpression>[Business View].[FACTINVOICEHEADER].[(Bit)Has Errors] &lt;&gt; 1</filterExpression>
+				</detailFilter>
+				<detailFilter use="optional">
+					<filterExpression>[Business View].[FACTINVOICEHEADER].[INVOICE_DATE] in_range ?p_Invoice_Date?</filterExpression>
+				</detailFilter>
+				<detailFilter use="optional">
+					<filterExpression>[Business View].[FACTINVOICEHEADER].[INVOICE_HEADER_KEY] in (?p_Invoice_Number?)</filterExpression>
+				</detailFilter>
+				<detailFilter use="optional">
+					<filterExpression>[Business View].[FACTDETAILLINEITEM].[ACTIVITY_CODE_ID] in ?p_Activity_Code?</filterExpression>
+				</detailFilter>
+			</detailFilters>
+		</query>
+		<query name="Main Query">
+			<source>
+
+				<joinOperation>
+					<joinOperands>
+						<joinOperand>
+							<queryRef refQuery="Matter Org Query"/>
+						</joinOperand>
+						<joinOperand>
+							<queryRef refQuery="Invoice Query"/>
+						</joinOperand>
+					</joinOperands>
+					<joinFilter>
+						<filterExpression>[Matter Org Query].[Matter Org KEY] = [Invoice Query].[Matter Org KEY]</filterExpression>
+					</joinFilter>
+				</joinOperation>
+			</source>
+			<selection>
+				<dataItem aggregate="none" name="Matter Org KEY" rollupAggregate="none">
+					<expression>[Matter Org Query].[Matter Org KEY]</expression>
+				</dataItem>
+				<dataItem aggregate="none" name="Matter Number">
+					<expression>[Matter Org Query].[Matter Number]</expression>
+				</dataItem>
+				<dataItem aggregate="none" name="Matter Name">
+					<expression>[Matter Org Query].[Matter Name]</expression>
+				</dataItem>
+				<dataItem aggregate="none" name="Activity Code">
+					<expression>[Invoice Query].[Activity Code]</expression>
+				</dataItem>
+				<dataItem aggregate="none" name="Invoice Number" rollupAggregate="none">
+					<expression>[Invoice Query].[Invoice Number]</expression>
+				</dataItem>
+				<dataItem aggregate="none" name="Invoice Date" rollupAggregate="none">
+					<expression>[Invoice Query].[Invoice Date]</expression>
+				</dataItem>
+				<dataItem aggregate="total" name="User Expense Total Net Amount">
+					<expression>[Invoice Query].[User Expense Total Net Amount]</expression>
+				</dataItem>
+				<dataItem aggregate="total" name="User Fee Total Net Amount">
+					<expression>[Invoice Query].[User Fee Total Net Amount]</expression>
+				</dataItem>
+				<dataItem aggregate="total" name="User Total Net Amount">
+					<expression>[Invoice Query].[User Total Net Amount]</expression>
+				</dataItem>
+				<dataItem aggregate="calculated" name="Total(User Fee Total Net Amount)" rollupAggregate="total">
+					<expression>[User Fee Total Net Amount]</expression>
+				</dataItem>
+				<dataItem aggregate="calculated" name="Total(User Expense Total Net Amount)" rollupAggregate="total">
+					<expression>[User Expense Total Net Amount]</expression>
+				</dataItem>
+				<dataItem aggregate="calculated" name="Total(User Total Net Amount)" rollupAggregate="total">
+					<expression>[User Total Net Amount]</expression>
+				</dataItem>
+				<dataItem aggregate="none" name="i_id1" rollupAggregate="none">
+					<expression>cast([Invoice Query].[ID],VARCHAR(10))</expression>
+				</dataItem>
+				<dataItem aggregate="none" name="Application Url">
+					<expression>[Matter Org Query].[Application Url]</expression>
+				</dataItem>
+			</selection>
+		</query>
+		<query name="Summary Query">
+			<source>
+
+				<queryRef refQuery="Main Query"/>
+			</source>
+			<selection>
+				<dataItem name="Activity Code">
+					<expression>[Main Query].[Activity Code]</expression>
+				</dataItem>
+				<dataItem aggregate="total" name="Total User Expense Total Net Amount">
+					<expression>[Main Query].[User Expense Total Net Amount]</expression>
+				</dataItem>
+				<dataItem aggregate="total" name="Total User Fee Total Net Amount">
+					<expression>[Main Query].[User Fee Total Net Amount]</expression>
+				</dataItem>
+				<dataItem aggregate="total" name="Total User Total Net Amount">
+					<expression>[Main Query].[User Total Net Amount]</expression>
+				</dataItem>
+			</selection>
+		</query>
+		<query name="Invoice State Pmt">
+			<source>
+				<model/>
+			</source>
+			<selection autoSummary="false">
+				<dataItem aggregate="none" detail="false" name="id" rollupAggregate="none">
+					<expression>[Business View].[LKPDISPOSITION].[ID]</expression>
+				</dataItem>
+				<dataItem aggregate="none" detail="false" name="Invoice State" rollupAggregate="none" sort="ascending">
+					<expression>[Business View].[LKPDISPOSITION].[DISPLAY_NAME]</expression>
+				</dataItem>
+			</selection>
+		</query>
+		<query name="Organization Pmt">
+			<source>
+				<model/>
+			</source>
+			<selection autoSummary="false">
+				<dataItem aggregate="none" name="key" rollupAggregate="none">
+					<expression>[Business View].[DIMORGANIZATION].[ORGANIZATION_KEY]</expression>
+				</dataItem>
+				<dataItem aggregate="none" name="Organization" rollupAggregate="none" sort="ascending">
+					<expression>[Business View].[DIMORGANIZATION].[NAME]</expression>
+				</dataItem>
+			</selection>
+			<detailFilters>
+				<detailFilter>
+					<filterExpression>[Business View].[DIMORGANIZATION].[ORGANIZATION_TYPE_CODE]=&apos;External&apos;</filterExpression>
+				</detailFilter>
+			</detailFilters>
+		</query>
+		<query name="Invoice Number Pmt">
+			<source>
+				<model/>
+			</source>
+			<selection autoSummary="false">
+				<dataItem aggregate="none" name="Invoice Number" rollupAggregate="none" sort="ascending">
+					<expression>[Business View].[FACTINVOICEHEADER].[INVOICE_NUMBER]</expression>
+				</dataItem>
+				<dataItem aggregate="none" name="invoice_header_key" rollupAggregate="none">
+					<expression>[Business View].[FACTINVOICEHEADER].[INVOICE_HEADER_KEY]</expression>
+				</dataItem>
+			</selection>
+			<detailFilters>
+				<detailFilter>
+					<filterExpression>[Invoice Number] is not null</filterExpression>
+				</detailFilter>
+			</detailFilters>
+		</query>
+		<query name="Activity Pmt">
+			<source>
+				<model/>
+			</source>
+			<selection>
+				<dataItem aggregate="none" label="Activity ID" name="Activity ID" rollupAggregate="none">
+					<expression>if([Business View].[LKPACTIVITYCODE].[ID] is missing)then(9999999)else([Business View].[LKPACTIVITYCODE].[ID])</expression>
+				</dataItem>
+				<dataItem aggregate="none" name="Activity Code Name" rollupAggregate="none">
+					<expression>[Business View].[LKPACTIVITYCODE].[DISPLAY_NAME]</expression>
+				</dataItem>
+				<dataItem aggregate="none" name="Activity Code Code" rollupAggregate="none">
+					<expression>[Business View].[LKPACTIVITYCODE].[CODE]</expression>
+				</dataItem>
+				<dataItem aggregate="none" label="Activity Code - Name" name="Activity Code - Name" sort="ascending">
+					<expression>[Activity Code Code]+ &apos; - &apos; +[Activity Code Name]</expression>
+				</dataItem>
+			</selection>
+		</query>
+		<query name="User Currency">
+			<source>
+				<model/>
+			</source>
+			<selection>
+				<dataItem aggregate="calculated" name="User Currency" rollupAggregate="none">
+					<expression>[Business View].[User Currency]</expression>
+				</dataItem>
+			</selection>
+			<detailFilters>
+				<detailFilter>
+					<filterExpression>[User Currency] is not missing</filterExpression>
+				</detailFilter>
+			</detailFilters>
+		</query>
+	</queries>
+	<layouts>
+		<layout>
+
+			<promptPages>
+				<page name="StandardPromptPage">
+					<pageHeader>
+						<contents>
+							<block>
+								<contents>
+									<textItem>
+										<dataSource>
+
+											<staticValue>Invoices by Activity Code</staticValue>
+										</dataSource>
+										<style>
+											<defaultStyles>
+												<defaultStyle refStyle="tt"/>
+											</defaultStyles>
+										</style>
+									</textItem>
+								</contents>
+								<style>
+									<defaultStyles>
+										<defaultStyle refStyle="ta"/>
+									</defaultStyles>
+								</style>
+							</block>
+							<block>
+								<contents>
+									<promptButton type="cancel">
+										<contents/>
+										<style>
+											<defaultStyles>
+												<defaultStyle refStyle="bp"/>
+											</defaultStyles>
+										</style>
+									</promptButton>
+									<promptButton type="finish">
+										<contents/>
+										<style>
+											<defaultStyles>
+												<defaultStyle refStyle="bp"/>
+											</defaultStyles>
+										</style>
+									</promptButton>
+									<HTMLItem>
+										<dataSource>
+											<staticValue>&lt;script type=&quot;text/javascript&quot; src=&quot;../ps/portal/js/dcStandardPromptPage.js&quot;&gt;&lt;/script&gt;</staticValue>
+										</dataSource>
+									</HTMLItem>
+								</contents>
+								<style>
+									<defaultStyles>
+										<defaultStyle refStyle="fp"/>
+									</defaultStyles>
+								</style>
+							</block>
+						</contents>
+						<style>
+							<defaultStyles>
+								<defaultStyle refStyle="hp"/>
+							</defaultStyles>
+						</style>
+					</pageHeader>
+					<pageBody>
+						<contents>
+							<block>
+								<contents>
+									<table>
+										<style>
+											<defaultStyles>
+												<defaultStyle refStyle="tb"/>
+											</defaultStyles>
+											<CSS value="border-collapse:collapse;width:100%"/>
+										</style>
+										<tableRows>
+											<tableRow>
+												<tableCells>
+													<tableCell colSpan="3">
+														<contents>
+															<HTMLItem>
+																<dataSource>
+																	<staticValue>&lt;span id=&quot;InvoiceTable&quot; class=&quot;Collapsible&quot;&gt; &lt;/span&gt;
+&lt;img onclick=&apos;ExpandCollapse(this,1)&apos; src=&apos;../pat/hal/images/minus.gif&apos; style=&apos;cursor:hand;vertical-align:middle; margin-right:2px&apos;/&gt;
+&lt;span onclick=&apos;ExpandCollapse(this.previousSibling,1)&apos; style=&apos;cursor:hand&apos;&gt;</staticValue>
+																</dataSource>
+															</HTMLItem>
+															<textItem>
+																<dataSource>
+																	<staticValue>Invoice</staticValue>
+																</dataSource>
+																<style>
+																	<CSS value="font-weight:bold"/>
+																</style>
+															</textItem>
+															<HTMLItem>
+																<dataSource>
+																	<staticValue>&lt;/span&gt;
+																	</staticValue>
+																</dataSource>
+															</HTMLItem>
+														</contents>
+														<style>
+															<defaultStyles>
+																<defaultStyle refStyle="sh"/>
+															</defaultStyles>
+														</style>
+													</tableCell>
+												</tableCells>
+											</tableRow>
+											<tableRow>
+												<tableCells>
+													<tableCell>
+														<contents>
+															<textItem>
+																<dataSource>
+																	<staticValue>Invoice Date</staticValue>
+																</dataSource>
+															</textItem>
+														</contents>
+														<style>
+															<defaultStyles>
+																<defaultStyle refStyle="sk"/>
+															</defaultStyles>
+															<CSS value="text-align:left;vertical-align:top"/>
+														</style>
+													</tableCell>
+													<tableCell>
+														<contents>
+															<textItem>
+																<dataSource>
+																	<staticValue>Invoice State</staticValue>
+																</dataSource>
+															</textItem>
+														</contents>
+														<style>
+															<defaultStyles>
+																<defaultStyle refStyle="sk"/>
+															</defaultStyles>
+															<CSS value="text-align:left;vertical-align:top"/>
+														</style>
+													</tableCell>
+													<tableCell>
+														<contents>
+															<textItem>
+																<dataSource>
+																	<staticValue>Invoice Number</staticValue>
+																</dataSource>
+															</textItem>
+														</contents>
+														<style>
+															<defaultStyles>
+																<defaultStyle refStyle="sk"/>
+															</defaultStyles>
+															<CSS value="text-align:left;vertical-align:top"/>
+														</style>
+													</tableCell>
+												</tableCells>
+											</tableRow>
+											<tableRow>
+												<tableCells>
+													<tableCell>
+														<contents>
+															<HTMLItem>
+																<dataSource>
+																	<staticValue>&lt;div id=&quot;Invoice Date&quot;&gt;</staticValue>
+																</dataSource>
+															</HTMLItem>
+															<selectDate parameter="p_Invoice_Date" range="true" required="false" selectDateUI="editBox"/>
+															<HTMLItem>
+																<dataSource>
+																	<staticValue>&lt;/div&gt;
+&lt;script&gt;
+AssignDefaultDateValue(&quot;Invoice Date&quot;);
+&lt;/script&gt;</staticValue>
+																</dataSource>
+															</HTMLItem>
+														</contents>
+														<style>
+															<CSS value="text-align:left;vertical-align:top;width:33%"/>
+														</style>
+													</tableCell>
+													<tableCell>
+														<contents>
+															<selectValue multiSelect="true" parameter="p_Invoice_State" refQuery="Invoice State Pmt" selectValueUI="listBox">
+																<defaultSelections>
+																	<defaultSimpleSelection>Approved</defaultSimpleSelection>
+																	<defaultSimpleSelection>Pending</defaultSimpleSelection>
+																</defaultSelections>
+																<useItem refDataItem="id">
+																	<displayItem refDataItem="Invoice State"/>
+																</useItem>
+															</selectValue>
+														</contents>
+														<style>
+															<CSS value="text-align:left;vertical-align:top;width:33%"/>
+														</style>
+													</tableCell>
+													<tableCell>
+														<contents>
+															<selectWithSearch multiSelect="true" parameter="p_Invoice_Number" refQuery="Invoice Number Pmt" required="false">
+																<useItem refDataItem="invoice_header_key">
+																	<displayItem refDataItem="Invoice Number"/>
+																</useItem>
+															</selectWithSearch>
+														</contents>
+														<style>
+															<CSS value="text-align:left;vertical-align:top;width:33%"/>
+														</style>
+													</tableCell>
+												</tableCells>
+											</tableRow>
+										</tableRows>
+									</table>
+								</contents>
+								<style/>
+							</block>
+							<block>
+								<contents>
+									<table>
+										<style>
+											<defaultStyles>
+												<defaultStyle refStyle="tb"/>
+											</defaultStyles>
+											<CSS value="border-collapse:collapse;width:100%"/>
+										</style>
+										<tableRows>
+											<tableRow>
+												<tableCells>
+													<tableCell>
+														<contents>
+															<HTMLItem>
+																<dataSource>
+																	<staticValue>&lt;span id=&quot;OrganizationTable&quot; class=&quot;Collapsible Collapsed&quot;&gt;  &lt;/span&gt;
+&lt;img onclick=&apos;ExpandCollapse(this,2)&apos; src=&apos;../pat/hal/images/plus.gif&apos; style=&apos;cursor:hand;vertical-align:middle; margin-right:2px&apos;/&gt;
+&lt;span onclick=&apos;ExpandCollapse(this.previousSibling,2)&apos; style=&apos;cursor:hand&apos;&gt;</staticValue>
+																</dataSource>
+															</HTMLItem>
+															<textItem>
+																<dataSource>
+																	<staticValue>Organization</staticValue>
+																</dataSource>
+															</textItem>
+															<HTMLItem>
+																<dataSource>
+																	<staticValue>&lt;/span&gt;
+																	</staticValue>
+																</dataSource>
+															</HTMLItem>
+														</contents>
+														<style>
+															<defaultStyles>
+																<defaultStyle refStyle="sh"/>
+															</defaultStyles>
+															<CSS value="text-align:left;vertical-align:top"/>
+														</style>
+													</tableCell>
+												</tableCells>
+											</tableRow>
+											<tableRow>
+												<tableCells>
+													<tableCell>
+														<contents>
+															<selectWithSearch multiSelect="true" parameter="p_Org" refQuery="Organization Pmt" required="false">
+																<useItem refDataItem="key">
+																	<displayItem refDataItem="Organization"/>
+																</useItem>
+															</selectWithSearch>
+														</contents>
+														<style>
+															<CSS value="text-align:left;vertical-align:top"/>
+														</style>
+													</tableCell>
+												</tableCells>
+											</tableRow>
+										</tableRows>
+									</table>
+									<table>
+										<style>
+											<defaultStyles>
+												<defaultStyle refStyle="tb"/>
+											</defaultStyles>
+											<CSS value="border-collapse:collapse;width:100%"/>
+										</style>
+										<tableRows>
+											<tableRow>
+												<tableCells>
+													<tableCell>
+														<contents>
+															<HTMLItem>
+																<dataSource>
+																	<staticValue>&lt;span id=&quot;ActivityTable&quot; class=&quot;Collapsible Collapsed&quot;&gt;  &lt;/span&gt;
+&lt;img onclick=&apos;ExpandCollapse(this,3)&apos; src=&apos;../pat/hal/images/plus.gif&apos; style=&apos;cursor:hand;vertical-align:middle; margin-right:2px&apos;/&gt;
+&lt;span onclick=&apos;ExpandCollapse(this.previousSibling,3)&apos; style=&apos;cursor:hand&apos;&gt;</staticValue>
+																</dataSource>
+															</HTMLItem>
+															<textItem>
+																<dataSource>
+																	<staticValue>Activity Code</staticValue>
+																</dataSource>
+															</textItem>
+															<HTMLItem>
+																<dataSource>
+																	<staticValue>&lt;/span&gt;
+																	</staticValue>
+																</dataSource>
+															</HTMLItem>
+														</contents>
+														<style>
+															<defaultStyles>
+																<defaultStyle refStyle="sh"/>
+															</defaultStyles>
+															<CSS value="text-align:left;vertical-align:top"/>
+														</style>
+													</tableCell>
+												</tableCells>
+											</tableRow>
+											<tableRow>
+												<tableCells>
+													<tableCell>
+														<contents>
+															<selectWithSearch multiSelect="true" parameter="p_Activity_Code" refQuery="Activity Pmt" required="false">
+																<useItem refDataItem="Activity ID">
+																	<displayItem refDataItem="Activity Code - Name"/>
+																</useItem>
+															</selectWithSearch>
+														</contents>
+														<style>
+															<CSS value="text-align:left;vertical-align:top"/>
+														</style>
+													</tableCell>
+												</tableCells>
+											</tableRow>
+										</tableRows>
+									</table>
+								</contents>
+								<style/>
+							</block>
+							<block>
+								<contents>
+									<block>
+										<contents>
+											<HTMLItem>
+												<dataSource>
+													<staticValue>&lt;script&gt;
+StartHidden(&quot;InvoiceTable&quot;,1,0);
+StartHidden(&quot;OrganizationTable&quot;,2,1);
+StartHidden(&quot;ActivityTable&quot;,3,1);
+setLocationHash();
+&lt;/script&gt;</staticValue>
+												</dataSource>
+											</HTMLItem>
+										</contents>
+										<style/>
+									</block>
+								</contents>
+								<style/>
+							</block>
+						</contents>
+						<style>
+							<defaultStyles>
+								<defaultStyle refStyle="py"/>
+							</defaultStyles>
+						</style>
+					</pageBody>
+					<pageFooter>
+						<contents>
+							<promptButton type="cancel">
+								<contents/>
+								<style>
+									<defaultStyles>
+										<defaultStyle refStyle="bp"/>
+									</defaultStyles>
+								</style>
+							</promptButton>
+
+
+							<promptButton type="finish">
+								<contents/>
+								<style>
+									<defaultStyles>
+										<defaultStyle refStyle="bp"/>
+									</defaultStyles>
+								</style>
+							</promptButton>
+						</contents>
+						<style>
+							<defaultStyles>
+								<defaultStyle refStyle="fp"/>
+							</defaultStyles>
+						</style>
+					</pageFooter>
+					<style>
+						<defaultStyles>
+							<defaultStyle refStyle="pp"/>
+						</defaultStyles>
+					</style>
+				</page>
+			</promptPages>
+			<reportPages>
+				<page name="Main Page">
+					<pageBody>
+						<contents>
+							<list name="List1" refQuery="Main Query" rowsPerPage="200">
+
+
+
+								<style>
+									<CSS value="border-collapse:collapse"/>
+									<defaultStyles>
+										<defaultStyle refStyle="ls"/>
+									</defaultStyles>
+								</style>
+								<listColumns>
+									<listColumn>
+										<listColumnTitle>
+											<contents>
+												<textItem>
+													<dataSource>
+														<staticValue>Activity Code</staticValue>
+													</dataSource>
+												</textItem>
+											</contents>
+											<style>
+												<defaultStyles>
+													<defaultStyle refStyle="lt"/>
+												</defaultStyles>
+											</style>
+										</listColumnTitle>
+										<listColumnBody>
+											<contents/>
+											<style>
+												<CSS value="padding-left:40px"/>
+												<defaultStyles>
+													<defaultStyle refStyle="lc"/>
+												</defaultStyles>
+											</style>
+										</listColumnBody>
+									</listColumn>
+									<listColumn>
+										<listColumnTitle>
+											<style>
+												<defaultStyles>
+													<defaultStyle refStyle="lt"/>
+												</defaultStyles>
+											</style>
+											<contents>
+												<textItem>
+													<dataSource>
+														<dataItemLabel refDataItem="Matter Name"/>
+													</dataSource>
+												</textItem>
+											</contents>
+										</listColumnTitle>
+										<listColumnBody>
+											<style>
+												<defaultStyles>
+													<defaultStyle refStyle="lc"/>
+												</defaultStyles>
+											</style>
+											<contents>
+												<textItem>
+													<dataSource>
+														<dataItemValue refDataItem="Matter Name"/>
+													</dataSource>
+												</textItem>
+											</contents>
+										</listColumnBody>
+									</listColumn>
+									<listColumn>
+										<listColumnTitle>
+											<style>
+												<defaultStyles>
+													<defaultStyle refStyle="lt"/>
+												</defaultStyles>
+											</style>
+											<contents>
+												<textItem>
+													<dataSource>
+														<dataItemLabel refDataItem="Invoice Number"/>
+													</dataSource>
+												</textItem>
+											</contents>
+										</listColumnTitle>
+										<listColumnBody>
+											<style>
+												<defaultStyles>
+													<defaultStyle refStyle="lc"/>
+												</defaultStyles>
+											</style>
+											<contents>
+												<HTMLItem>
+													<dataSource>
+
+														<reportExpression>&quot;&lt;a href=&apos;&quot; +[Main Query].[Application Url] +&quot;enduser/itemscreens/show.do?screenName=DefaultInvoiceHeaderSearchResult&amp;mode=show&amp;referringAttributeId=&amp;entityInstanceId=&quot;+trim(&quot;BOTH&quot;,&quot;&quot;,[Main Query].[i_id1])+&quot;&amp;parentEntityId=&amp;parentInstanceId=&amp;parentFieldName=&quot;+ &quot;&apos; target=_blank&gt;&quot; + 
+&quot;&lt;img border=0 src=&apos;../common/images/magnifier.png&apos;&gt;&quot; + 
+&quot;&lt;/a&gt;&quot;</reportExpression>
+													</dataSource>
+												</HTMLItem>
+												<textItem>
+													<dataSource>
+														<dataItemValue refDataItem="Invoice Number"/>
+													</dataSource>
+												</textItem>
+											</contents>
+										</listColumnBody>
+									</listColumn>
+									<listColumn>
+										<listColumnTitle>
+											<style>
+												<defaultStyles>
+													<defaultStyle refStyle="lt"/>
+												</defaultStyles>
+											</style>
+											<contents>
+												<textItem>
+													<dataSource>
+														<dataItemLabel refDataItem="Invoice Date"/>
+													</dataSource>
+												</textItem>
+											</contents>
+										</listColumnTitle>
+										<listColumnBody>
+											<style>
+												<defaultStyles>
+													<defaultStyle refStyle="lc"/>
+												</defaultStyles>
+												<dataFormat>
+													<dateFormat/>
+												</dataFormat>
+											</style>
+											<contents>
+												<textItem>
+													<dataSource>
+														<dataItemValue refDataItem="Invoice Date"/>
+													</dataSource>
+												</textItem>
+											</contents>
+										</listColumnBody>
+									</listColumn>
+									<listColumn>
+										<listColumnTitle>
+											<style>
+												<defaultStyles>
+													<defaultStyle refStyle="lt"/>
+												</defaultStyles>
+											</style>
+											<contents>
+												<textItem>
+													<dataSource>
+														<staticValue>Total Fee</staticValue>
+													</dataSource>
+												</textItem>
+											</contents>
+										</listColumnTitle>
+										<listColumnBody>
+											<style>
+												<defaultStyles>
+													<defaultStyle refStyle="lc"/>
+												</defaultStyles>
+												<CSS value="text-align:center;vertical-align:middle"/>
+												<dataFormat>
+													<numberFormat decimalSize="2" groupDelimiter="," useGrouping="true"/>
+												</dataFormat>
+											</style>
+											<contents>
+												<textItem>
+													<dataSource>
+														<dataItemValue refDataItem="User Fee Total Net Amount"/>
+													</dataSource>
+												</textItem>
+											</contents>
+										</listColumnBody>
+									</listColumn>
+									<listColumn>
+										<listColumnTitle>
+											<style>
+												<defaultStyles>
+													<defaultStyle refStyle="lt"/>
+												</defaultStyles>
+											</style>
+											<contents>
+												<textItem>
+													<dataSource>
+														<staticValue>Total Expense</staticValue>
+													</dataSource>
+												</textItem>
+											</contents>
+										</listColumnTitle>
+										<listColumnBody>
+											<style>
+												<defaultStyles>
+													<defaultStyle refStyle="lm"/>
+												</defaultStyles>
+												<CSS value="text-align:center;vertical-align:middle"/>
+												<dataFormat>
+													<numberFormat decimalSize="2" groupDelimiter="," useGrouping="true"/>
+												</dataFormat>
+											</style>
+											<contents>
+												<textItem>
+													<dataSource>
+														<dataItemValue refDataItem="User Expense Total Net Amount"/>
+													</dataSource>
+												</textItem>
+											</contents>
+										</listColumnBody>
+									</listColumn>
+									<listColumn>
+										<listColumnTitle>
+											<style>
+												<defaultStyles>
+													<defaultStyle refStyle="lt"/>
+												</defaultStyles>
+											</style>
+											<contents>
+												<textItem>
+													<dataSource>
+														<staticValue>Total Net Amount</staticValue>
+													</dataSource>
+												</textItem>
+											</contents>
+										</listColumnTitle>
+										<listColumnBody>
+											<style>
+												<defaultStyles>
+													<defaultStyle refStyle="lc"/>
+												</defaultStyles>
+												<CSS value="text-align:center;vertical-align:middle"/>
+												<dataFormat>
+													<numberFormat decimalSize="2" groupDelimiter="," useGrouping="true"/>
+												</dataFormat>
+											</style>
+											<contents>
+												<textItem>
+													<dataSource>
+														<dataItemValue refDataItem="User Total Net Amount"/>
+													</dataSource>
+												</textItem>
+											</contents>
+										</listColumnBody>
+									</listColumn>
+								</listColumns>
+								<listPageHeader>
+									<listRows>
+										<listRow>
+											<rowCells>
+												<rowCell>
+													<contents>
+														<HTMLItem>
+															<dataSource>
+																<staticValue>&lt;span id=&quot;ExpandedTable&quot;&gt; &lt;/span&gt;
+&lt;script&gt;
+
+// This function expands/collapses a table where the first columns have +/- icons
+
+var displayStyle = &quot;&quot;;
+var noDisplayStyle = &quot;none&quot;;
+
+var currentRow = 0;
+function ExpandCollapse(el) {
+	// change icon
+	el.src = &quot;../pat/hal/images/&quot; + (isPlus(el) ? &quot;minus&quot; : &quot;plus&quot;) + &quot;.gif&quot;;
+	var tr = el.parentNode.parentNode; // the current row
+	currentRow = tr.rowIndex;
+
+	showLines(el);
+}
+
+function showLines(el) {
+
+	var show = true;  // to show lines or not
+
+	// Grab the ROW that was clicked and the TABLE that contains it
+	var tr = el.parentNode.parentNode; // the current row
+	var tbl = tr.parentNode.parentNode; // the table
+	var cid = el.parentNode.cellIndex; // the index of the column
+
+	if (isPlus(el)) {
+		show = false;
+	} else {
+		show = true;
+	}
+
+	while (currentRow &lt; tbl.rows.length-1) {
+		currentRow++;
+
+		var trCurrent = tbl.rows[currentRow];
+		var index = findIconInRow(trCurrent, 0); // return the index of the first img 
+		if (index &gt;= 0 &amp;&amp; index &lt;= cid) {
+			trCurrent.style.display = displayStyle;
+			currentRow--;
+			return; // found the next line with icon in the same column; return
+		}
+		if (!show) {
+			trCurrent.style.display = noDisplayStyle;
+		} else {
+			trCurrent.style.display = displayStyle;
+			var iconIndex = findIconInRow(trCurrent, cid + 1);
+			if (Number(iconIndex) &gt; -1) {
+				var icon = trCurrent.cells[iconIndex].firstChild;
+				showLines(icon);
+			}
+		}
+	}
+}
+
+function isPlus(el) {
+	return el.src.indexOf(&quot;minus&quot;) == -1;
+}
+
+function hasIcon(cell) {
+	// return true if this cell has an img
+	if ((Number(cell.childNodes.length)) == 0) {
+		return false;
+	}
+	var c = cell.firstChild;
+	if (c != null) {
+		return (c.tagName == &quot;IMG&quot;);
+	}
+	return false;
+}
+
+function findIconInRow(trCurrent, cid) {
+	for ( var i = cid; i &lt; trCurrent.cells.length; i++) {
+		if (hasIcon(trCurrent.cells[i])) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+function StartHidden() {
+ 	var q=document.getElementById(&quot;ExpandedTable&quot;);
+
+ 	// get the table
+ 	tbl = q.parentNode.parentNode.parentNode.parentNode;
+
+	var isFirstRow=true;
+
+	for ( var i = 0; i &lt; tbl.rows.length; i++) {
+		var trCurrent = tbl.rows[i]; // the current row
+		var d = trCurrent.cells[0]; // first cell
+		var c = d.firstChild;
+		if (c != null) {
+			c = c.src; // leave it visible, since it has + icon
+			for ( var j = 1; j &lt; trCurrent.cells.length; j++) { trCurrent.cells[j].width=&quot;1&quot;;				
+			}
+		}
+		else {
+			trCurrent.style.display = &quot;none&quot;; // hide the row
+		}
+	}
+}
+&lt;/script&gt;</staticValue>
+															</dataSource>
+														</HTMLItem>
+													</contents>
+													<style>
+														<defaultStyles>
+															<defaultStyle refStyle="lh"/>
+														</defaultStyles>
+													</style>
+												</rowCell>
+												<rowCell>
+													<contents/>
+													<style>
+														<defaultStyles>
+															<defaultStyle refStyle="lh"/>
+														</defaultStyles>
+													</style>
+												</rowCell>
+												<rowCell>
+													<contents/>
+													<style>
+														<defaultStyles>
+															<defaultStyle refStyle="lh"/>
+														</defaultStyles>
+													</style>
+												</rowCell>
+												<rowCell>
+													<contents/>
+													<style>
+														<defaultStyles>
+															<defaultStyle refStyle="lh"/>
+														</defaultStyles>
+													</style>
+												</rowCell>
+												<rowCell>
+													<contents/>
+													<style>
+														<defaultStyles>
+															<defaultStyle refStyle="lh"/>
+														</defaultStyles>
+														<CSS value="text-align:right"/>
+													</style>
+												</rowCell>
+												<rowCell>
+													<contents/>
+													<style>
+														<defaultStyles>
+															<defaultStyle refStyle="lh"/>
+														</defaultStyles>
+													</style>
+												</rowCell>
+												<rowCell>
+													<contents/>
+													<style>
+														<defaultStyles>
+															<defaultStyle refStyle="lh"/>
+														</defaultStyles>
+														<CSS value="text-align:right"/>
+													</style>
+												</rowCell>
+											</rowCells>
+										</listRow>
+									</listRows>
+								</listPageHeader>
+								<listGroups>
+									<listGroup refDataItem="Activity Code">
+										<listHeader>
+											<listRows>
+												<listRow>
+													<rowCells>
+														<rowCell>
+															<contents>
+																<HTMLItem>
+																	<dataSource>
+																		<staticValue>&lt;img onclick=&apos;ExpandCollapse(this)&apos; src=&apos;../pat/hal/images/minus.gif&apos; style=&apos;cursor:hand;vertical-align:middle; margin-right:2px&apos;/&gt;
+&lt;span onclick=&apos;ExpandCollapse(this.previousSibling)&apos; style=&apos;cursor:hand&apos;&gt;</staticValue>
+																	</dataSource>
+																</HTMLItem>
+																<textItem>
+																	<dataSource>
+																		<dataItemValue refDataItem="Activity Code"/>
+																	</dataSource>
+																</textItem>
+																<HTMLItem>
+																	<dataSource>
+																		<staticValue>&lt;/span&gt;</staticValue>
+																	</dataSource>
+																</HTMLItem>
+															</contents>
+															<style>
+																<CSS value="padding-left:20px"/>
+																<defaultStyles>
+																	<defaultStyle refStyle="ih"/>
+																</defaultStyles>
+															</style>
+														</rowCell>
+														<rowCell>
+															<contents/>
+															<style>
+																<defaultStyles>
+																	<defaultStyle refStyle="ih"/>
+																</defaultStyles>
+															</style>
+														</rowCell>
+														<rowCell>
+															<contents/>
+															<style>
+																<defaultStyles>
+																	<defaultStyle refStyle="ih"/>
+																</defaultStyles>
+															</style>
+														</rowCell>
+														<rowCell>
+															<contents/>
+															<style>
+																<defaultStyles>
+																	<defaultStyle refStyle="ih"/>
+																</defaultStyles>
+															</style>
+														</rowCell>
+														<rowCell>
+															<contents>
+																<list horizontalPagination="true" name="List2" refQuery="Summary Query" showColumnTitles="hide">
+
+
+
+																	<style>
+																		<CSS value="border-collapse:collapse;text-align:center"/>
+																		<defaultStyles>
+																			<defaultStyle refStyle="ls"/>
+																		</defaultStyles>
+																	</style>
+																	<listColumns>
+																		<listColumn>
+																			<listColumnTitle>
+																				<style>
+																					<defaultStyles>
+																						<defaultStyle refStyle="lt"/>
+																					</defaultStyles>
+																				</style>
+																				<contents>
+																					<textItem>
+																						<dataSource>
+																							<dataItemLabel refDataItem="Total User Fee Total Net Amount"/>
+																						</dataSource>
+																					</textItem>
+																				</contents>
+																			</listColumnTitle>
+																			<listColumnBody>
+																				<style>
+																					<defaultStyles>
+																						<defaultStyle refStyle="lm"/>
+																					</defaultStyles>
+																					<CSS value="border-top-style:none;border-top-color:white;border-right-style:none;border-right-color:white;border-bottom-style:none;border-bottom-color:white;border-left-style:none;border-left-color:white;text-align:center;vertical-align:middle"/>
+																					<dataFormat>
+																						<numberFormat decimalSize="2" groupDelimiter="," useGrouping="true"/>
+																					</dataFormat>
+																				</style>
+																				<contents>
+																					<textItem>
+																						<dataSource>
+																							<dataItemValue refDataItem="Total User Fee Total Net Amount"/>
+																						</dataSource>
+																					</textItem>
+																				</contents>
+																			</listColumnBody>
+																		</listColumn>
+																	</listColumns>
+																	<masterDetailLinks>
+																		<masterDetailLink>
+																			<masterContext>
+																				<dataItemContext refDataItem="Activity Code"/>
+																			</masterContext>
+																			<detailContext>
+																				<dataItemContext refDataItem="Activity Code"/>
+																			</detailContext>
+																		</masterDetailLink>
+																	</masterDetailLinks>
+																	<listColumnBodyStyle>
+																		<style>
+																			<CSS value="text-align:right;vertical-align:middle"/>
+																		</style>
+																	</listColumnBodyStyle>
+																</list>
+															</contents>
+															<style>
+																<defaultStyles>
+																	<defaultStyle refStyle="ih"/>
+																</defaultStyles>
+																<CSS value="text-align:center;vertical-align:middle"/>
+															</style>
+														</rowCell>
+														<rowCell>
+															<contents>
+																<list horizontalPagination="true" name="List3" refQuery="Summary Query" showColumnTitles="hide">
+
+
+
+																	<style>
+																		<CSS value="border-collapse:collapse;text-align:center"/>
+																		<defaultStyles>
+																			<defaultStyle refStyle="ls"/>
+																		</defaultStyles>
+																	</style>
+																	<listColumns>
+																		<listColumn>
+																			<listColumnTitle>
+																				<style>
+																					<defaultStyles>
+																						<defaultStyle refStyle="lt"/>
+																					</defaultStyles>
+																				</style>
+																				<contents>
+																					<textItem>
+																						<dataSource>
+																							<dataItemLabel refDataItem="Total User Expense Total Net Amount"/>
+																						</dataSource>
+																					</textItem>
+																				</contents>
+																			</listColumnTitle>
+																			<listColumnBody>
+																				<style>
+																					<defaultStyles>
+																						<defaultStyle refStyle="lm"/>
+																					</defaultStyles>
+																					<CSS value="border-top-style:none;border-top-color:white;border-right-style:none;border-right-color:white;border-bottom-style:none;border-bottom-color:white;border-left-style:none;border-left-color:white;text-align:center;vertical-align:middle"/>
+																					<dataFormat>
+																						<numberFormat decimalSize="2" groupDelimiter="," useGrouping="true"/>
+																					</dataFormat>
+																				</style>
+																				<contents>
+																					<textItem>
+																						<dataSource>
+																							<dataItemValue refDataItem="Total User Expense Total Net Amount"/>
+																						</dataSource>
+																					</textItem>
+																				</contents>
+																			</listColumnBody>
+																		</listColumn>
+																	</listColumns>
+																	<masterDetailLinks>
+																		<masterDetailLink>
+																			<masterContext>
+																				<dataItemContext refDataItem="Activity Code"/>
+																			</masterContext>
+																			<detailContext>
+																				<dataItemContext refDataItem="Activity Code"/>
+																			</detailContext>
+																		</masterDetailLink>
+																	</masterDetailLinks>
+																</list>
+															</contents>
+															<style>
+																<defaultStyles>
+																	<defaultStyle refStyle="ih"/>
+																</defaultStyles>
+																<CSS value="text-align:center;vertical-align:middle"/>
+															</style>
+														</rowCell>
+														<rowCell>
+															<contents>
+																<list horizontalPagination="true" name="List4" refQuery="Summary Query" showColumnTitles="hide">
+
+
+
+																	<style>
+																		<CSS value="border-collapse:collapse;text-align:center"/>
+																		<defaultStyles>
+																			<defaultStyle refStyle="ls"/>
+																		</defaultStyles>
+																	</style>
+																	<listColumns>
+																		<listColumn>
+																			<listColumnTitle>
+																				<style>
+																					<defaultStyles>
+																						<defaultStyle refStyle="lt"/>
+																					</defaultStyles>
+																				</style>
+																				<contents>
+																					<textItem>
+																						<dataSource>
+																							<dataItemLabel refDataItem="Total User Total Net Amount"/>
+																						</dataSource>
+																					</textItem>
+																				</contents>
+																			</listColumnTitle>
+																			<listColumnBody>
+																				<style>
+																					<defaultStyles>
+																						<defaultStyle refStyle="lm"/>
+																					</defaultStyles>
+																					<CSS value="border-top-style:none;border-top-color:white;border-right-style:none;border-right-color:white;border-bottom-style:none;border-bottom-color:white;border-left-style:none;border-left-color:white;text-align:center;vertical-align:middle"/>
+																					<dataFormat>
+																						<numberFormat decimalSize="2" groupDelimiter="," useGrouping="true"/>
+																					</dataFormat>
+																				</style>
+																				<contents>
+																					<textItem>
+																						<dataSource>
+																							<dataItemValue refDataItem="Total User Total Net Amount"/>
+																						</dataSource>
+																					</textItem>
+																				</contents>
+																			</listColumnBody>
+																		</listColumn>
+																	</listColumns>
+																	<masterDetailLinks>
+																		<masterDetailLink>
+																			<masterContext>
+																				<dataItemContext refDataItem="Activity Code"/>
+																			</masterContext>
+																			<detailContext>
+																				<dataItemContext refDataItem="Activity Code"/>
+																			</detailContext>
+																		</masterDetailLink>
+																	</masterDetailLinks>
+																</list>
+															</contents>
+															<style>
+																<defaultStyles>
+																	<defaultStyle refStyle="ih"/>
+																</defaultStyles>
+																<CSS value="text-align:center;vertical-align:middle"/>
+															</style>
+														</rowCell>
+													</rowCells>
+												</listRow>
+											</listRows>
+										</listHeader>
+									</listGroup>
+								</listGroups>
+								<listColumnTitleStyle>
+									<style>
+										<CSS value="font-weight:bold"/>
+									</style>
+								</listColumnTitleStyle>
+								<listOverallGroup>
+									<listFooter>
+										<listRows>
+											<listRow>
+												<rowCells>
+													<rowCell colSpan="4">
+														<contents>
+															<textItem>
+																<dataSource>
+																	<staticValue>Summary Total</staticValue>
+																</dataSource>
+															</textItem>
+														</contents>
+														<style>
+															<defaultStyles>
+																<defaultStyle refStyle="if"/>
+															</defaultStyles>
+														</style>
+													</rowCell>
+													<rowCell>
+														<contents>
+															<textItem>
+																<dataSource>
+																	<dataItemValue refDataItem="Total(User Fee Total Net Amount)"/>
+																</dataSource>
+															</textItem>
+														</contents>
+														<style>
+															<defaultStyles>
+																<defaultStyle refStyle="is"/>
+															</defaultStyles>
+															<CSS value="text-align:center;vertical-align:middle"/>
+															<dataFormat>
+																<numberFormat decimalSize="2" groupDelimiter="," useGrouping="true"/>
+															</dataFormat>
+														</style>
+													</rowCell>
+													<rowCell>
+														<contents>
+															<textItem>
+																<dataSource>
+																	<dataItemValue refDataItem="Total(User Expense Total Net Amount)"/>
+																</dataSource>
+															</textItem>
+														</contents>
+														<style>
+															<defaultStyles>
+																<defaultStyle refStyle="is"/>
+															</defaultStyles>
+															<CSS value="text-align:center;vertical-align:middle"/>
+															<dataFormat>
+																<numberFormat decimalSize="2" groupDelimiter="," useGrouping="true"/>
+															</dataFormat>
+														</style>
+													</rowCell>
+													<rowCell>
+														<contents>
+															<textItem>
+																<dataSource>
+																	<dataItemValue refDataItem="Total(User Total Net Amount)"/>
+																</dataSource>
+															</textItem>
+														</contents>
+														<style>
+															<defaultStyles>
+																<defaultStyle refStyle="is"/>
+															</defaultStyles>
+															<CSS value="text-align:center;vertical-align:middle"/>
+															<dataFormat>
+																<numberFormat decimalSize="2" groupDelimiter="," useGrouping="true"/>
+															</dataFormat>
+														</style>
+													</rowCell>
+												</rowCells>
+											</listRow>
+										</listRows>
+									</listFooter>
+								</listOverallGroup>
+								<propertyList>
+									<propertyItem refDataItem="i_id1"/>
+									<propertyItem refDataItem="Application Url"/>
+								</propertyList>
+							</list>
+							<HTMLItem>
+								<dataSource>
+									<staticValue>&lt;script&gt;
+StartHidden();
+&lt;/script&gt;</staticValue>
+								</dataSource>
+							</HTMLItem>
+						</contents>
+						<style>
+							<defaultStyles>
+								<defaultStyle refStyle="pb"/>
+							</defaultStyles>
+						</style>
+					</pageBody>
+					<pageHeader>
+						<contents>
+							<block>
+								<contents>
+									<textItem>
+										<dataSource>
+											<staticValue>Invoices by Activity Code</staticValue>
+										</dataSource>
+										<style>
+											<defaultStyles>
+												<defaultStyle refStyle="tt"/>
+											</defaultStyles>
+										</style>
+									</textItem>
+								</contents>
+								<style>
+									<defaultStyles>
+										<defaultStyle refStyle="ta"/>
+									</defaultStyles>
+									<CSS value="text-align:left"/>
+								</style>
+							</block>
+							<block>
+								<contents>
+									<textItem>
+										<dataSource>
+											<staticValue>Filters :</staticValue>
+										</dataSource>
+										<style>
+											<CSS value="font-weight:bold"/>
+										</style>
+									</textItem>
+									<textItem>
+										<dataSource>
+											<reportExpression>&apos;Invoice Date - &apos;+ParamDisplayValue(&apos;p_Invoice_Date&apos;)+&apos;;&apos;</reportExpression>
+										</dataSource>
+									</textItem>
+									<textItem>
+										<dataSource>
+											<reportExpression>&apos;Invoice State - &apos;+ParamDisplayValue(&apos;p_Invoice_State&apos;)+&apos;;&apos;</reportExpression>
+										</dataSource>
+									</textItem>
+									<textItem>
+										<dataSource>
+											<reportExpression>&apos;Invoice Number - &apos;+ParamDisplayValue(&apos;p_Invoice_Number&apos;)+&apos;;&apos;</reportExpression>
+										</dataSource>
+									</textItem>
+									<textItem>
+										<dataSource>
+											<reportExpression>&apos;Organization Name - &apos;+ParamDisplayValue(&apos;p_Org&apos;)+&apos;;&apos;</reportExpression>
+										</dataSource>
+									</textItem>
+									<textItem>
+										<dataSource>
+											<reportExpression>&apos;Activity Code Name - &apos; +ParamDisplayValue(&apos;p_Activity_Code&apos;)+&apos;; &apos;
+
+											</reportExpression>
+										</dataSource>
+									</textItem>
+									<textItem>
+										<dataSource>
+											<staticValue>User Currency - </staticValue>
+										</dataSource>
+									</textItem>
+									<singleton name="Singleton1" refQuery="User Currency">
+										<contents>
+											<textItem>
+												<dataSource>
+													<dataItemValue refDataItem="User Currency"/>
+												</dataSource>
+											</textItem>
+										</contents>
+									</singleton>
+								</contents>
+								<style>
+									<CSS value="font-style:italic;text-align:left"/>
+								</style>
+							</block>
+						</contents>
+						<style>
+							<CSS value="padding-bottom:10px"/>
+							<defaultStyles>
+								<defaultStyle refStyle="ph"/>
+							</defaultStyles>
+						</style>
+					</pageHeader>
+					<pageFooter>
+						<contents>
+							<table>
+								<tableRows>
+									<tableRow>
+										<tableCells>
+											<tableCell>
+												<contents>
+													<textItem>
+														<dataSource>
+															<reportExpression>AsOfDate()</reportExpression>
+														</dataSource>
+													</textItem>
+												</contents>
+												<style>
+													<CSS value="vertical-align:top;text-align:left;width:25%"/>
+												</style>
+											</tableCell>
+											<tableCell>
+												<contents>
+													<textItem>
+														<dataSource>
+															<staticValue>- </staticValue>
+														</dataSource>
+													</textItem>
+													<textItem>
+														<dataSource>
+															<reportExpression>PageNumber()</reportExpression>
+														</dataSource>
+													</textItem>
+													<textItem>
+														<dataSource>
+															<staticValue> -</staticValue>
+														</dataSource>
+													</textItem>
+												</contents>
+												<style>
+													<CSS value="vertical-align:top;text-align:center;width:50%"/>
+												</style>
+											</tableCell>
+											<tableCell>
+												<contents>
+													<textItem>
+														<dataSource>
+															<reportExpression>AsOfTime()</reportExpression>
+														</dataSource>
+													</textItem>
+												</contents>
+												<style>
+													<CSS value="vertical-align:top;text-align:right;width:25%"/>
+												</style>
+											</tableCell>
+										</tableCells>
+									</tableRow>
+								</tableRows>
+								<style>
+									<CSS value="border-collapse:collapse;width:100%"/>
+									<defaultStyles>
+										<defaultStyle refStyle="tb"/>
+									</defaultStyles>
+								</style>
+							</table>
+						</contents>
+						<style>
+							<CSS value="padding-top:10px"/>
+							<defaultStyles>
+								<defaultStyle refStyle="pf"/>
+							</defaultStyles>
+						</style>
+					</pageFooter>
+					<style>
+						<defaultStyles>
+							<defaultStyle refStyle="pg"/>
+						</defaultStyles>
+					</style>
+				</page>
+			</reportPages>
+		</layout>
+	</layouts>
+	<XMLAttributes>
+		<XMLAttribute name="RS_CreateExtendedDataItems" output="no" value="false"/>
+		<XMLAttribute name="listSeparator" output="no" value=","/>
+		<XMLAttribute output="no" name="decimalSeparator" value="."/>
+		<XMLAttribute output="no" name="RS_modelModificationTime" value="2022-08-23T19:11:08.320Z"/>
+	</XMLAttributes>
+	<reportName>Scenario2</reportName>
+</report>

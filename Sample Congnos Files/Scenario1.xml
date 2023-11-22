@@ -1,0 +1,1255 @@
+<report xmlns="http://developer.cognos.com/schemas/report/15.5/" expressionLocale="en-us" useStyleVersion="11.4">
+
+	<drillBehavior/>
+	<layouts>
+		<layout>
+			<reportPages>
+
+				<pageSet name="PABU-Page set" refQuery="Mater Query">
+					<detailPages>
+						<page name="Page1">
+							<style>
+								<defaultStyles>
+									<defaultStyle refStyle="pg"/>
+								</defaultStyles>
+							</style>
+							<pageBody>
+								<style>
+									<defaultStyles>
+										<defaultStyle refStyle="pb"/>
+									</defaultStyles>
+								</style>
+								<contents>
+									<table>
+										<style>
+											<defaultStyles>
+												<defaultStyle refStyle="tb"/>
+											</defaultStyles>
+											<CSS value="border-collapse:collapse;width:100%"/>
+										</style>
+										<tableRows>
+											<tableRow>
+												<tableCells>
+													<tableCell>
+														<contents>
+															<list showColumnTitles="hide" refQuery="Inv Query" name="List2">
+																<listColumns>
+																	<listColumn>
+																		<listColumnTitle>
+																			<contents/>
+																		</listColumnTitle>
+																		<listColumnBody>
+																			<contents>
+																				<list name="List1" refQuery="Inv Query">
+
+
+
+																					<noDataHandler>
+																						<contents>
+																							<block>
+																								<contents>
+																									<textItem>
+																										<dataSource>
+																											<staticValue>No Data Available</staticValue>
+																										</dataSource>
+																									</textItem>
+																								</contents>
+																								<style>
+																									<CSS value="padding:16px;"/>
+																								</style>
+																							</block>
+																						</contents>
+																					</noDataHandler>
+																					<style>
+																						<CSS value="border-collapse:collapse"/>
+																						<defaultStyles>
+																							<defaultStyle refStyle="ls"/>
+																						</defaultStyles>
+																					</style>
+																					<listColumns>
+																						<listColumn>
+																							<listColumnTitle>
+																								<style>
+																									<defaultStyles>
+																										<defaultStyle refStyle="lt"/>
+																									</defaultStyles>
+																									<CSS value="display:none"/>
+																								</style>
+																								<contents>
+																									<textItem>
+																										<dataSource>
+																											<dataItemLabel refDataItem="CUSTOM_COST_CENTER_NAME"/>
+																										</dataSource>
+																									</textItem>
+																								</contents>
+																							</listColumnTitle>
+																							<listColumnBody>
+																								<style>
+																									<defaultStyles>
+																										<defaultStyle refStyle="lc"/>
+																									</defaultStyles>
+																									<CSS value="display:none"/>
+																								</style>
+																								<contents>
+																									<textItem>
+																										<dataSource>
+																											<dataItemValue refDataItem="CUSTOM_COST_CENTER_NAME"/>
+																										</dataSource>
+																									</textItem>
+																								</contents>
+																							</listColumnBody>
+																						</listColumn>
+																						<listColumn>
+																							<listColumnTitle>
+																								<style>
+																									<defaultStyles>
+																										<defaultStyle refStyle="lt"/>
+																									</defaultStyles>
+																								</style>
+																								<contents>
+																									<textItem>
+																										<dataSource>
+																											<dataItemLabel refDataItem="Matter Name"/>
+																										</dataSource>
+																									</textItem>
+																								</contents>
+																							</listColumnTitle>
+																							<listColumnBody>
+																								<style>
+																									<defaultStyles>
+																										<defaultStyle refStyle="lc"/>
+																									</defaultStyles>
+																								</style>
+																								<contents>
+																									<textItem>
+																										<dataSource>
+																											<dataItemValue refDataItem="Matter Name"/>
+																										</dataSource>
+																									</textItem>
+																								</contents>
+																								<listColumnRowSpan refDataItem="Matter Name"/>
+																							</listColumnBody>
+																						</listColumn>
+																						<listColumn>
+																							<listColumnTitle>
+																								<style>
+																									<defaultStyles>
+																										<defaultStyle refStyle="lt"/>
+																									</defaultStyles>
+																								</style>
+																								<contents>
+																									<textItem>
+																										<dataSource>
+																											<dataItemLabel refDataItem="Invoice Number"/>
+																										</dataSource>
+																									</textItem>
+																								</contents>
+																							</listColumnTitle>
+																							<listColumnBody>
+																								<style>
+																									<defaultStyles>
+																										<defaultStyle refStyle="lc"/>
+																									</defaultStyles>
+																								</style>
+																								<contents>
+																									<textItem>
+																										<dataSource>
+																											<dataItemValue refDataItem="Invoice Number"/>
+																										</dataSource>
+																									</textItem>
+																								</contents>
+																							</listColumnBody>
+																						</listColumn>
+																						<listColumn>
+																							<listColumnTitle>
+																								<style>
+																									<defaultStyles>
+																										<defaultStyle refStyle="lt"/>
+																									</defaultStyles>
+																								</style>
+																								<contents>
+																									<textItem>
+																										<dataSource>
+																											<dataItemLabel refDataItem="Primary Internal Contact Name"/>
+																										</dataSource>
+																									</textItem>
+																								</contents>
+																							</listColumnTitle>
+																							<listColumnBody>
+																								<style>
+																									<defaultStyles>
+																										<defaultStyle refStyle="lc"/>
+																									</defaultStyles>
+																								</style>
+																								<contents>
+																									<textItem>
+																										<dataSource>
+																											<dataItemValue refDataItem="Primary Internal Contact Name"/>
+																										</dataSource>
+																									</textItem>
+																								</contents>
+																							</listColumnBody>
+																						</listColumn>
+																						<listColumn>
+																							<listColumnTitle>
+																								<style>
+																									<defaultStyles>
+																										<defaultStyle refStyle="lt"/>
+																									</defaultStyles>
+																								</style>
+																								<contents>
+																									<textItem>
+																										<dataSource>
+																											<dataItemLabel refDataItem="Matter Type Name"/>
+																										</dataSource>
+																									</textItem>
+																								</contents>
+																							</listColumnTitle>
+																							<listColumnBody>
+																								<style>
+																									<defaultStyles>
+																										<defaultStyle refStyle="lc"/>
+																									</defaultStyles>
+																								</style>
+																								<contents>
+																									<textItem>
+																										<dataSource>
+																											<dataItemValue refDataItem="Matter Type Name"/>
+																										</dataSource>
+																									</textItem>
+																								</contents>
+																							</listColumnBody>
+																						</listColumn>
+																						<listColumn>
+																							<listColumnTitle>
+																								<style>
+																									<defaultStyles>
+																										<defaultStyle refStyle="lt"/>
+																									</defaultStyles>
+																								</style>
+																								<contents>
+																									<textItem>
+																										<dataSource>
+																											<dataItemLabel refDataItem="Secondary Matter Type Name"/>
+																										</dataSource>
+																									</textItem>
+																								</contents>
+																							</listColumnTitle>
+																							<listColumnBody>
+																								<style>
+																									<defaultStyles>
+																										<defaultStyle refStyle="lc"/>
+																									</defaultStyles>
+																								</style>
+																								<contents>
+																									<textItem>
+																										<dataSource>
+																											<dataItemValue refDataItem="Secondary Matter Type Name"/>
+																										</dataSource>
+																									</textItem>
+																								</contents>
+																							</listColumnBody>
+																						</listColumn>
+																						<listColumn>
+																							<listColumnTitle>
+																								<style>
+																									<defaultStyles>
+																										<defaultStyle refStyle="lt"/>
+																									</defaultStyles>
+																								</style>
+																								<contents>
+																									<textItem>
+																										<dataSource>
+																											<staticValue>Task/Expense Code</staticValue>
+																										</dataSource>
+																									</textItem>
+																								</contents>
+																							</listColumnTitle>
+																							<listColumnBody>
+																								<style>
+																									<defaultStyles>
+																										<defaultStyle refStyle="lc"/>
+																									</defaultStyles>
+																								</style>
+																								<contents>
+																									<repeater name="Repeater1" refQuery="Task Code Query">
+																										<contents>
+																											<textItem>
+																												<dataSource>
+																													<dataItemValue refDataItem="Task or Expense Code"/>
+																												</dataSource>
+																											</textItem>
+																										</contents>
+																										<masterDetailLinks>
+																											<masterDetailLink>
+																												<masterContext>
+																													<dataItemContext refDataItem="Invoice Header Key"/>
+																												</masterContext>
+																												<detailContext>
+																													<dataItemContext refDataItem="Header Key"/>
+																												</detailContext>
+																											</masterDetailLink>
+																										</masterDetailLinks>
+																									</repeater>
+																								</contents>
+																							</listColumnBody>
+																						</listColumn>
+																						<listColumn>
+																							<listColumnTitle>
+																								<style>
+																									<defaultStyles>
+																										<defaultStyle refStyle="lt"/>
+																									</defaultStyles>
+																								</style>
+																								<contents>
+																									<textItem>
+																										<dataSource>
+																											<staticValue>Approved Date</staticValue>
+																										</dataSource>
+																									</textItem>
+																								</contents>
+																							</listColumnTitle>
+																							<listColumnBody>
+																								<style>
+																									<defaultStyles>
+																										<defaultStyle refStyle="lc"/>
+																									</defaultStyles>
+																									<dataFormat>
+																										<dateFormat dateStyle="short" dateSeparator="/" displayOrder="MDY" showYears="showCentury" showMonths="2-digits" showDays="2-digits"/>
+																									</dataFormat>
+																								</style>
+																								<contents>
+																									<textItem>
+																										<dataSource>
+																											<dataItemValue refDataItem="Latest Workflow Action Date"/>
+																										</dataSource>
+																									</textItem>
+																								</contents>
+																							</listColumnBody>
+																						</listColumn>
+																						<listColumn>
+																							<listColumnTitle>
+																								<style>
+																									<defaultStyles>
+																										<defaultStyle refStyle="lt"/>
+																									</defaultStyles>
+																								</style>
+																								<contents>
+																									<textItem>
+																										<dataSource>
+																											<dataItemLabel refDataItem="Invoice Currency"/>
+																										</dataSource>
+																									</textItem>
+																								</contents>
+																							</listColumnTitle>
+																							<listColumnBody>
+																								<style>
+																									<defaultStyles>
+																										<defaultStyle refStyle="lc"/>
+																									</defaultStyles>
+																								</style>
+																								<contents>
+																									<textItem>
+																										<dataSource>
+																											<dataItemValue refDataItem="Invoice Currency"/>
+																										</dataSource>
+																									</textItem>
+																								</contents>
+																							</listColumnBody>
+																						</listColumn>
+																						<listColumn>
+																							<listColumnTitle>
+																								<style>
+																									<defaultStyles>
+																										<defaultStyle refStyle="lt"/>
+																									</defaultStyles>
+																								</style>
+																								<contents>
+																									<textItem>
+																										<dataSource>
+																											<staticValue>Net Amount - in Submitted Currency</staticValue>
+																										</dataSource>
+																									</textItem>
+																								</contents>
+																							</listColumnTitle>
+																							<listColumnBody>
+																								<style>
+																									<defaultStyles>
+																										<defaultStyle refStyle="lm"/>
+																									</defaultStyles>
+																									<dataFormat>
+																										<currencyFormat decimalSize="2"/>
+																									</dataFormat>
+																								</style>
+																								<contents>
+																									<textItem>
+																										<dataSource>
+																											<dataItemValue refDataItem="Submitted Total Net Amount"/>
+																										</dataSource>
+																									</textItem>
+																								</contents>
+																							</listColumnBody>
+																						</listColumn>
+																						<listColumn>
+																							<listColumnTitle>
+																								<style>
+																									<defaultStyles>
+																										<defaultStyle refStyle="lt"/>
+																									</defaultStyles>
+																								</style>
+																								<contents>
+																									<textItem>
+																										<dataSource>
+																											<staticValue>Net Amount - in User Currency</staticValue>
+																										</dataSource>
+																									</textItem>
+																								</contents>
+																							</listColumnTitle>
+																							<listColumnBody>
+																								<style>
+																									<defaultStyles>
+																										<defaultStyle refStyle="lm"/>
+																									</defaultStyles>
+																									<dataFormat>
+																										<currencyFormat decimalSize="2"/>
+																									</dataFormat>
+																								</style>
+																								<contents>
+																									<textItem>
+																										<dataSource>
+																											<dataItemValue refDataItem="User Total Net Amount"/>
+																										</dataSource>
+																									</textItem>
+																								</contents>
+																							</listColumnBody>
+																						</listColumn>
+																						<listColumn>
+																							<listColumnTitle>
+																								<style>
+																									<defaultStyles>
+																										<defaultStyle refStyle="lt"/>
+																									</defaultStyles>
+																								</style>
+																								<contents>
+																									<textItem>
+																										<dataSource>
+																											<staticValue>Net Amount -in Base Currency</staticValue>
+																										</dataSource>
+																									</textItem>
+																								</contents>
+																							</listColumnTitle>
+																							<listColumnBody>
+																								<style>
+																									<defaultStyles>
+																										<defaultStyle refStyle="lm"/>
+																									</defaultStyles>
+																									<dataFormat>
+																										<currencyFormat decimalSize="2"/>
+																									</dataFormat>
+																								</style>
+																								<contents>
+																									<textItem>
+																										<dataSource>
+																											<dataItemValue refDataItem="Base Total Net Amount"/>
+																										</dataSource>
+																									</textItem>
+																								</contents>
+																							</listColumnBody>
+																						</listColumn>
+																					</listColumns>
+																					<listGroups>
+																						<listGroup refDataItem="Matter Name"/>
+																					</listGroups>
+																				</list>
+																			</contents>
+																			<style>
+																				<defaultStyles>
+																					<defaultStyle refStyle="sb"/>
+																				</defaultStyles>
+																			</style>
+																		</listColumnBody>
+																	</listColumn>
+																</listColumns>
+
+
+
+																<style>
+																	<CSS value="border-collapse:collapse; width:100%"/>
+																	<defaultStyles>
+																		<defaultStyle refStyle="sc"/>
+																	</defaultStyles>
+																</style>
+																<listGroups>
+																	<listGroup refDataItem="CUSTOM_COST_CENTER_NAME">
+																		<listHeader>
+																			<listRows>
+																				<listRow>
+																					<rowCells>
+																						<rowCell>
+																							<contents>
+																								<textItem>
+																									<dataSource>
+																										<staticValue>Cost Center</staticValue>
+																									</dataSource>
+																								</textItem>
+																								<textItem>
+																									<dataSource>
+																										<staticValue>: </staticValue>
+																									</dataSource>
+																								</textItem>
+																								<textItem>
+																									<dataSource>
+																										<dataItemValue refDataItem="CUSTOM_COST_CENTER_NAME"/>
+																									</dataSource>
+																								</textItem>
+																							</contents>
+																							<style>
+																								<defaultStyles>
+																									<defaultStyle refStyle="sh"/>
+																								</defaultStyles>
+																								<CSS value="padding-top:10px"/>
+																							</style>
+																						</rowCell>
+																					</rowCells>
+																				</listRow>
+																			</listRows>
+																		</listHeader>
+																		<XMLAttributes>
+																			<XMLAttribute output="no" name="RS_SectionedEdge" value="columns"/>
+																		</XMLAttributes>
+																	</listGroup>
+																</listGroups>
+																<sectionsFrame sectionedEdge="columns" refFrame="List1"/>
+																<masterDetailLinks>
+																	<masterDetailLink>
+																		<masterContext>
+																			<dataItemContext refDataItem="Matter ID"/>
+																		</masterContext>
+																		<detailContext>
+																			<dataItemContext refDataItem="Matter ID"/>
+																		</detailContext>
+																	</masterDetailLink>
+																</masterDetailLinks>
+															</list>
+														</contents>
+														<style>
+															<CSS value="text-align:left;vertical-align:top"/>
+															<defaultStyles>
+																<defaultStyle refStyle="GuidedLayoutTopPadding"/>
+															</defaultStyles>
+														</style>
+													</tableCell>
+												</tableCells>
+											</tableRow>
+										</tableRows>
+									</table>
+								</contents>
+							</pageBody>
+						</page>
+					</detailPages>
+					<pageGroups>
+						<pageGroup refDataItem="PABU">
+							<sortList>
+								<sortItem refDataItem="PABU"/>
+							</sortList>
+						</pageGroup>
+					</pageGroups>
+				</pageSet>
+			</reportPages>
+			<promptPages>
+				<page name="Prompt page1">
+					<pageHeader>
+						<contents>
+							<block>
+								<contents>
+									<textItem>
+										<dataSource>
+											<staticValue>Reporting Scenarios</staticValue>
+										</dataSource>
+										<style>
+											<defaultStyles>
+												<defaultStyle refStyle="tt"/>
+											</defaultStyles>
+										</style>
+									</textItem>
+								</contents>
+								<style>
+									<defaultStyles>
+										<defaultStyle refStyle="ta"/>
+									</defaultStyles>
+								</style>
+							</block>
+						</contents>
+						<style>
+							<defaultStyles>
+								<defaultStyle refStyle="hp"/>
+							</defaultStyles>
+						</style>
+					</pageHeader>
+					<pageBody>
+						<contents>
+							<table>
+								<style>
+									<defaultStyles>
+										<defaultStyle refStyle="tb"/>
+									</defaultStyles>
+									<CSS value="border-collapse:collapse;width:100%;border:1pt solid black"/>
+								</style>
+								<tableRows>
+									<tableRow>
+										<tableCells>
+											<tableCell>
+												<contents>
+													<textItem>
+														<dataSource>
+															<staticValue>Invoice Approved Date</staticValue>
+														</dataSource>
+														<style>
+															<CSS value="font-weight:bold"/>
+														</style>
+													</textItem>
+													<HTMLItem>
+														<dataSource>
+															<staticValue>&lt;script type=&quot;text/javascript&quot; src=&quot;../ps/portal/js/dcStandardPromptPage.js&quot;&gt;&lt;/script&gt;</staticValue>
+														</dataSource>
+													</HTMLItem>
+												</contents>
+												<style>
+													<CSS value="padding-top:5px;padding-left:5px;border:1pt solid black"/>
+												</style>
+											</tableCell>
+										</tableCells>
+									</tableRow>
+									<tableRow>
+										<tableCells>
+											<tableCell>
+												<contents>
+													<textItem>
+														<dataSource>
+															<staticValue>Report Type</staticValue>
+														</dataSource>
+														<style>
+															<CSS value="font-weight:bold"/>
+														</style>
+													</textItem>
+												</contents>
+												<style>
+													<CSS value="padding-top:5px;padding-left:5px;border:1pt solid black"/>
+												</style>
+											</tableCell>
+										</tableCells>
+									</tableRow>
+									<tableRow>
+										<tableCells>
+											<tableCell>
+												<contents>
+													<selectValue parameter="ReportType" selectValueUI="radioGroup">
+														<selectOptions>
+															<selectOption useValue="CD">
+																<displayValue>Custom Date</displayValue>
+															</selectOption>
+															<selectOption useValue="CM">
+																<displayValue>Current Month</displayValue>
+															</selectOption>
+															<selectOption useValue="LM">
+																<displayValue>Last Month</displayValue>
+															</selectOption>
+														</selectOptions>
+														<defaultSelections>
+															<defaultSimpleSelection>LM</defaultSimpleSelection>
+														</defaultSelections>
+													</selectValue>
+												</contents>
+												<style>
+													<CSS value="padding-top:5px;padding-left:5px;border:1pt solid black"/>
+												</style>
+											</tableCell>
+										</tableCells>
+									</tableRow>
+									<tableRow>
+										<tableCells>
+											<tableCell>
+												<contents>
+													<HTMLItem>
+														<dataSource>
+															<staticValue>&lt;div id=&quot;cText&quot; style=&quot;display:none&quot;&gt;</staticValue>
+														</dataSource>
+													</HTMLItem>
+													<textItem>
+														<dataSource>
+															<staticValue>Select Date Range</staticValue>
+														</dataSource>
+														<style>
+															<CSS value="font-weight:bold"/>
+														</style>
+													</textItem>
+													<HTMLItem>
+														<dataSource>
+															<staticValue>&lt;/div&gt;</staticValue>
+														</dataSource>
+													</HTMLItem>
+												</contents>
+												<style>
+													<CSS value="padding-top:5px;padding-left:5px;border:1pt solid black"/>
+												</style>
+											</tableCell>
+										</tableCells>
+									</tableRow>
+									<tableRow>
+										<tableCells>
+											<tableCell>
+												<contents>
+													<HTMLItem>
+														<dataSource>
+															<staticValue>&lt;div id=&quot;cDate&quot; style=&quot;display:none&quot;&gt;</staticValue>
+														</dataSource>
+													</HTMLItem>
+													<HTMLItem>
+														<dataSource>
+															<staticValue>&lt;div id=&quot;Matter Open Date&quot;&gt;</staticValue>
+														</dataSource>
+													</HTMLItem>
+													<selectDate parameter="InvAppDate" range="true" selectDateUI="editBox" required="false"/>
+													<HTMLItem>
+														<dataSource>
+															<staticValue>&lt;/div&gt;</staticValue>
+														</dataSource>
+													</HTMLItem>
+													<HTMLItem>
+														<dataSource>
+															<staticValue>&lt;script&gt;
+var ele1 = document.getElementById(&quot;cDate&quot;);
+var ele2 = document.getElementById(&quot;cText&quot;);
+
+function hide(){
+	ele1.style.display = &quot;none&quot;;
+	ele2.style.display = &quot;none&quot;;
+}
+
+function show(){
+	ele1.style.display = &quot;block&quot;;
+	ele2.style.display = &quot;block&quot;;
+}
+
+
+function init()
+{
+   // need to find all the checkboxes on the page for the date prompt and set to false
+   var node_list = document.getElementsByTagName(&apos;input&apos;);
+   var ele1 = document.getElementById(&quot;cDate&quot;);
+   var ele2 = document.getElementById(&quot;cText&quot;);
+
+
+for (var i = 0; i &lt; node_list.length; i++)
+   {
+       var node = node_list[i];
+        if (node.getAttribute(&apos;type&apos;) == &apos;radio&apos;)
+        {
+          	 // find the dateselection checkbox chkAnyValue
+          	 var currentCheckBox = node.name;
+	var curRadio=node; if(i==10) { curRadio.onclick=show; } if(i==12 || i==11) { curRadio.onclick=hide;
+  
+	}
+
+         }
+   }	
+
+}
+
+init();
+
+
+
+&lt;/script&gt;</staticValue>
+														</dataSource>
+													</HTMLItem>
+													<HTMLItem>
+														<dataSource>
+															<staticValue>&lt;/div&gt;
+&lt;script&gt;
+AssignDefaultDateValue(&quot;Matter Open Date&quot;);
+&lt;/script&gt;</staticValue>
+														</dataSource>
+													</HTMLItem>
+												</contents>
+												<style>
+													<CSS value="padding-top:5px;padding-left:5px;border:1pt solid black"/>
+												</style>
+											</tableCell>
+										</tableCells>
+									</tableRow>
+									<tableRow>
+										<tableCells>
+											<tableCell>
+												<contents>
+													<textItem>
+														<dataSource>
+															<staticValue>Select PIC</staticValue>
+														</dataSource>
+														<style>
+															<CSS value="font-weight:bold"/>
+														</style>
+													</textItem>
+												</contents>
+												<style>
+													<CSS value="padding-top:5px;padding-left:5px;border:1pt solid black"/>
+												</style>
+											</tableCell>
+										</tableCells>
+									</tableRow>
+									<tableRow>
+										<tableCells>
+											<tableCell>
+												<contents>
+													<selectWithSearch parameter="PIC" multiSelect="true" refQuery="PIC pmt" required="false">
+														<useItem refDataItem="Primary Internal Contact Key">
+															<displayItem refDataItem="Primary Internal Contact Name"/>
+														</useItem>
+													</selectWithSearch>
+												</contents>
+												<style>
+													<CSS value="padding-top:5px;padding-left:5px;border:1pt solid black"/>
+												</style>
+											</tableCell>
+										</tableCells>
+									</tableRow>
+									<tableRow>
+										<tableCells>
+											<tableCell>
+												<contents>
+													<textItem>
+														<dataSource>
+															<staticValue>Select Matter Type</staticValue>
+														</dataSource>
+														<style>
+															<CSS value="font-weight:bold"/>
+														</style>
+													</textItem>
+												</contents>
+												<style>
+													<CSS value="padding-top:5px;padding-left:5px;border:1pt solid black"/>
+												</style>
+											</tableCell>
+										</tableCells>
+									</tableRow>
+									<tableRow>
+										<tableCells>
+											<tableCell>
+												<contents>
+													<selectValue parameter="MatType" selectValueUI="listBox" refQuery="Mat Type pmt" autoSubmit="true">
+														<useItem refDataItem="ID">
+															<displayItem refDataItem="Matter Type Name"/>
+														</useItem>
+														<sortList>
+															<sortItem refDataItem="Matter Type Name"/>
+														</sortList>
+														<headerText>
+															<defaultText/>
+														</headerText>
+													</selectValue>
+												</contents>
+												<style>
+													<CSS value="padding-top:5px;padding-left:5px;border:1pt solid black"/>
+												</style>
+											</tableCell>
+										</tableCells>
+									</tableRow>
+									<tableRow>
+										<tableCells>
+											<tableCell>
+												<contents>
+													<textItem>
+														<dataSource>
+															<staticValue>Select Sub Matter Type</staticValue>
+														</dataSource>
+														<style>
+															<CSS value="font-weight:bold"/>
+														</style>
+													</textItem>
+												</contents>
+												<style>
+													<CSS value="padding-top:5px;padding-left:5px;border:1pt solid black"/>
+												</style>
+											</tableCell>
+										</tableCells>
+									</tableRow>
+									<tableRow>
+										<tableCells>
+											<tableCell>
+												<contents>
+													<selectValue selectValueUI="listBox" cascadeOn="MatType" parameter="SubMatType" refQuery="Sub Mat Type pmt" required="false">
+														<useItem refDataItem="ID">
+															<displayItem refDataItem="Display Name"/>
+														</useItem>
+														<sortList>
+															<sortItem refDataItem="Display Name"/>
+														</sortList>
+														<headerText>
+															<defaultText/>
+														</headerText>
+													</selectValue>
+												</contents>
+												<style>
+													<CSS value="padding-top:5px;padding-left:5px;border:1pt solid black"/>
+												</style>
+											</tableCell>
+										</tableCells>
+									</tableRow>
+								</tableRows>
+							</table>
+						</contents>
+						<style>
+							<defaultStyles>
+								<defaultStyle refStyle="py"/>
+							</defaultStyles>
+						</style>
+					</pageBody>
+					<pageFooter>
+						<contents>
+							<promptButton type="cancel">
+								<contents/>
+								<style>
+									<defaultStyles>
+										<defaultStyle refStyle="bp"/>
+									</defaultStyles>
+								</style>
+							</promptButton>
+							<promptButton type="back">
+								<contents/>
+								<style>
+									<defaultStyles>
+										<defaultStyle refStyle="bp"/>
+									</defaultStyles>
+								</style>
+							</promptButton>
+							<promptButton type="next">
+								<contents/>
+								<style>
+									<defaultStyles>
+										<defaultStyle refStyle="bp"/>
+									</defaultStyles>
+								</style>
+							</promptButton>
+							<promptButton type="finish">
+								<contents/>
+								<style>
+									<defaultStyles>
+										<defaultStyle refStyle="bp"/>
+									</defaultStyles>
+								</style>
+							</promptButton>
+						</contents>
+						<style>
+							<defaultStyles>
+								<defaultStyle refStyle="fp"/>
+							</defaultStyles>
+						</style>
+					</pageFooter>
+					<style>
+						<defaultStyles>
+							<defaultStyle refStyle="pp"/>
+						</defaultStyles>
+					</style>
+				</page>
+			</promptPages>
+		</layout>
+	</layouts>
+	<queries>
+		<query name="Mater Query">
+			<source>
+				<model/>
+			</source>
+			<selection>
+				<dataItem aggregate="none" rollupAggregate="none" name="Matter Name">
+					<expression>[Business View].[BTMATTERORGANIZATION].[MATTER_NAME]</expression>
+					<XMLAttributes>
+						<XMLAttribute output="no" name="RS_dataType" value="3"/>
+						<XMLAttribute output="no" name="RS_dataUsage" value="0"/>
+					</XMLAttributes>
+				</dataItem>
+				<dataItem aggregate="none" rollupAggregate="none" name="Matter Number">
+					<expression>[Business View].[BTMATTERORGANIZATION].[MATTER_NUMBER]</expression>
+					<XMLAttributes>
+						<XMLAttribute output="no" name="RS_dataType" value="3"/>
+						<XMLAttribute output="no" name="RS_dataUsage" value="0"/>
+					</XMLAttributes>
+				</dataItem>
+				<dataItem name="Matter">
+					<expression>[Matter Number]+&apos; - &apos;+[Matter Name]</expression>
+				</dataItem>
+				<dataItem aggregate="none" rollupAggregate="none" name="Matter ID">
+					<expression>[Business View].[BTMATTERORGANIZATION].[MATTER_ID]</expression>
+					<XMLAttributes>
+						<XMLAttribute output="no" name="RS_dataType" value="1"/>
+						<XMLAttribute output="no" name="RS_dataUsage" value="1"/>
+					</XMLAttributes>
+				</dataItem>
+				<dataItem name="PABU">
+					<expression>[Business View].[DIMPRATICEAREABUSINESSUNIT].[PRACTICE_AREA_NAME]+&apos; - &apos;+[Business View].[DIMPRATICEAREABUSINESSUNIT].[BUSINESS_UNIT_NAME]</expression>
+				</dataItem>
+			</selection>
+			<detailFilters>
+				<detailFilter>
+					<filterExpression>[Business View].[FACTINVOICEHEADER].[ID] in ([Inv Query].[Inv ID])</filterExpression>
+				</detailFilter>
+				<detailFilter use="optional">
+					<filterExpression>[Business View].[DIMMATTER].[PRIMARY_INTERNAL_PERSON_KEY] in ?PIC?</filterExpression>
+				</detailFilter>
+				<detailFilter use="optional">
+					<filterExpression>[Business View].[DIMMATTER].[PRIMARY_MATTER_TYPE_ID] in ?MatType? </filterExpression>
+				</detailFilter>
+				<detailFilter use="optional">
+					<filterExpression>[Business View].[DIMMATTER].[MSM_SECONDARY_MATTER_TYPE_ID] in ?SubMatType?</filterExpression>
+				</detailFilter>
+			</detailFilters>
+		</query>
+		<query name="Inv Query">
+			<source>
+				<model/>
+			</source>
+			<selection>
+				<dataItem aggregate="none" rollupAggregate="none" name="Matter ID">
+					<expression>[Business View].[BTMATTERORGANIZATION].[MATTER_ID]</expression>
+					<XMLAttributes>
+						<XMLAttribute output="no" name="RS_dataType" value="1"/>
+						<XMLAttribute output="no" name="RS_dataUsage" value="1"/>
+					</XMLAttributes>
+				</dataItem>
+				<dataItem aggregate="none" rollupAggregate="none" name="Matter Name">
+					<expression>[Business View].[BTMATTERORGANIZATION].[MATTER_NAME]</expression>
+					<XMLAttributes>
+						<XMLAttribute output="no" name="RS_dataType" value="3"/>
+						<XMLAttribute output="no" name="RS_dataUsage" value="0"/>
+					</XMLAttributes>
+				</dataItem>
+				<dataItem aggregate="none" rollupAggregate="none" name="Inv ID">
+					<expression>[Business View].[FACTINVOICEHEADER].[ID]</expression>
+					<XMLAttributes>
+						<XMLAttribute output="no" name="RS_dataType" value="1"/>
+						<XMLAttribute output="no" name="RS_dataUsage" value="1"/>
+					</XMLAttributes>
+				</dataItem>
+				<dataItem aggregate="none" rollupAggregate="none" name="Invoice Header Key">
+					<expression>[Business View].[FACTINVOICEHEADER].[INVOICE_HEADER_KEY]</expression>
+					<XMLAttributes>
+						<XMLAttribute output="no" name="RS_dataType" value="1"/>
+						<XMLAttribute output="no" name="RS_dataUsage" value="1"/>
+					</XMLAttributes>
+				</dataItem>
+				<dataItem aggregate="none" rollupAggregate="none" name="Invoice Number">
+					<expression>[Business View].[FACTINVOICEHEADER].[INVOICE_NUMBER]</expression>
+					<XMLAttributes>
+						<XMLAttribute output="no" name="RS_dataType" value="3"/>
+						<XMLAttribute output="no" name="RS_dataUsage" value="0"/>
+					</XMLAttributes>
+				</dataItem>
+				<dataItem aggregate="none" rollupAggregate="none" name="Latest Workflow Action Date">
+					<expression>[Business View].[FACTINVOICEHEADER].[LATEST_WORKFLOW_ACTION_DATE]</expression>
+					<XMLAttributes>
+						<XMLAttribute output="no" name="RS_dataType" value="4"/>
+						<XMLAttribute output="no" name="RS_dataUsage" value="1"/>
+					</XMLAttributes>
+				</dataItem>
+				<dataItem aggregate="none" rollupAggregate="none" name="CUSTOM_COST_CENTER_NAME">
+					<expression>[Business View].[InvoiceHeader Allocations].[CUSTOM_COST_CENTER_NAME]</expression>
+					<XMLAttributes>
+						<XMLAttribute output="no" name="RS_dataType" value="3"/>
+						<XMLAttribute output="no" name="RS_dataUsage" value="0"/>
+					</XMLAttributes>
+				</dataItem>
+				<dataItem aggregate="total" name="Submitted Total Net Amount">
+					<expression>[Business View].[FACTINVOICEHEADER].[TOTAL_NET_AMOUNT_AMOUNT]*(coalesce([Business View].[InvoiceHeader Allocations].[PERCENTAGE],100)/100)</expression>
+					<XMLAttributes>
+						<XMLAttribute output="no" name="RS_dataType" value="2"/>
+						<XMLAttribute output="no" name="RS_dataUsage" value="2"/>
+					</XMLAttributes>
+				</dataItem>
+				<dataItem aggregate="none" rollupAggregate="none" name="Invoice Currency">
+					<expression>[Business View].[FACTINVOICEHEADER].[INVOICE_CURRENCY]</expression>
+					<XMLAttributes>
+						<XMLAttribute output="no" name="RS_dataType" value="3"/>
+						<XMLAttribute output="no" name="RS_dataUsage" value="0"/>
+					</XMLAttributes>
+				</dataItem>
+				<dataItem aggregate="total" name="User Total Net Amount">
+					<expression>[Business View].[FACTINVOICEHEADER].[User Total Net Amount]*(coalesce([Business View].[InvoiceHeader Allocations].[PERCENTAGE],100)/100)</expression>
+					<XMLAttributes>
+						<XMLAttribute output="no" name="RS_dataType" value="2"/>
+						<XMLAttribute output="no" name="RS_dataUsage" value="2"/>
+					</XMLAttributes>
+				</dataItem>
+				<dataItem aggregate="total" name="Base Total Net Amount">
+					<expression>[Business View].[FACTINVOICEHEADER].[Base Total Net Amount]*(coalesce([Business View].[InvoiceHeader Allocations].[PERCENTAGE],100)/100)</expression>
+					<XMLAttributes>
+						<XMLAttribute output="no" name="RS_dataType" value="2"/>
+						<XMLAttribute output="no" name="RS_dataUsage" value="2"/>
+					</XMLAttributes>
+				</dataItem>
+				<dataItem aggregate="none" rollupAggregate="none" name="Secondary Matter Type Name">
+					<expression>[Business View].[DIMMATTER].[MSM_SECOND_MATTER_TYPE_NAME]</expression>
+					<XMLAttributes>
+						<XMLAttribute output="no" name="RS_dataType" value="3"/>
+						<XMLAttribute output="no" name="RS_dataUsage" value="0"/>
+					</XMLAttributes>
+				</dataItem>
+				<dataItem aggregate="none" rollupAggregate="none" name="Matter Type Name">
+					<expression>[Business View].[DIMMATTER].[PRIMARY_MATTER_TYPE_NAME]</expression>
+					<XMLAttributes>
+						<XMLAttribute output="no" name="RS_dataType" value="3"/>
+						<XMLAttribute output="no" name="RS_dataUsage" value="0"/>
+					</XMLAttributes>
+				</dataItem>
+				<dataItem aggregate="none" rollupAggregate="none" name="Primary Internal Contact Name">
+					<expression>[Business View].[DIMMATTER].[PRIMARY_INTERNAL_PERSON_NM]</expression>
+					<XMLAttributes>
+						<XMLAttribute output="no" name="RS_dataType" value="3"/>
+						<XMLAttribute output="no" name="RS_dataUsage" value="0"/>
+					</XMLAttributes>
+				</dataItem>
+			</selection>
+			<detailFilters>
+				<detailFilter>
+					<filterExpression>[Business View].[FACTINVOICEHEADER].[INVOICE_DISPOSITION_NAME]=&apos;Approved&apos;</filterExpression>
+				</detailFilter>
+				<detailFilter>
+					<filterExpression>CASE (?ReportType?)
+WHEN (&apos;CD&apos;) THEN ([Business View].[FACTINVOICEHEADER].[LATEST_WORKFLOW_ACTION_DATE] in_range ?InvAppDate?)
+WHEN (&apos;CM&apos;) THEN ([Business View].[FACTINVOICEHEADER].[LATEST_WORKFLOW_ACTION_DATE]&gt;= _first_of_month (current_date) and [Business View].[FACTINVOICEHEADER].[LATEST_WORKFLOW_ACTION_DATE]&lt;=_last_of_month (current_date) ) 
+WHEN (&apos;LM&apos;) THEN ([Business View].[FACTINVOICEHEADER].[LATEST_WORKFLOW_ACTION_DATE] &gt;= _first_of_month (_add_months (current_date,-1)) and [Business View].[FACTINVOICEHEADER].[LATEST_WORKFLOW_ACTION_DATE] &lt;= _last_of_month (_add_months (current_date,-1)) ) 
+END</filterExpression>
+				</detailFilter>
+				<detailFilter use="prohibited">
+					<filterExpression>[Inv ID]=14447</filterExpression>
+				</detailFilter>
+			</detailFilters>
+		</query>
+		<query name="Task Code Query">
+			<source>
+				<model/>
+			</source>
+			<selection>
+				<dataItem aggregate="none" rollupAggregate="none" name="Header Key">
+					<expression>[Business View].[FACTDETAILLINEITEM].[HEADER_KEY]</expression>
+					<XMLAttributes>
+						<XMLAttribute output="no" name="RS_dataType" value="1"/>
+						<XMLAttribute output="no" name="RS_dataUsage" value="1"/>
+					</XMLAttributes>
+				</dataItem>
+				<dataItem aggregate="none" rollupAggregate="none" name="Task or Expense Code">
+					<expression>if(running-count([Business View].[FACTDETAILLINEITEM].[TASK_OR_EXPENSE_CODE]) &lt;&gt;1) then (&apos; ,&apos;) else (&apos;&apos;)+[Business View].[FACTDETAILLINEITEM].[TASK_OR_EXPENSE_CODE]</expression>
+					<XMLAttributes>
+						<XMLAttribute output="no" name="RS_dataType" value="3"/>
+						<XMLAttribute output="no" name="RS_dataUsage" value="0"/>
+					</XMLAttributes>
+				</dataItem>
+			</selection>
+		</query>
+		<query name="PIC pmt">
+			<source>
+				<model/>
+			</source>
+			<selection>
+				<dataItem aggregate="none" rollupAggregate="none" name="Primary Internal Contact Key">
+					<expression>[Business View].[DIMMATTER].[PRIMARY_INTERNAL_PERSON_KEY]</expression>
+					<XMLAttributes>
+						<XMLAttribute output="no" name="RS_dataType" value="1"/>
+						<XMLAttribute output="no" name="RS_dataUsage" value="1"/>
+					</XMLAttributes>
+				</dataItem>
+				<dataItem aggregate="none" rollupAggregate="none" name="Primary Internal Contact Name">
+					<expression>[Business View].[DIMMATTER].[PRIMARY_INTERNAL_PERSON_NM]</expression>
+					<XMLAttributes>
+						<XMLAttribute output="no" name="RS_dataType" value="3"/>
+						<XMLAttribute output="no" name="RS_dataUsage" value="0"/>
+					</XMLAttributes>
+				</dataItem>
+			</selection>
+		</query>
+		<query name="Mat Type pmt">
+			<source>
+				<model/>
+			</source>
+			<selection>
+				<dataItem aggregate="none" rollupAggregate="none" name="ID">
+					<expression>[Business View].[LKPMATTERTYPE].[ID]</expression>
+					<XMLAttributes>
+						<XMLAttribute output="no" name="RS_dataType" value="1"/>
+						<XMLAttribute output="no" name="RS_dataUsage" value="1"/>
+					</XMLAttributes>
+				</dataItem>
+				<dataItem aggregate="none" rollupAggregate="none" name="Matter Type Name">
+					<expression>[Business View].[LKPMATTERTYPE].[DISPLAY_NAME]</expression>
+					<XMLAttributes>
+						<XMLAttribute output="no" name="RS_dataType" value="3"/>
+						<XMLAttribute output="no" name="RS_dataUsage" value="0"/>
+					</XMLAttributes>
+				</dataItem>
+				<dataItem aggregate="none" rollupAggregate="none" name="Matter Type Code">
+					<expression>[Business View].[LKPMATTERTYPE].[CODE]</expression>
+					<XMLAttributes>
+						<XMLAttribute output="no" name="RS_dataType" value="3"/>
+						<XMLAttribute output="no" name="RS_dataUsage" value="0"/>
+					</XMLAttributes>
+				</dataItem>
+			</selection>
+		</query>
+		<query name="Sub Mat Type pmt">
+			<source>
+				<model/>
+			</source>
+			<selection>
+				<dataItem aggregate="none" rollupAggregate="none" name="Display Name">
+					<expression>[Business View].[W_MSM_SECONDARY_MATTER_TYPE].[DISPLAY_NAME]</expression>
+					<XMLAttributes>
+						<XMLAttribute output="no" name="RS_dataType" value="3"/>
+						<XMLAttribute output="no" name="RS_dataUsage" value="0"/>
+					</XMLAttributes>
+				</dataItem>
+				<dataItem aggregate="none" rollupAggregate="none" name="Code">
+					<expression>[Business View].[W_MSM_SECONDARY_MATTER_TYPE].[CODE]</expression>
+					<XMLAttributes>
+						<XMLAttribute output="no" name="RS_dataType" value="3"/>
+						<XMLAttribute output="no" name="RS_dataUsage" value="0"/>
+					</XMLAttributes>
+				</dataItem>
+				<dataItem aggregate="none" rollupAggregate="none" name="ID">
+					<expression>[Business View].[W_MSM_SECONDARY_MATTER_TYPE].[ID]</expression>
+					<XMLAttributes>
+						<XMLAttribute output="no" name="RS_dataType" value="1"/>
+						<XMLAttribute output="no" name="RS_dataUsage" value="1"/>
+					</XMLAttributes>
+				</dataItem>
+			</selection>
+			<detailFilters>
+				<detailFilter use="optional">
+					<filterExpression>[Business View].[W_MSM_SECONDARY_MATTER_TYPE].[PRIMARY_MATTER_TYPE_ID] = ?MatType?</filterExpression>
+				</detailFilter>
+			</detailFilters>
+		</query>
+	</queries>
+	<XMLAttributes>
+		<XMLAttribute output="no" name="RS_CreateExtendedDataItems" value="true"/>
+		<XMLAttribute output="no" name="listSeparator" value=","/>
+		<XMLAttribute output="no" name="decimalSeparator" value="."/>
+		<XMLAttribute output="no" name="RS_modelModificationTime" value="2022-08-23T19:11:08.320Z"/>
+	</XMLAttributes>
+	<modelPath>/content/package[@name=&apos;PassportDW&apos;]/model[@name=&apos;2022-08-23T19:11:08.240Z&apos;]</modelPath>
+	<reportName>Scenario1</reportName>
+	<classStyles>
+		<classStyle name="GuidedLayoutLeftPadding">
+			<CSS value="padding-left:5px;border-top-width:1px;border-bottom-width:1px;border-left-width:1px;border-right-width:1px"/>
+		</classStyle>
+		<classStyle name="GuidedLayoutTopPadding">
+			<CSS value="padding-top:5px;border-top-width:1px;border-bottom-width:1px;border-left-width:1px;border-right-width:1px"/>
+		</classStyle>
+		<classStyle name="GuidedLayoutRightPadding">
+			<CSS value="padding-right:5px;border-top-width:1px;border-bottom-width:1px;border-left-width:1px;border-right-width:1px"/>
+		</classStyle>
+		<classStyle name="GuidedLayoutBottomPadding">
+			<CSS value="padding-bottom:5px;border-top-width:1px;border-bottom-width:1px;border-left-width:1px;border-right-width:1px"/>
+		</classStyle>
+		<classStyle name="GuidedLayoutMargin">
+			<CSS value="margin-bottom:10px"/>
+		</classStyle>
+	</classStyles>
+</report>

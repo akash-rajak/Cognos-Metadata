@@ -1,0 +1,1625 @@
+{
+  "report": {
+    "modelPath": "/content/package[@name=&apos;PassportDW&apos;]/model[@name=&apos;2022-11-16T20:25:59.739Z&apos;]",
+    "queries": {
+      "query": [
+        {
+          "source": {
+            "model": ""
+          },
+          "selection": {
+            "dataItem": [
+              {
+                "expression": "[Business View].[BTMATTERORGANIZATION].[ORG_NAME]"
+              },
+              {
+                "expression": "[Business View].[BTMATTERORGANIZATION].[MATTER_NAME]"
+              },
+              {
+                "expression": "[Business View].[BTMATTERORGANIZATION].[START_DATE]"
+              },
+              {
+                "expression": "[Business View].[BTMATTERORGANIZATION].[END_DATE]"
+              },
+              {
+                "expression": "if([End Date] is  not missing and [End Date] &lt;=current_date) then([End Date]) else (current_date)"
+              },
+              {
+                "expression": "_days_between ([Actual Close Date],[Start  Date])"
+              },
+              {
+                "expression": "average([Assigned Days] for [Organization])"
+              },
+              {
+                "expression": "[Assigned Days]"
+              }
+            ]
+          },
+          "detailFilters": {
+            "detailFilter": [
+              {
+                "filterExpression": "[Business View].[BTMATTERORGANIZATION].[START_DATE] in_range ?Matter Assigned to Organization?"
+              },
+              {
+                "filterExpression": "[Business View].[BTMATTERORGANIZATION].[ORGANIZATION_KEY] in ?Organization Name?"
+              },
+              {
+                "filterExpression": "[Business View].[BTMATTERORGANIZATION].[ORG_TYPE_CODE] =&apos;External&apos;"
+              },
+              {
+                "filterExpression": "[Business View].[BTMATTERORGANIZATION].[MATTER_KEY] is not missing"
+              },
+              {
+                "filterExpression": "[Business View].[BTMATTERORGANIZATION].[MATTER_KEY] in (?Matter?)"
+              },
+              {
+                "filterExpression": "[Business View].[DIMPRATICEAREABUSINESSUNIT].[BUSINESS_UNIT_ID] in ?Business Unit?"
+              },
+              {
+                "filterExpression": "[Business View].[DIMPRATICEAREABUSINESSUNIT].[PRACTICE_AREA_ID] in ?Practice Area?"
+              },
+              {
+                "filterExpression": "[Business View].[BTMATTERORGANIZATION].[START_DATE]&lt;=current_date"
+              },
+              {
+                "filterExpression": "[Business View].[BTMATTERORGANIZATION].[MATTER_STATUS_ID] in ?Matter Status?"
+              }
+            ]
+          }
+        },
+        {
+          "source": {
+            "model": ""
+          },
+          "selection": {
+            "dataItem": [
+              {
+                "expression": "[Business View].[DIMMATTER].[MATTER_KEY]"
+              },
+              {
+                "expression": "[Business View].[DIMMATTER].[MATTER_NUMBER]+&apos; - &apos;+[Business View].[DIMMATTER].[NAME]"
+              }
+            ]
+          }
+        },
+        {
+          "source": {
+            "model": ""
+          },
+          "selection": {
+            "dataItem": [
+              {
+                "expression": "[Business View].[DIMORGANIZATION].[NAME]"
+              },
+              {
+                "expression": "[Business View].[DIMORGANIZATION].[ORGANIZATION_KEY]"
+              }
+            ]
+          },
+          "detailFilters": {
+            "detailFilter": [
+              {
+                "filterExpression": "[Business View].[DIMORGANIZATION].[NAME] is not missing"
+              },
+              {
+                "filterExpression": "[Business View].[DIMORGANIZATION].[ORGANIZATION_TYPE_CODE]=&apos;External&apos;"
+              }
+            ]
+          }
+        },
+        {
+          "source": {
+            "model": ""
+          },
+          "selection": {
+            "dataItem": [
+              {
+                "expression": "case when [Business View].[BTMATTERORGANIZATION].[MATTER_ORGANIZATION_KEY] is not missing then [Business View].[BTMATTERORGANIZATION].[ORG_NAME] else &apos;Unspecified&apos; end"
+              },
+              {
+                "expression": "_days_between (case when ([Business View].[BTMATTERORGANIZATION].[END_DATE] is  not missing and [Business View].[BTMATTERORGANIZATION].[END_DATE] &lt;=current_date ) then([Business View].[BTMATTERORGANIZATION].[END_DATE]) else current_date end,[Business View].[BTMATTERORGANIZATION].[START_DATE])"
+              },
+              {
+                "expression": "average([Days Open] for [Organization])"
+              },
+              {
+                "expression": "rank([Average(Open days)])"
+              }
+            ]
+          },
+          "detailFilters": {
+            "detailFilter": [
+              {
+                "filterExpression": "[Rank]&lt;=?Top N?"
+              },
+              {
+                "filterExpression": "[Organization]&lt;&gt;&apos;Unspecified&apos;"
+              },
+              {
+                "filterExpression": "[Business View].[BTMATTERORGANIZATION].[ORGANIZATION_KEY] in ?Organization Name?"
+              },
+              {
+                "filterExpression": "[Business View].[BTMATTERORGANIZATION].[ORG_TYPE_CODE] =&apos;External&apos;"
+              },
+              {
+                "filterExpression": "[Business View].[BTMATTERORGANIZATION].[MATTER_KEY] is not missing"
+              },
+              {
+                "filterExpression": "[Business View].[BTMATTERORGANIZATION].[MATTER_KEY] in (?Matter?)"
+              },
+              {
+                "filterExpression": "[Business View].[BTMATTERORGANIZATION].[MATTER_STATUS_ID] in ?Matter Status?"
+              },
+              {
+                "filterExpression": "[Business View].[DIMPRATICEAREABUSINESSUNIT].[BUSINESS_UNIT_ID] in ?Business Unit?"
+              },
+              {
+                "filterExpression": "[Business View].[DIMPRATICEAREABUSINESSUNIT].[PRACTICE_AREA_ID] in ?Practice Area?"
+              },
+              {
+                "filterExpression": "[Business View].[BTMATTERORGANIZATION].[START_DATE] &lt;= current_date"
+              },
+              {
+                "filterExpression": "[Business View].[BTMATTERORGANIZATION].[START_DATE] in_range ?Matter Assigned to Organization?"
+              }
+            ]
+          }
+        },
+        {
+          "source": {
+            "model": ""
+          },
+          "selection": {
+            "dataItem": [
+              {
+                "expression": "[Business View].[LKPBUSINESSUNIT].[ID]"
+              },
+              {
+                "expression": "[Business View].[LKPBUSINESSUNIT].[NAME]"
+              }
+            ]
+          }
+        },
+        {
+          "source": {
+            "model": ""
+          },
+          "selection": {
+            "dataItem": [
+              {
+                "expression": "[Business View].[LKPPRACTICEAREA].[ID]"
+              },
+              {
+                "expression": "[Business View].[LKPPRACTICEAREA].[NAME]"
+              }
+            ]
+          }
+        },
+        {
+          "source": {
+            "model": ""
+          },
+          "selection": {
+            "dataItem": [
+              {
+                "expression": "[Business View].[LKPMATTERSTATUS].[ID]"
+              },
+              {
+                "expression": "[Business View].[LKPMATTERSTATUS].[DISPLAY_NAME]"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "layouts": {
+      "layout": {
+        "reportPages": {
+          "page": {
+            "style": {
+              "defaultStyles": {
+                "defaultStyle": ""
+              }
+            },
+            "pageBody": {
+              "style": {
+                "defaultStyles": {
+                  "defaultStyle": ""
+                },
+                "CSS": ""
+              },
+              "contents": {
+                "block": [
+                  {
+                    "contents": {
+                      "table": {
+                        "style": {
+                          "defaultStyles": {
+                            "defaultStyle": ""
+                          },
+                          "CSS": ""
+                        },
+                        "tableRows": {
+                          "tableRow": [
+                            {
+                              "tableCells": {
+                                "tableCell": [
+                                  {
+                                    "contents": {
+                                      "textItem": {
+                                        "dataSource": {
+                                          "staticValue": "Matter Assigned to Organization"
+                                        },
+                                        "style": {
+                                          "CSS": ""
+                                        }
+                                      }
+                                    },
+                                    "style": {
+                                      "CSS": ""
+                                    }
+                                  },
+                                  {
+                                    "contents": {
+                                      "selectDate": ""
+                                    },
+                                    "style": {
+                                      "CSS": ""
+                                    }
+                                  },
+                                  {
+                                    "contents": {
+                                      "textItem": {
+                                        "dataSource": {
+                                          "staticValue": "Top N Organizations"
+                                        }
+                                      }
+                                    },
+                                    "style": {
+                                      "CSS": ""
+                                    }
+                                  },
+                                  {
+                                    "contents": {
+                                      "selectValue": {
+                                        "selectOptions": {
+                                          "selectOption": [
+                                            {
+                                              "displayValue": 5
+                                            },
+                                            {
+                                              "displayValue": 10
+                                            },
+                                            {
+                                              "displayValue": 15
+                                            },
+                                            {
+                                              "displayValue": 25
+                                            },
+                                            {
+                                              "displayValue": 50
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    },
+                                    "style": {
+                                      "CSS": ""
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "tableCells": {
+                                "tableCell": [
+                                  {
+                                    "contents": "",
+                                    "style": {
+                                      "CSS": ""
+                                    }
+                                  },
+                                  {
+                                    "contents": "",
+                                    "style": {
+                                      "CSS": ""
+                                    }
+                                  },
+                                  {
+                                    "contents": ""
+                                  },
+                                  {
+                                    "contents": ""
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "tableCells": {
+                                "tableCell": {
+                                  "contents": {
+                                    "promptButton": {
+                                      "contents": {
+                                        "textItem": {
+                                          "dataSource": {
+                                            "staticValue": "Refresh"
+                                          }
+                                        }
+                                      },
+                                      "style": {
+                                        "defaultStyles": {
+                                          "defaultStyle": ""
+                                        },
+                                        "CSS": ""
+                                      }
+                                    }
+                                  },
+                                  "style": {
+                                    "CSS": ""
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "conditionalRender": {
+                      "renderFor": ""
+                    }
+                  },
+                  {
+                    "contents": {
+                      "block": {
+                        "contents": {
+                          "combinationChart": {
+                            "ordinalAxis": {
+                              "axisTitle": {
+                                "style": {
+                                  "defaultStyles": {
+                                    "defaultStyle": ""
+                                  }
+                                },
+                                "chartContents": {
+                                  "chartTextItem": {
+                                    "dataSource": {
+                                      "staticValue": "Organization Name"
+                                    }
+                                  }
+                                }
+                              },
+                              "axisLine": "",
+                              "style": {
+                                "defaultStyles": {
+                                  "defaultStyle": ""
+                                }
+                              }
+                            },
+                            "numericalAxisY1": {
+                              "axisTitle": {
+                                "style": {
+                                  "defaultStyles": {
+                                    "defaultStyle": ""
+                                  }
+                                },
+                                "chartContents": {
+                                  "chartTextItem": {
+                                    "dataSource": {
+                                      "staticValue": "Average Open Days"
+                                    }
+                                  }
+                                }
+                              },
+                              "gridlines": "",
+                              "axisLine": "",
+                              "style": {
+                                "defaultStyles": {
+                                  "defaultStyle": ""
+                                }
+                              }
+                            },
+                            "combinationChartTypes": {
+                              "bar": ""
+                            },
+                            "style": {
+                              "defaultStyles": {
+                                "defaultStyle": ""
+                              },
+                              "CSS": ""
+                            },
+                            "commonClusters": {
+                              "chartNodes": {
+                                "chartNode": {
+                                  "chartNodeMembers": {
+                                    "chartNodeMember": {
+                                      "chartContents": {
+                                        "chartTextItem": {
+                                          "dataSource": {
+                                            "memberCaption": ""
+                                          }
+                                        }
+                                      },
+                                      "sortList": {
+                                        "sortItem": [
+                                          "",
+                                          "",
+                                          ""
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "chartTitle": {
+                              "style": {
+                                "defaultStyles": {
+                                  "defaultStyle": ""
+                                }
+                              },
+                              "chartContents": {
+                                "chartTextItem": [
+                                  {
+                                    "dataSource": {
+                                      "staticValue": "Average Days Matter Assigned to Top"
+                                    }
+                                  },
+                                  {
+                                    "dataSource": {
+                                      "reportExpression": "If(ParamDisplayValue(&apos;Top N&apos;) is null) THEN (&apos;All&apos;) ELSE (ParamDisplayValue(&apos;Top N&apos;))"
+                                    }
+                                  },
+                                  {
+                                    "dataSource": {
+                                      "staticValue": "Organizations"
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            "defaultChartMeasure": {
+                              "style": {
+                                "dataFormat": {
+                                  "numberFormat": ""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "list": {
+                        "style": {
+                          "defaultStyles": {
+                            "defaultStyle": ""
+                          },
+                          "CSS": ""
+                        },
+                        "listColumns": {
+                          "listColumn": [
+                            {
+                              "listColumnTitle": {
+                                "style": {
+                                  "defaultStyles": {
+                                    "defaultStyle": ""
+                                  },
+                                  "CSS": ""
+                                },
+                                "contents": {
+                                  "textItem": {
+                                    "dataSource": {
+                                      "dataItemLabel": ""
+                                    }
+                                  }
+                                }
+                              },
+                              "listColumnBody": {
+                                "style": {
+                                  "defaultStyles": {
+                                    "defaultStyle": ""
+                                  }
+                                },
+                                "contents": {
+                                  "textItem": {
+                                    "dataSource": {
+                                      "dataItemValue": ""
+                                    }
+                                  }
+                                },
+                                "listColumnRowSpan": ""
+                              }
+                            },
+                            {
+                              "listColumnTitle": {
+                                "style": {
+                                  "defaultStyles": {
+                                    "defaultStyle": ""
+                                  },
+                                  "CSS": ""
+                                },
+                                "contents": {
+                                  "textItem": {
+                                    "dataSource": {
+                                      "dataItemLabel": ""
+                                    }
+                                  }
+                                }
+                              },
+                              "listColumnBody": {
+                                "style": {
+                                  "defaultStyles": {
+                                    "defaultStyle": ""
+                                  }
+                                },
+                                "contents": {
+                                  "textItem": {
+                                    "dataSource": {
+                                      "dataItemValue": ""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "listColumnTitle": {
+                                "style": {
+                                  "defaultStyles": {
+                                    "defaultStyle": ""
+                                  },
+                                  "CSS": ""
+                                },
+                                "contents": {
+                                  "textItem": {
+                                    "dataSource": {
+                                      "dataItemLabel": ""
+                                    }
+                                  }
+                                }
+                              },
+                              "listColumnBody": {
+                                "style": {
+                                  "defaultStyles": {
+                                    "defaultStyle": ""
+                                  },
+                                  "dataFormat": {
+                                    "dateFormat": ""
+                                  }
+                                },
+                                "contents": {
+                                  "textItem": {
+                                    "dataSource": {
+                                      "dataItemValue": ""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "listColumnTitle": {
+                                "style": {
+                                  "defaultStyles": {
+                                    "defaultStyle": ""
+                                  },
+                                  "CSS": ""
+                                },
+                                "contents": {
+                                  "textItem": {
+                                    "dataSource": {
+                                      "dataItemLabel": ""
+                                    }
+                                  }
+                                }
+                              },
+                              "listColumnBody": {
+                                "style": {
+                                  "defaultStyles": {
+                                    "defaultStyle": ""
+                                  },
+                                  "dataFormat": {
+                                    "dateFormat": ""
+                                  }
+                                },
+                                "contents": {
+                                  "textItem": {
+                                    "dataSource": {
+                                      "dataItemValue": ""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "listColumnTitle": {
+                                "style": {
+                                  "defaultStyles": {
+                                    "defaultStyle": ""
+                                  },
+                                  "CSS": ""
+                                },
+                                "contents": {
+                                  "textItem": {
+                                    "dataSource": {
+                                      "dataItemLabel": ""
+                                    }
+                                  }
+                                }
+                              },
+                              "listColumnBody": {
+                                "style": {
+                                  "defaultStyles": {
+                                    "defaultStyle": ""
+                                  },
+                                  "dataFormat": {
+                                    "numberFormat": ""
+                                  }
+                                },
+                                "contents": {
+                                  "textItem": {
+                                    "dataSource": {
+                                      "dataItemValue": ""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "listGroups": {
+                          "listGroup": {
+                            "listFooter": {
+                              "listRows": {
+                                "listRow": {
+                                  "rowCells": {
+                                    "rowCell": [
+                                      {
+                                        "contents": {
+                                          "textItem": {
+                                            "dataSource": {
+                                              "dataItemValue": ""
+                                            }
+                                          }
+                                        },
+                                        "style": {
+                                          "defaultStyles": {
+                                            "defaultStyle": ""
+                                          },
+                                          "CSS": ""
+                                        }
+                                      },
+                                      {
+                                        "contents": {
+                                          "textItem": {
+                                            "dataSource": {
+                                              "staticValue": "Average Assigned Days :"
+                                            }
+                                          }
+                                        },
+                                        "style": {
+                                          "defaultStyles": {
+                                            "defaultStyle": ""
+                                          },
+                                          "CSS": ""
+                                        }
+                                      },
+                                      {
+                                        "contents": {
+                                          "textItem": {
+                                            "dataSource": {
+                                              "dataItemValue": ""
+                                            }
+                                          }
+                                        },
+                                        "style": {
+                                          "defaultStyles": {
+                                            "defaultStyle": ""
+                                          },
+                                          "dataFormat": {
+                                            "numberFormat": ""
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "listOverallGroup": {
+                          "listFooter": {
+                            "listRows": {
+                              "listRow": [
+                                {
+                                  "rowCells": {
+                                    "rowCell": [
+                                      {
+                                        "contents": {
+                                          "textItem": {
+                                            "dataSource": {
+                                              "staticValue": "Summary"
+                                            }
+                                          }
+                                        },
+                                        "style": {
+                                          "defaultStyles": {
+                                            "defaultStyle": ""
+                                          },
+                                          "CSS": ""
+                                        }
+                                      },
+                                      {
+                                        "contents": {
+                                          "textItem": {
+                                            "dataSource": {
+                                              "dataItemValue": ""
+                                            }
+                                          }
+                                        },
+                                        "style": {
+                                          "defaultStyles": {
+                                            "defaultStyle": ""
+                                          },
+                                          "CSS": ""
+                                        }
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "rowCells": {
+                                    "rowCell": [
+                                      {
+                                        "contents": {
+                                          "textItem": {
+                                            "dataSource": {
+                                              "staticValue": "Average"
+                                            }
+                                          }
+                                        },
+                                        "style": {
+                                          "defaultStyles": {
+                                            "defaultStyle": ""
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "contents": {
+                                          "textItem": {
+                                            "dataSource": {
+                                              "dataItemValue": ""
+                                            }
+                                          }
+                                        },
+                                        "style": {
+                                          "defaultStyles": {
+                                            "defaultStyle": ""
+                                          },
+                                          "dataFormat": {
+                                            "numberFormat": ""
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "sortList": {
+                          "sortItem": ""
+                        }
+                      }
+                    }
+                  }
+                ],
+                "table": {
+                  "style": {
+                    "defaultStyles": {
+                      "defaultStyle": ""
+                    },
+                    "CSS": ""
+                  },
+                  "tableRows": {
+                    "tableRow": {
+                      "tableCells": {
+                        "tableCell": {
+                          "contents": "",
+                          "style": {
+                            "CSS": ""
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "pageHeader": {
+              "contents": {
+                "block": {
+                  "style": {
+                    "defaultStyles": {
+                      "defaultStyle": ""
+                    }
+                  },
+                  "contents": {
+                    "textItem": {
+                      "style": {
+                        "defaultStyles": {
+                          "defaultStyle": ""
+                        }
+                      },
+                      "dataSource": {
+                        "reportExpression": "IF ((substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/report[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName()) contains &quot;folder[@name=&quot;)  OR ((substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/reportView[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName()) contains &quot;folder[@name=&quot;)\nTHEN\n(ReportName())\nELSE\n(\nIF (ReportPath() contains &quot;reportView&quot;)\nTHEN (substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/reportView[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName())\n\nELSE\n(substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/report[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName())\n)"
+                      }
+                    }
+                  }
+                },
+                "table": {
+                  "style": {
+                    "defaultStyles": {
+                      "defaultStyle": ""
+                    },
+                    "CSS": ""
+                  },
+                  "tableRows": {
+                    "tableRow": {
+                      "tableCells": {
+                        "tableCell": {
+                          "contents": {
+                            "textItem": [
+                              {
+                                "dataSource": {
+                                  "staticValue": "Filters :"
+                                },
+                                "style": {
+                                  "CSS": ""
+                                }
+                              },
+                              {
+                                "dataSource": {
+                                  "reportExpression": "ParamName(&apos;Top N&apos;)+ &apos;-&apos; +ParamDisplayValue(&apos;Top N&apos;)+&apos;;&apos;"
+                                }
+                              },
+                              {
+                                "dataSource": {
+                                  "reportExpression": "ParamName(&apos;Matter Assigned to Organization&apos;)+ &apos;-&apos; +ParamDisplayValue(&apos;Matter Assigned to Organization&apos;)+&apos;;&apos;"
+                                }
+                              },
+                              {
+                                "dataSource": {
+                                  "reportExpression": "ParamName(&apos;Business Unit&apos;)+ &apos;-&apos; +ParamDisplayValue(&apos;Business Unit&apos;)+&apos;;&apos;"
+                                }
+                              },
+                              {
+                                "dataSource": {
+                                  "reportExpression": "ParamName(&apos;Practice Area&apos;)+ &apos;-&apos; +ParamDisplayValue(&apos;Practice Area&apos;)+&apos;;&apos;"
+                                }
+                              },
+                              {
+                                "dataSource": {
+                                  "reportExpression": "ParamName(&apos;Matter Status&apos;)+ &apos;-&apos; +ParamDisplayValue(&apos;Matter Status&apos;)+&apos;;&apos;"
+                                }
+                              },
+                              {
+                                "dataSource": {
+                                  "reportExpression": "ParamName(&apos;Matter&apos;)+ &apos;-&apos; +ParamDisplayValue(&apos;Matter&apos;)+&apos;;&apos;"
+                                }
+                              },
+                              {
+                                "dataSource": {
+                                  "reportExpression": "ParamName(&apos;Organization Name&apos;)+ &apos;-&apos; +ParamDisplayValue(&apos;Organization Name&apos;)+&apos;;&apos;"
+                                }
+                              }
+                            ]
+                          },
+                          "style": {
+                            "CSS": ""
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "style": {
+                "defaultStyles": {
+                  "defaultStyle": ""
+                },
+                "CSS": ""
+              }
+            },
+            "pageFooter": {
+              "contents": {
+                "table": {
+                  "tableRows": {
+                    "tableRow": {
+                      "tableCells": {
+                        "tableCell": [
+                          {
+                            "contents": {
+                              "date": {
+                                "style": {
+                                  "dataFormat": {
+                                    "dateFormat": ""
+                                  }
+                                }
+                              }
+                            },
+                            "style": {
+                              "CSS": ""
+                            }
+                          },
+                          {
+                            "contents": {
+                              "pageNumber": ""
+                            },
+                            "style": {
+                              "CSS": ""
+                            }
+                          },
+                          {
+                            "contents": {
+                              "time": {
+                                "style": {
+                                  "dataFormat": {
+                                    "timeFormat": ""
+                                  }
+                                }
+                              }
+                            },
+                            "style": {
+                              "CSS": ""
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "style": {
+                    "defaultStyles": {
+                      "defaultStyle": ""
+                    },
+                    "CSS": ""
+                  }
+                }
+              },
+              "style": {
+                "defaultStyles": {
+                  "defaultStyle": ""
+                },
+                "CSS": ""
+              }
+            }
+          }
+        },
+        "promptPages": {
+          "page": {
+            "pageHeader": {
+              "contents": {
+                "block": [
+                  {
+                    "contents": {
+                      "textItem": {
+                        "dataSource": {
+                          "reportExpression": "IF ((substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/report[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName()) contains &quot;folder[@name=&quot;)  OR ((substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/reportView[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName()) contains &quot;folder[@name=&quot;)\nTHEN\n(ReportName())\nELSE\n(\nIF (ReportPath() contains &quot;reportView&quot;)\nTHEN (substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/reportView[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName())\n\nELSE\n(substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/report[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName())\n)"
+                        },
+                        "style": {
+                          "defaultStyles": {
+                            "defaultStyle": ""
+                          }
+                        }
+                      }
+                    },
+                    "style": {
+                      "defaultStyles": {
+                        "defaultStyle": ""
+                      }
+                    }
+                  },
+                  {
+                    "contents": {
+                      "promptButton": [
+                        {
+                          "contents": "",
+                          "style": {
+                            "defaultStyles": {
+                              "defaultStyle": ""
+                            }
+                          }
+                        },
+                        {
+                          "contents": "",
+                          "style": {
+                            "defaultStyles": {
+                              "defaultStyle": ""
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "style": {
+                      "defaultStyles": {
+                        "defaultStyle": ""
+                      }
+                    }
+                  }
+                ]
+              },
+              "style": {
+                "defaultStyles": {
+                  "defaultStyle": ""
+                },
+                "CSS": ""
+              }
+            },
+            "pageBody": {
+              "contents": {
+                "HTMLItem": {
+                  "dataSource": {
+                    "staticValue": "&lt;script type=&quot;text/javascript&quot; src=&quot;../ps/portal/js/dcStandardPromptPage.js&quot;&gt;&lt;/script&gt;"
+                  }
+                },
+                "block": [
+                  {
+                    "contents": {
+                      "table": {
+                        "style": {
+                          "defaultStyles": {
+                            "defaultStyle": ""
+                          },
+                          "CSS": ""
+                        },
+                        "tableRows": {
+                          "tableRow": [
+                            {
+                              "tableCells": {
+                                "tableCell": {
+                                  "contents": {
+                                    "HTMLItem": [
+                                      {
+                                        "dataSource": {
+                                          "staticValue": "&lt;span id=&quot;Top10Table&quot; class=&quot;Collapsible&quot;&gt; &lt;/span&gt;\n&lt;img onclick=&apos;ExpandCollapse(this,0)&apos; src=&apos;../pat/hal/images/minus.gif&apos; style=&apos;cursor:hand;vertical-align:middle; margin-right:2px&apos;/&gt;\n&lt;span onclick=&apos;ExpandCollapse(this.previousSibling,0)&apos; style=&apos;cursor:hand&apos;&gt;"
+                                        }
+                                      },
+                                      {
+                                        "dataSource": {
+                                          "staticValue": "&lt;/span&gt;"
+                                        }
+                                      }
+                                    ],
+                                    "textItem": {
+                                      "dataSource": {
+                                        "staticValue": "Top N"
+                                      },
+                                      "style": {
+                                        "CSS": ""
+                                      }
+                                    }
+                                  },
+                                  "style": {
+                                    "defaultStyles": {
+                                      "defaultStyle": ""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "tableCells": {
+                                "tableCell": {
+                                  "contents": {
+                                    "textItem": {
+                                      "dataSource": {
+                                        "staticValue": "Top N Organizations"
+                                      }
+                                    }
+                                  },
+                                  "style": {
+                                    "defaultStyles": {
+                                      "defaultStyle": ""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "tableCells": {
+                                "tableCell": {
+                                  "contents": {
+                                    "selectValue": {
+                                      "defaultSelections": {
+                                        "defaultSimpleSelection": 10
+                                      },
+                                      "selectOptions": {
+                                        "selectOption": [
+                                          {
+                                            "displayValue": 5
+                                          },
+                                          {
+                                            "displayValue": 10
+                                          },
+                                          {
+                                            "displayValue": 15
+                                          },
+                                          {
+                                            "displayValue": 25
+                                          },
+                                          {
+                                            "displayValue": 50
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "contents": {
+                      "table": {
+                        "style": {
+                          "defaultStyles": {
+                            "defaultStyle": ""
+                          },
+                          "CSS": ""
+                        },
+                        "tableRows": {
+                          "tableRow": [
+                            {
+                              "tableCells": {
+                                "tableCell": {
+                                  "contents": {
+                                    "HTMLItem": [
+                                      {
+                                        "dataSource": {
+                                          "staticValue": "&lt;span id=&quot;DateTable&quot; class=&quot;Collapsible&quot;&gt; &lt;/span&gt;\n&lt;img onclick=&apos;ExpandCollapse(this,1)&apos; src=&apos;../pat/hal/images/minus.gif&apos; style=&apos;cursor:hand;vertical-align:middle; margin-right:2px&apos;/&gt;\n&lt;span onclick=&apos;ExpandCollapse(this.previousSibling,1)&apos; style=&apos;cursor:hand&apos;&gt;"
+                                        }
+                                      },
+                                      {
+                                        "dataSource": {
+                                          "staticValue": "&lt;/span&gt;"
+                                        }
+                                      }
+                                    ],
+                                    "textItem": {
+                                      "dataSource": {
+                                        "staticValue": "Dates"
+                                      },
+                                      "style": {
+                                        "CSS": ""
+                                      }
+                                    }
+                                  },
+                                  "style": {
+                                    "defaultStyles": {
+                                      "defaultStyle": ""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "tableCells": {
+                                "tableCell": {
+                                  "contents": {
+                                    "textItem": {
+                                      "dataSource": {
+                                        "staticValue": "Matter Assigned to Organization"
+                                      }
+                                    }
+                                  },
+                                  "style": {
+                                    "defaultStyles": {
+                                      "defaultStyle": ""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "tableCells": {
+                                "tableCell": {
+                                  "contents": {
+                                    "HTMLItem": [
+                                      {
+                                        "dataSource": {
+                                          "staticValue": "&lt;div id=&quot;Matter Open Date&quot;&gt;"
+                                        }
+                                      },
+                                      {
+                                        "dataSource": {
+                                          "staticValue": "&lt;/div&gt;\n&lt;script&gt;\nAssignDefaultDateValue(&quot;Matter Open Date&quot;);\n&lt;/script&gt;"
+                                        }
+                                      }
+                                    ],
+                                    "selectDate": ""
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "style": ""
+                  },
+                  {
+                    "contents": {
+                      "table": {
+                        "style": {
+                          "defaultStyles": {
+                            "defaultStyle": ""
+                          },
+                          "CSS": ""
+                        },
+                        "tableRows": {
+                          "tableRow": [
+                            {
+                              "tableCells": {
+                                "tableCell": {
+                                  "contents": {
+                                    "HTMLItem": [
+                                      {
+                                        "dataSource": {
+                                          "staticValue": "&lt;span id=&quot;PABUTable&quot; class=&quot;Collapsible Collapsed&quot;&gt; &lt;/span&gt;\n&lt;img onclick=&apos;ExpandCollapse(this,2)&apos; src=&apos;../pat/hal/images/plus.gif&apos; style=&apos;cursor:hand;vertical-align:middle; margin-right:2px&apos;/&gt;\n&lt;span onclick=&apos;ExpandCollapse(this.previousSibling,2)&apos; style=&apos;cursor:hand&apos;&gt;"
+                                        }
+                                      },
+                                      {
+                                        "dataSource": {
+                                          "staticValue": "&lt;/span&gt;"
+                                        }
+                                      }
+                                    ],
+                                    "textItem": {
+                                      "dataSource": {
+                                        "staticValue": "Business Unit / Practice Area"
+                                      },
+                                      "style": {
+                                        "CSS": ""
+                                      }
+                                    }
+                                  },
+                                  "style": {
+                                    "defaultStyles": {
+                                      "defaultStyle": ""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "tableCells": {
+                                "tableCell": [
+                                  {
+                                    "contents": {
+                                      "textItem": {
+                                        "dataSource": {
+                                          "staticValue": "Business Unit"
+                                        }
+                                      }
+                                    },
+                                    "style": {
+                                      "defaultStyles": {
+                                        "defaultStyle": ""
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "contents": {
+                                      "textItem": {
+                                        "dataSource": {
+                                          "staticValue": "Practice Area"
+                                        }
+                                      }
+                                    },
+                                    "style": {
+                                      "defaultStyles": {
+                                        "defaultStyle": ""
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "tableCells": {
+                                "tableCell": [
+                                  {
+                                    "contents": {
+                                      "selectValue": {
+                                        "useItem": {
+                                          "displayItem": ""
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "contents": {
+                                      "selectValue": {
+                                        "useItem": {
+                                          "displayItem": ""
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "style": ""
+                  },
+                  {
+                    "contents": {
+                      "table": {
+                        "style": {
+                          "defaultStyles": {
+                            "defaultStyle": ""
+                          },
+                          "CSS": ""
+                        },
+                        "tableRows": {
+                          "tableRow": [
+                            {
+                              "tableCells": {
+                                "tableCell": {
+                                  "contents": {
+                                    "HTMLItem": [
+                                      {
+                                        "dataSource": {
+                                          "staticValue": "&lt;span id=&quot;MatterTable&quot; class=&quot;Collapsible Collapsed&quot;&gt; &lt;/span&gt;\n&lt;img onclick=&apos;ExpandCollapse(this,3)&apos; src=&apos;../pat/hal/images/plus.gif&apos; style=&apos;cursor:hand;vertical-align:middle; margin-right:2px&apos;/&gt;\n&lt;span onclick=&apos;ExpandCollapse(this.previousSibling,3)&apos; style=&apos;cursor:hand&apos;&gt;"
+                                        }
+                                      },
+                                      {
+                                        "dataSource": {
+                                          "staticValue": "&lt;/span&gt;"
+                                        }
+                                      }
+                                    ],
+                                    "textItem": {
+                                      "dataSource": {
+                                        "staticValue": "Matter"
+                                      },
+                                      "style": {
+                                        "CSS": ""
+                                      }
+                                    }
+                                  },
+                                  "style": {
+                                    "defaultStyles": {
+                                      "defaultStyle": ""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "tableCells": {
+                                "tableCell": [
+                                  {
+                                    "contents": {
+                                      "textItem": {
+                                        "dataSource": {
+                                          "staticValue": "Matter Status"
+                                        }
+                                      }
+                                    },
+                                    "style": {
+                                      "defaultStyles": {
+                                        "defaultStyle": ""
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "contents": {
+                                      "textItem": {
+                                        "dataSource": {
+                                          "staticValue": "Matter Number - Matter Name"
+                                        }
+                                      }
+                                    },
+                                    "style": {
+                                      "defaultStyles": {
+                                        "defaultStyle": ""
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "tableCells": {
+                                "tableCell": [
+                                  {
+                                    "contents": {
+                                      "selectValue": {
+                                        "useItem": {
+                                          "displayItem": ""
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "contents": {
+                                      "selectWithSearch": {
+                                        "useItem": {
+                                          "displayItem": ""
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "style": {
+                                "CSS": ""
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "style": ""
+                  },
+                  {
+                    "contents": {
+                      "table": {
+                        "style": {
+                          "defaultStyles": {
+                            "defaultStyle": ""
+                          },
+                          "CSS": ""
+                        },
+                        "tableRows": {
+                          "tableRow": [
+                            {
+                              "tableCells": {
+                                "tableCell": {
+                                  "contents": {
+                                    "HTMLItem": [
+                                      {
+                                        "dataSource": {
+                                          "staticValue": "&lt;span id=&quot;OrganizationTable&quot; class=&quot;Collapsible Collapsed&quot;&gt;  &lt;/span&gt;\n&lt;img onclick=&apos;ExpandCollapse(this,4)&apos; src=&apos;../pat/hal/images/plus.gif&apos; style=&apos;cursor:hand;vertical-align:middle; margin-right:2px&apos;/&gt;\n&lt;span onclick=&apos;ExpandCollapse(this.previousSibling,4)&apos; style=&apos;cursor:hand&apos;&gt;"
+                                        }
+                                      },
+                                      {
+                                        "dataSource": {
+                                          "staticValue": "&lt;/span&gt;"
+                                        }
+                                      }
+                                    ],
+                                    "textItem": {
+                                      "dataSource": {
+                                        "staticValue": "Organization"
+                                      },
+                                      "style": {
+                                        "CSS": ""
+                                      }
+                                    }
+                                  },
+                                  "style": {
+                                    "defaultStyles": {
+                                      "defaultStyle": ""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "tableCells": {
+                                "tableCell": {
+                                  "contents": {
+                                    "textItem": {
+                                      "dataSource": {
+                                        "staticValue": "Organization"
+                                      }
+                                    }
+                                  },
+                                  "style": {
+                                    "defaultStyles": {
+                                      "defaultStyle": ""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "tableCells": {
+                                "tableCell": {
+                                  "contents": {
+                                    "selectWithSearch": {
+                                      "useItem": {
+                                        "displayItem": ""
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "block": {
+                        "contents": {
+                          "HTMLItem": {
+                            "dataSource": {
+                              "staticValue": "&lt;script&gt;\nStartHidden(&quot;Top10Table&quot;,0,0);\nStartHidden(&quot;DateTable&quot;,1,0);\nStartHidden(&quot;PABUTable&quot;,2,1);\nStartHidden(&quot;MatterTable&quot;,3,1);\nStartHidden(&quot;OrganizationTable&quot;,4,1);\nsetLocationHash();\n&lt;/script&gt;"
+                            }
+                          }
+                        },
+                        "style": ""
+                      }
+                    },
+                    "style": ""
+                  }
+                ]
+              },
+              "style": {
+                "defaultStyles": {
+                  "defaultStyle": ""
+                }
+              }
+            },
+            "pageFooter": {
+              "contents": {
+                "promptButton": [
+                  {
+                    "contents": "",
+                    "style": {
+                      "defaultStyles": {
+                        "defaultStyle": ""
+                      }
+                    }
+                  },
+                  {
+                    "contents": "",
+                    "style": {
+                      "defaultStyles": {
+                        "defaultStyle": ""
+                      }
+                    }
+                  }
+                ]
+              },
+              "style": {
+                "defaultStyles": {
+                  "defaultStyle": ""
+                }
+              }
+            },
+            "style": {
+              "defaultStyles": {
+                "defaultStyle": ""
+              }
+            }
+          }
+        }
+      }
+    },
+    "XMLAttributes": {
+      "XMLAttribute": [
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    "drillBehavior": "",
+    "reportVariables": {
+      "reportVariable": {
+        "reportExpression": "ReportOutput () = &apos;HTML&apos;",
+        "variableValues": {
+          "variableValue": ""
+        }
+      }
+    },
+    "reportName": "Average Days Matter Assigned to Organization"
+  }
+}

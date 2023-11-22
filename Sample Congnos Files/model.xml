@@ -1,0 +1,1425 @@
+<project containsDynamicContent="false" queryMode="dynamic" xmlns="http://www.developer.cognos.com/schemas/bmt/60/12" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.developer.cognos.com/schemas/bmt/60/12 BMTModelSpecification.xsd">
+	<name>Zipi</name>
+	
+	<property name="included" type="hidden">true</property><locales>
+		<locale>en</locale>
+	</locales>f
+	<defaultLocale>en</defaultLocale>
+	<physicalSources/>
+	<namespace>
+		<name locale="en">ZIPI</name>
+		<lastChanged>2014-02-19T09:07:26</lastChanged>
+		<lastChangedBy>user999</lastChangedBy>
+		
+		<property name="included" type="hidden">true</property><querySubject status="valid">
+			<name locale="en">ACTIVITY_ACTIONS</name>
+			<lastChanged>2016-12-25T15:37:48</lastChanged>
+			<lastChangedBy>Anonymous</lastChangedBy>
+			
+			<property name="included" type="hidden">true</property><definition>
+				<dbQuery>
+					<sources>
+						<dataSourceRef>[].[dataSources].[IPADATA]</dataSourceRef>
+					</sources>
+					<sql type="cognos">Select   * from  [IPADATA].IPA_ACTIVITY_ACTIONS</sql>
+					<tableType>table</tableType>
+				</dbQuery>
+			</definition>
+			<determinants>
+				<determinant>
+					<name>ID</name>
+					<key>
+						<refobj>[ZIPI].[ACTIVITY_ACTIONS].[ID]</refobj>
+					</key>
+					<attributes>
+						<refobj>[ZIPI].[ACTIVITY_ACTIONS].[ACTIONID]</refobj>
+						<refobj>[ZIPI].[ACTIVITY_ACTIONS].[ACTIONNAME]</refobj>
+						<refobj>[ZIPI].[ACTIVITY_ACTIONS].[OBJECTID]</refobj>
+						<refobj>[ZIPI].[ACTIVITY_ACTIONS].[OBJECTNAME]</refobj>
+						<refobj>[ZIPI].[ACTIVITY_ACTIONS].[PROCESSNAME]</refobj>
+						<refobj>[ZIPI].[ACTIVITY_ACTIONS].[SERVICEID]</refobj>
+						<refobj>[ZIPI].[ACTIVITY_ACTIONS].[SERVICENAME]</refobj>
+					</attributes>
+					<canGroup>false</canGroup>
+					<identifiesRow>true</identifiesRow>
+				</determinant>
+			</determinants>
+			<queryItem>
+				<name locale="en">ID</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>ID</externalName>
+				<usage>identifier</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>false</nullable>
+				<regularAggregate>count</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">ACTIONNAME</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>ACTIONNAME</externalName>
+				<usage>attribute</usage>
+				<datatype>characterLength16</datatype>
+				<precision>100</precision>
+				<scale>0</scale>
+				<size>202</size>
+				<nullable>true</nullable>
+				<regularAggregate>unsupported</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">ACTIONID</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>ACTIONID</externalName>
+				<usage>fact</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>false</nullable>
+				<regularAggregate>sum</regularAggregate>
+				<semiAggregate>sum</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">OBJECTNAME</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>OBJECTNAME</externalName>
+				<usage>attribute</usage>
+				<datatype>characterLength16</datatype>
+				<precision>500</precision>
+				<scale>0</scale>
+				<size>1002</size>
+				<nullable>true</nullable>
+				<regularAggregate>unsupported</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">OBJECTID</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>OBJECTID</externalName>
+				<usage>fact</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>false</nullable>
+				<regularAggregate>sum</regularAggregate>
+				<semiAggregate>sum</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">SERVICENAME</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>SERVICENAME</externalName>
+				<usage>attribute</usage>
+				<datatype>characterLength16</datatype>
+				<precision>100</precision>
+				<scale>0</scale>
+				<size>202</size>
+				<nullable>true</nullable>
+				<regularAggregate>unsupported</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">SERVICEID</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>SERVICEID</externalName>
+				<usage>fact</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>false</nullable>
+				<regularAggregate>sum</regularAggregate>
+				<semiAggregate>sum</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">PROCESSNAME</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>PROCESSNAME</externalName>
+				<usage>attribute</usage>
+				<datatype>characterLength16</datatype>
+				<precision>100</precision>
+				<scale>0</scale>
+				<size>202</size>
+				<nullable>true</nullable>
+				<regularAggregate>unsupported</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+		</querySubject>
+		<querySubject status="valid">
+			<name locale="en">BUCKETS</name>
+			<lastChanged>2016-12-25T15:38:28</lastChanged>
+			<lastChangedBy>Anonymous</lastChangedBy>
+			
+			<property name="included" type="hidden">true</property><definition>
+				<dbQuery>
+					<sources>
+						<dataSourceRef>[].[dataSources].[IPADATA]</dataSourceRef>
+					</sources>
+					<sql type="cognos">Select   * from [IPADATA].IPA_BUCKETS</sql>
+					<tableType>table</tableType>
+				</dbQuery>
+			</definition>
+			<determinants>
+				<determinant>
+					<name>BUCKET_ID</name>
+					<key>
+						<refobj>[ZIPI].[BUCKETS].[BUCKET_ID]</refobj>
+					</key>
+					<attributes>
+						<refobj>[ZIPI].[BUCKETS].[BUCKET_NAME]</refobj>
+						<refobj>[ZIPI].[BUCKETS].[BUCKET_TYPE]</refobj>
+						<refobj>[ZIPI].[BUCKETS].[FROM_VALUE]</refobj>
+						<refobj>[ZIPI].[BUCKETS].[TO_VALUE]</refobj>
+					</attributes>
+					<canGroup>false</canGroup>
+					<identifiesRow>true</identifiesRow>
+				</determinant>
+			</determinants>
+			<queryItem>
+				<name locale="en">BUCKET_ID</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>BUCKET_ID</externalName>
+				<usage>identifier</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>false</nullable>
+				<regularAggregate>count</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">BUCKET_NAME</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>BUCKET_NAME</externalName>
+				<usage>attribute</usage>
+				<datatype>characterLength16</datatype>
+				<precision>250</precision>
+				<scale>0</scale>
+				<size>502</size>
+				<nullable>true</nullable>
+				<regularAggregate>unsupported</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">BUCKET_TYPE</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>BUCKET_TYPE</externalName>
+				<usage>attribute</usage>
+				<datatype>characterLength16</datatype>
+				<precision>50</precision>
+				<scale>0</scale>
+				<size>102</size>
+				<nullable>true</nullable>
+				<regularAggregate>unsupported</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">FROM_VALUE</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>FROM_VALUE</externalName>
+				<usage>fact</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>true</nullable>
+				<regularAggregate>sum</regularAggregate>
+				<semiAggregate>sum</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">TO_VALUE</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>TO_VALUE</externalName>
+				<usage>fact</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>true</nullable>
+				<regularAggregate>sum</regularAggregate>
+				<semiAggregate>sum</semiAggregate>
+			</queryItem>
+		</querySubject>
+		<querySubject status="valid">
+			<name locale="en">COGDATES</name>
+			<lastChanged>2016-12-25T15:38:37</lastChanged>
+			<lastChangedBy>Anonymous</lastChangedBy>
+			
+			<property name="included" type="hidden">true</property><definition>
+				<dbQuery>
+					<sources>
+						<dataSourceRef>[].[dataSources].[IPADATA]</dataSourceRef>
+					</sources>
+					<sql type="cognos">Select   * from  [IPADATA].IPA_COGDATES</sql>
+					<tableType>table</tableType>
+				</dbQuery>
+			</definition>
+			<determinants>
+				<determinant>
+					<name>ID</name>
+					<key>
+						<refobj>[ZIPI].[COGDATES].[ID]</refobj>
+					</key>
+					<attributes>
+						<refobj>[ZIPI].[COGDATES].[CALENDARDAY]</refobj>
+						<refobj>[ZIPI].[COGDATES].[CALENDARQUARTER]</refobj>
+						<refobj>[ZIPI].[COGDATES].[CALENDARWEEK]</refobj>
+						<refobj>[ZIPI].[COGDATES].[COGDATE]</refobj>
+						<refobj>[ZIPI].[COGDATES].[DAY]</refobj>
+						<refobj>[ZIPI].[COGDATES].[DAYCAPTION]</refobj>
+						<refobj>[ZIPI].[COGDATES].[DAYOFTHEWEEK]</refobj>
+						<refobj>[ZIPI].[COGDATES].[MONTH]</refobj>
+						<refobj>[ZIPI].[COGDATES].[MONTHCAPTION]</refobj>
+						<refobj>[ZIPI].[COGDATES].[YEAR]</refobj>
+					</attributes>
+					<canGroup>false</canGroup>
+					<identifiesRow>true</identifiesRow>
+				</determinant>
+			</determinants>
+			<queryItem>
+				<name locale="en">ID</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>ID</externalName>
+				<usage>identifier</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>false</nullable>
+				<regularAggregate>count</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">COGDATE</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>COGDATE</externalName>
+				<usage>identifier</usage>
+				<datatype>date</datatype>
+				<precision>0</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>false</nullable>
+				<regularAggregate>unsupported</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">YEAR</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>YEAR</externalName>
+				<usage>fact</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>false</nullable>
+				<regularAggregate>sum</regularAggregate>
+				<semiAggregate>sum</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">MONTH</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>MONTH</externalName>
+				<usage>fact</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>false</nullable>
+				<regularAggregate>sum</regularAggregate>
+				<semiAggregate>sum</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">DAY</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>DAY</externalName>
+				<usage>fact</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>false</nullable>
+				<regularAggregate>sum</regularAggregate>
+				<semiAggregate>sum</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">CALENDARQUARTER</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>CALENDARQUARTER</externalName>
+				<usage>fact</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>false</nullable>
+				<regularAggregate>sum</regularAggregate>
+				<semiAggregate>sum</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">CALENDARWEEK</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>CALENDARWEEK</externalName>
+				<usage>fact</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>false</nullable>
+				<regularAggregate>sum</regularAggregate>
+				<semiAggregate>sum</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">CALENDARDAY</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>CALENDARDAY</externalName>
+				<usage>fact</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>false</nullable>
+				<regularAggregate>sum</regularAggregate>
+				<semiAggregate>sum</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">DAYOFTHEWEEK</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>DAYOFTHEWEEK</externalName>
+				<usage>fact</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>false</nullable>
+				<regularAggregate>sum</regularAggregate>
+				<semiAggregate>sum</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">DAYCAPTION</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>DAYCAPTION</externalName>
+				<usage>attribute</usage>
+				<datatype>characterLength16</datatype>
+				<precision>25</precision>
+				<scale>0</scale>
+				<size>52</size>
+				<nullable>false</nullable>
+				<regularAggregate>unsupported</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">MONTHCAPTION</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>MONTHCAPTION</externalName>
+				<usage>attribute</usage>
+				<datatype>characterLength16</datatype>
+				<precision>25</precision>
+				<scale>0</scale>
+				<size>52</size>
+				<nullable>false</nullable>
+				<regularAggregate>unsupported</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+		</querySubject>
+		<querySubject status="valid">
+			<name locale="en">COGTIMES</name>
+			<lastChanged>2016-12-25T15:38:44</lastChanged>
+			<lastChangedBy>Anonymous</lastChangedBy>
+			
+			<property name="included" type="hidden">true</property><definition>
+				<dbQuery>
+					<sources>
+						<dataSourceRef>[].[dataSources].[IPADATA]</dataSourceRef>
+					</sources>
+					<sql type="cognos">Select   * from [IPADATA].IPA_COGTIMES</sql>
+					<tableType>table</tableType>
+				</dbQuery>
+			</definition>
+			<determinants>
+				<determinant>
+					<name>ID</name>
+					<key>
+						<refobj>[ZIPI].[COGTIMES].[ID]</refobj>
+					</key>
+					<attributes>
+						<refobj>[ZIPI].[COGTIMES].[HOUR]</refobj>
+						<refobj>[ZIPI].[COGTIMES].[MINUTE]</refobj>
+						<refobj>[ZIPI].[COGTIMES].[SECOND]</refobj>
+					</attributes>
+					<canGroup>false</canGroup>
+					<identifiesRow>true</identifiesRow>
+				</determinant>
+			</determinants>
+			<queryItem>
+				<name locale="en">ID</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>ID</externalName>
+				<usage>identifier</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>false</nullable>
+				<regularAggregate>count</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">HOUR</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>HOUR</externalName>
+				<usage>fact</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>false</nullable>
+				<regularAggregate>sum</regularAggregate>
+				<semiAggregate>sum</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">MINUTE</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>MINUTE</externalName>
+				<usage>fact</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>false</nullable>
+				<regularAggregate>sum</regularAggregate>
+				<semiAggregate>sum</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">SECOND</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>SECOND</externalName>
+				<usage>fact</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>false</nullable>
+				<regularAggregate>sum</regularAggregate>
+				<semiAggregate>sum</semiAggregate>
+			</queryItem>
+		</querySubject>
+		<querySubject status="needsReevaluation">
+			<name locale="en">LOGRECORDS</name>
+			<lastChanged>2016-12-25T15:38:51</lastChanged>
+			<lastChangedBy>Anonymous</lastChangedBy>
+			
+			<property name="included" type="hidden">true</property><definition>
+				<dbQuery>
+					<sources>
+						<dataSourceRef>[].[dataSources].[IPADATA]</dataSourceRef>
+					</sources>
+					<sql type="cognos">Select   * from  [IPADATA].IPA_LOGRECORDS</sql>
+					<tableType>table</tableType>
+				</dbQuery>
+			</definition>
+			<determinants/>
+			<queryItem>
+				<name locale="en">ZIPIID</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>ZIPIID</externalName>
+				<usage>attribute</usage>
+				<datatype>characterLength16</datatype>
+				<precision>100</precision>
+				<scale>0</scale>
+				<size>202</size>
+				<nullable>false</nullable>
+				<regularAggregate>unsupported</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">STEP</name>
+				<lastChanged>2023-03-22T18:26:43</lastChanged>
+				<lastChangedBy>Anonymous</lastChangedBy>
+				<property name="included" type="hidden">true</property><externalName>STEP</externalName>
+				<usage>attribute</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>false</nullable>
+				<regularAggregate>unsupported</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">STARTTIME</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>STARTTIME</externalName>
+				<usage>fact</usage>
+				<datatype>int64</datatype>
+				<precision>19</precision>
+				<scale>0</scale>
+				<size>8</size>
+				<nullable>false</nullable>
+				<regularAggregate>sum</regularAggregate>
+				<semiAggregate>sum</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">ELAPSEDTIME</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>ELAPSEDTIME</externalName>
+				<usage>fact</usage>
+				<datatype>int64</datatype>
+				<precision>19</precision>
+				<scale>0</scale>
+				<size>8</size>
+				<nullable>false</nullable>
+				<regularAggregate>sum</regularAggregate>
+				<semiAggregate>sum</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">SELFTIME</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>SELFTIME</externalName>
+				<usage>fact</usage>
+				<datatype>int64</datatype>
+				<precision>19</precision>
+				<scale>0</scale>
+				<size>8</size>
+				<nullable>false</nullable>
+				<regularAggregate>sum</regularAggregate>
+				<semiAggregate>sum</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">ENDTIME</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>ENDTIME</externalName>
+				<usage>fact</usage>
+				<datatype>int64</datatype>
+				<precision>19</precision>
+				<scale>0</scale>
+				<size>8</size>
+				<nullable>false</nullable>
+				<regularAggregate>sum</regularAggregate>
+				<semiAggregate>sum</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">ACTIVITYID</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>ACTIVITYID</externalName>
+				<usage>identifier</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>true</nullable>
+				<regularAggregate>count</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">ELAPSEDTIME_BUCKET_ID</name>
+				<lastChanged>2016-03-17T10:11:25</lastChanged>
+				<lastChangedBy>Anonymous</lastChangedBy>
+				
+				<property name="included" type="hidden">true</property><externalName>ELAPSEDTIME_BUCKET_ID</externalName>
+				<usage>fact</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>true</nullable>
+				<regularAggregate>sum</regularAggregate>
+				<semiAggregate>sum</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">SELFTIME_BUCKET_ID</name>
+				<lastChanged>2016-03-17T10:11:25</lastChanged>
+				<lastChangedBy>Anonymous</lastChangedBy>
+				
+				<property name="included" type="hidden">true</property><externalName>SELFTIME_BUCKET_ID</externalName>
+				<usage>fact</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>true</nullable>
+				<regularAggregate>sum</regularAggregate>
+				<semiAggregate>sum</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">THREAD</name>
+				<lastChanged>2016-04-06T15:19:33</lastChanged>
+				<lastChangedBy>Anonymous</lastChangedBy>
+				
+				<property name="included" type="hidden">true</property><externalName>THREAD</externalName>
+				<usage>identifier</usage>
+				<datatype>characterLength16</datatype>
+				<precision>50</precision>
+				<scale>0</scale>
+				<size>102</size>
+				<nullable>true</nullable>
+				<regularAggregate>unsupported</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">PROCESSID</name>
+				<lastChanged>2016-04-06T15:19:05</lastChanged>
+				<lastChangedBy>Anonymous</lastChangedBy>
+				
+				<property name="included" type="hidden">true</property><externalName>PROCESSID</externalName>
+				<usage>identifier</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>true</nullable>
+				<regularAggregate>count</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">SERVERNAMEID</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>SERVERNAMEID</externalName>
+				<usage>identifier</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>true</nullable>
+				<regularAggregate>count</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">START_TIME_INT</name>
+				<lastChanged>2020-11-05T11:16:07</lastChanged>
+				<lastChangedBy>Anonymous</lastChangedBy>
+				
+				<property name="included" type="hidden">true</property><expression>(<refobj>[ZIPI].[LOGRECORDS].[STARTTIME]</refobj> - minimum          (<refobj>[ZIPI].[LOGRECORDS].[STARTTIME]</refobj> for          <refobj>[ZIPI].[LOGRECORDS].[ZIPIID]</refobj>))/1000000.00</expression>
+				<usage>attribute</usage>
+				<format>&amp;lt;formatGroup&amp;gt;&amp;lt;intervalFormat xml:lang=&amp;quot;en-us&amp;quot; dateSeparator=&amp;quot;-&amp;quot; showMinutes=&amp;quot;2-digits&amp;quot; timeSeparator=&amp;quot;:&amp;quot; showDays=&amp;quot;2-digits&amp;quot; showMilliseconds=&amp;quot;3-digits&amp;quot; showSeconds=&amp;quot;2-digits&amp;quot; showHours=&amp;quot;2-digits&amp;quot; units=&amp;quot;time&amp;quot; showMonths=&amp;quot;2-digits&amp;quot; showYears=&amp;quot;true&amp;quot; /&amp;gt;&amp;lt;/formatGroup&amp;gt;</format>
+				<regularAggregate>unsupported</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">END_TIME_INT</name>
+				<lastChanged>2020-11-05T11:16:02</lastChanged>
+				<lastChangedBy>Anonymous</lastChangedBy>
+				
+				<property name="included" type="hidden">true</property><expression>(<refobj>[ZIPI].[LOGRECORDS].[ENDTIME]</refobj> - minimum          (<refobj>[ZIPI].[LOGRECORDS].[STARTTIME]</refobj> for          <refobj>[ZIPI].[LOGRECORDS].[ZIPIID]</refobj>))/1000000.00</expression>
+				<usage>attribute</usage>
+				<format>&amp;lt;formatGroup&amp;gt;&amp;lt;intervalFormat xml:lang=&amp;quot;en-us&amp;quot; dateSeparator=&amp;quot;-&amp;quot; showMinutes=&amp;quot;2-digits&amp;quot; timeSeparator=&amp;quot;:&amp;quot; showDays=&amp;quot;2-digits&amp;quot; showMilliseconds=&amp;quot;3-digits&amp;quot; showSeconds=&amp;quot;2-digits&amp;quot; showHours=&amp;quot;2-digits&amp;quot; units=&amp;quot;time&amp;quot; showMonths=&amp;quot;2-digits&amp;quot; showYears=&amp;quot;true&amp;quot; /&amp;gt;&amp;lt;/formatGroup&amp;gt;</format>
+				<regularAggregate>unsupported</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">START_DATE</name>
+				<lastChanged>2020-11-05T10:49:15</lastChanged>
+				<lastChangedBy>Anonymous</lastChangedBy>
+				
+				<property name="included" type="hidden">true</property><expression>_add_seconds(1970-01-01T12:00:00.000,<refobj>[ZIPI].[LOGRECORDS].[START_TIME_INT]</refobj>/1000)</expression>
+				<usage>attribute</usage>
+				<format>&amp;lt;formatGroup&amp;gt;&amp;lt;dateTimeFormat xml:lang=&amp;quot;en-us&amp;quot; showMilliseconds=&amp;quot;3-digits&amp;quot; /&amp;gt;&amp;lt;/formatGroup&amp;gt;</format>
+				<regularAggregate>unsupported</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">END_DATE</name>
+				<lastChanged>2020-11-05T10:49:25</lastChanged>
+				<lastChangedBy>Anonymous</lastChangedBy>
+				
+				<property name="included" type="hidden">true</property><expression>_add_seconds(1970-01-01T12:00:00.000,<refobj>[ZIPI].[LOGRECORDS].[END_TIME_INT]</refobj>/1000)</expression>
+				<usage>attribute</usage>
+				<format>&amp;lt;formatGroup&amp;gt;&amp;lt;dateTimeFormat xml:lang=&amp;quot;en-us&amp;quot; showMilliseconds=&amp;quot;3-digits&amp;quot; /&amp;gt;&amp;lt;/formatGroup&amp;gt;</format>
+				<regularAggregate>unsupported</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">ELAPSEDTIME_MS</name>
+				<lastChanged>2020-11-05T11:31:00</lastChanged>
+				<lastChangedBy>Anonymous</lastChangedBy>
+				
+				<property name="included" type="hidden">true</property><expression>
+					<refobj>[ZIPI].[LOGRECORDS].[END_TIME_INT]</refobj>  -<refobj>[ZIPI].[LOGRECORDS].[START_TIME_INT]</refobj>
+				</expression>
+				<usage>attribute</usage>
+				<format>&amp;lt;formatGroup&amp;gt;&amp;lt;intervalFormat xml:lang=&amp;quot;en-us&amp;quot; /&amp;gt;&amp;lt;/formatGroup&amp;gt;</format>
+				<regularAggregate>unsupported</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+		</querySubject>
+		<querySubject status="valid">
+			<name locale="en">RECORDETAILS</name>
+			<lastChanged>2016-12-25T15:38:59</lastChanged>
+			<lastChangedBy>Anonymous</lastChangedBy>
+			
+			<property name="included" type="hidden">true</property><definition>
+				<dbQuery>
+					<sources>
+						<dataSourceRef>[].[dataSources].[IPADATA]</dataSourceRef>
+					</sources>
+					<sql type="cognos">Select   * from  [IPADATA].IPA_RECORDETAILS</sql>
+					<tableType>table</tableType>
+				</dbQuery>
+			</definition>
+			<determinants>
+				<determinant>
+					<name>ZIPIID</name>
+					<key>
+						<refobj>[ZIPI].[RECORDETAILS].[ZIPIID]</refobj>
+					</key>
+					<attributes>
+						<refobj>[ZIPI].[RECORDETAILS].[ENDDATE]</refobj>
+						<refobj>[ZIPI].[RECORDETAILS].[ENDTIME]</refobj>
+						<refobj>[ZIPI].[RECORDETAILS].[STARTDATE]</refobj>
+						<refobj>[ZIPI].[RECORDETAILS].[STARTDATETIME]</refobj>
+						<refobj>[ZIPI].[RECORDETAILS].[STARTTIME]</refobj>
+						<refobj>[ZIPI].[RECORDETAILS].[THRESHOLD]</refobj>
+						<refobj>[ZIPI].[RECORDETAILS].[USERID]</refobj>
+					</attributes>
+					<canGroup>false</canGroup>
+					<identifiesRow>true</identifiesRow>
+				</determinant>
+			</determinants>
+			<queryItem>
+				<name locale="en">ZIPIID</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>ZIPIID</externalName>
+				<usage>identifier</usage>
+				<datatype>characterLength16</datatype>
+				<precision>100</precision>
+				<scale>0</scale>
+				<size>202</size>
+				<nullable>false</nullable>
+				<regularAggregate>unsupported</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">USERID</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>USERID</externalName>
+				<usage>identifier</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>true</nullable>
+				<regularAggregate>count</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">STARTTIME</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>STARTTIME</externalName>
+				<usage>identifier</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>true</nullable>
+				<regularAggregate>count</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">ENDTIME</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>ENDTIME</externalName>
+				<usage>fact</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>true</nullable>
+				<regularAggregate>sum</regularAggregate>
+				<semiAggregate>sum</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">STARTDATE</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>STARTDATE</externalName>
+				<usage>identifier</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>true</nullable>
+				<regularAggregate>count</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">ENDDATE</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>ENDDATE</externalName>
+				<usage>fact</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>true</nullable>
+				<regularAggregate>sum</regularAggregate>
+				<semiAggregate>sum</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">STARTDATETIME</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>STARTDATETIME</externalName>
+				<usage>identifier</usage>
+				<datatype>dateTime</datatype>
+				<precision>0</precision>
+				<scale>0</scale>
+				<size>12</size>
+				<nullable>false</nullable>
+				<regularAggregate>unsupported</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">THRESHOLD</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>THRESHOLD</externalName>
+				<usage>fact</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>true</nullable>
+				<regularAggregate>sum</regularAggregate>
+				<semiAggregate>sum</semiAggregate>
+			</queryItem>
+		</querySubject>
+		<querySubject status="valid">
+			<name locale="en">REPORT_REQ</name>
+			<lastChanged>2016-12-25T15:39:07</lastChanged>
+			<lastChangedBy>Anonymous</lastChangedBy>
+			
+			<property name="included" type="hidden">true</property><definition>
+				<dbQuery>
+					<sources>
+						<dataSourceRef>[].[dataSources].[IPADATA]</dataSourceRef>
+					</sources>
+					<sql type="cognos">Select   * from  [IPADATA].IPA_REPORT_REQ</sql>
+					<tableType>table</tableType>
+				</dbQuery>
+			</definition>
+			<determinants>
+				<determinant>
+					<name>ZIPIID</name>
+					<key>
+						<refobj>[ZIPI].[REPORT_REQ].[ZIPIID]</refobj>
+					</key>
+					<attributes>
+						<refobj>[ZIPI].[REPORT_REQ].[REPORT_FULL_NAME]</refobj>
+						<refobj>[ZIPI].[REPORT_REQ].[REPORT_GESTURE]</refobj>
+						<refobj>[ZIPI].[REPORT_REQ].[REPORT_ID]</refobj>
+						<refobj>[ZIPI].[REPORT_REQ].[REPORT_NAME]</refobj>
+						<refobj>[ZIPI].[REPORT_REQ].[REPORT_TYPE]</refobj>
+					</attributes>
+					<canGroup>false</canGroup>
+					<identifiesRow>true</identifiesRow>
+				</determinant>
+			</determinants>
+			<queryItem>
+				<name locale="en">REPORT_ID</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>REPORT_ID</externalName>
+				<usage>fact</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>false</nullable>
+				<regularAggregate>sum</regularAggregate>
+				<semiAggregate>sum</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">REPORT_NAME</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>REPORT_NAME</externalName>
+				<usage>attribute</usage>
+				<datatype>characterLength16</datatype>
+				<precision>100</precision>
+				<scale>0</scale>
+				<size>202</size>
+				<nullable>true</nullable>
+				<regularAggregate>unsupported</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">REPORT_FULL_NAME</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>REPORT_FULL_NAME</externalName>
+				<usage>attribute</usage>
+				<datatype>characterLength16</datatype>
+				<precision>500</precision>
+				<scale>0</scale>
+				<size>1002</size>
+				<nullable>true</nullable>
+				<regularAggregate>unsupported</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">ZIPIID</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>ZIPIID</externalName>
+				<usage>identifier</usage>
+				<datatype>characterLength16</datatype>
+				<precision>100</precision>
+				<scale>0</scale>
+				<size>202</size>
+				<nullable>false</nullable>
+				<regularAggregate>unsupported</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">REPORT_GESTURE</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>REPORT_GESTURE</externalName>
+				<usage>attribute</usage>
+				<datatype>characterLength16</datatype>
+				<precision>100</precision>
+				<scale>0</scale>
+				<size>202</size>
+				<nullable>true</nullable>
+				<regularAggregate>unsupported</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">REPORT_TYPE</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>REPORT_TYPE</externalName>
+				<usage>attribute</usage>
+				<datatype>characterLength16</datatype>
+				<precision>150</precision>
+				<scale>0</scale>
+				<size>302</size>
+				<nullable>true</nullable>
+				<regularAggregate>unsupported</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+		</querySubject>
+		<querySubject status="valid">
+			<name locale="en">SERVERS</name>
+			<lastChanged>2016-12-25T15:39:14</lastChanged>
+			<lastChangedBy>Anonymous</lastChangedBy>
+			
+			<property name="included" type="hidden">true</property><definition>
+				<dbQuery>
+					<sources>
+						<dataSourceRef>[].[dataSources].[IPADATA]</dataSourceRef>
+					</sources>
+					<sql type="cognos">Select   * from [IPADATA].IPA_SERVERS</sql>
+					<tableType>table</tableType>
+				</dbQuery>
+			</definition>
+			<determinants>
+				<determinant>
+					<name>ID</name>
+					<key>
+						<refobj>[ZIPI].[SERVERS].[ID]</refobj>
+					</key>
+					<attributes>
+						<refobj>[ZIPI].[SERVERS].[SERVER]</refobj>
+					</attributes>
+					<canGroup>false</canGroup>
+					<identifiesRow>true</identifiesRow>
+				</determinant>
+			</determinants>
+			<queryItem>
+				<name locale="en">ID</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>ID</externalName>
+				<usage>identifier</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>false</nullable>
+				<regularAggregate>count</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">SERVER</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>SERVER</externalName>
+				<usage>attribute</usage>
+				<datatype>characterLength16</datatype>
+				<precision>100</precision>
+				<scale>0</scale>
+				<size>202</size>
+				<nullable>true</nullable>
+				<regularAggregate>unsupported</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+		</querySubject>
+		<querySubject status="valid">
+			<name locale="en">USERS</name>
+			<lastChanged>2016-12-25T15:39:21</lastChanged>
+			<lastChangedBy>Anonymous</lastChangedBy>
+			
+			<property name="included" type="hidden">true</property><definition>
+				<dbQuery>
+					<sources>
+						<dataSourceRef>[].[dataSources].[IPADATA]</dataSourceRef>
+					</sources>
+					<sql type="cognos">Select   * from  [IPADATA].IPA_USERS</sql>
+					<tableType>table</tableType>
+				</dbQuery>
+			</definition>
+			<determinants>
+				<determinant>
+					<name>ID</name>
+					<key>
+						<refobj>[ZIPI].[USERS].[ID]</refobj>
+					</key>
+					<attributes>
+						<refobj>[ZIPI].[USERS].[USERNAME]</refobj>
+					</attributes>
+					<canGroup>false</canGroup>
+					<identifiesRow>true</identifiesRow>
+				</determinant>
+			</determinants>
+			<queryItem>
+				<name locale="en">ID</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>ID</externalName>
+				<usage>identifier</usage>
+				<datatype>int32</datatype>
+				<precision>10</precision>
+				<scale>0</scale>
+				<size>4</size>
+				<nullable>false</nullable>
+				<regularAggregate>count</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+			<queryItem>
+				<name locale="en">USERNAME</name>
+				<lastChanged>2014-02-19T09:07:26</lastChanged>
+				
+				<property name="included" type="hidden">true</property><externalName>USERNAME</externalName>
+				<usage>attribute</usage>
+				<datatype>characterLength16</datatype>
+				<precision>100</precision>
+				<scale>0</scale>
+				<size>202</size>
+				<nullable>true</nullable>
+				<regularAggregate>unsupported</regularAggregate>
+				<semiAggregate>unsupported</semiAggregate>
+			</queryItem>
+		</querySubject>
+		<relationship status="valid">
+			<name>ACTIVITY_ACTIONS &lt;--&gt; LOGRECORDS</name>
+			<expression>
+				<refobj>[ZIPI].[ACTIVITY_ACTIONS].[ID]</refobj>=<refobj>[ZIPI].[LOGRECORDS].[ACTIVITYID]</refobj>
+			</expression>
+			<left>
+				<refobj>[ZIPI].[ACTIVITY_ACTIONS]</refobj>
+				<mincard>one</mincard>
+				<maxcard>one</maxcard>
+			</left>
+			<right>
+				<refobj>[ZIPI].[LOGRECORDS]</refobj>
+				<mincard>one</mincard>
+				<maxcard>many</maxcard>
+			</right>
+		</relationship>
+		<relationship status="valid">
+			<name>SERVERS &lt;--&gt; LOGRECORDS</name>
+			<expression>
+				<refobj>[ZIPI].[SERVERS].[ID]</refobj>=<refobj>[ZIPI].[LOGRECORDS].[SERVERNAMEID]</refobj>
+			</expression>
+			<left>
+				<refobj>[ZIPI].[SERVERS]</refobj>
+				<mincard>one</mincard>
+				<maxcard>one</maxcard>
+			</left>
+			<right>
+				<refobj>[ZIPI].[LOGRECORDS]</refobj>
+				<mincard>one</mincard>
+				<maxcard>many</maxcard>
+			</right>
+		</relationship>
+		<relationship status="valid">
+			<name>USERS &lt;--&gt; RECORDETAILS</name>
+			<expression>
+				<refobj>[ZIPI].[USERS].[ID]</refobj>=<refobj>[ZIPI].[RECORDETAILS].[USERID]</refobj>
+			</expression>
+			<left>
+				<refobj>[ZIPI].[USERS]</refobj>
+				<mincard>zero</mincard>
+				<maxcard>one</maxcard>
+			</left>
+			<right>
+				<refobj>[ZIPI].[RECORDETAILS]</refobj>
+				<mincard>one</mincard>
+				<maxcard>many</maxcard>
+			</right>
+		</relationship>
+		<relationship status="valid">
+			<name>COGTIMES &lt;--&gt; RECORDETAILS</name>
+			<expression>
+				<refobj>[ZIPI].[COGTIMES].[ID]</refobj>=<refobj>[ZIPI].[RECORDETAILS].[STARTTIME]</refobj>
+			</expression>
+			<left>
+				<refobj>[ZIPI].[COGTIMES]</refobj>
+				<mincard>one</mincard>
+				<maxcard>one</maxcard>
+			</left>
+			<right>
+				<refobj>[ZIPI].[RECORDETAILS]</refobj>
+				<mincard>one</mincard>
+				<maxcard>many</maxcard>
+			</right>
+		</relationship>
+		<relationship status="valid">
+			<name>COGDATES &lt;--&gt; RECORDETAILS</name>
+			<expression>
+				<refobj>[ZIPI].[COGDATES].[ID]</refobj>=<refobj>[ZIPI].[RECORDETAILS].[STARTDATE]</refobj>
+			</expression>
+			<left>
+				<refobj>[ZIPI].[COGDATES]</refobj>
+				<mincard>one</mincard>
+				<maxcard>one</maxcard>
+			</left>
+			<right>
+				<refobj>[ZIPI].[RECORDETAILS]</refobj>
+				<mincard>one</mincard>
+				<maxcard>many</maxcard>
+			</right>
+		</relationship>
+		<relationship status="invalid">
+			<name>LOGRECORDS &lt;--&gt; RECORDETAILS</name>
+			<expression>
+				<refobj>[ZIPI].[LOGRECORDS].[ZIPIID]</refobj> = <refobj>[ZIPI].[RECORDETAILS].[ZIPIID]</refobj>
+			</expression>
+			<left>
+				<refobj>[ZIPI].[LOGRECORDS]</refobj>
+				<mincard>one</mincard>
+				<maxcard>many</maxcard>
+			</left>
+			<right>
+				<refobj>[ZIPI].[RECORDETAILS]</refobj>
+				<mincard>one</mincard>
+				<maxcard>one</maxcard>
+			</right>
+		</relationship>
+		<relationship status="invalid">
+			<name>REPORT_REQ &lt;--&gt; LOGRECORDS</name>
+			<expression>
+				<refobj>[ZIPI].[REPORT_REQ].[ZIPIID]</refobj> = <refobj>[ZIPI].[LOGRECORDS].[ZIPIID]</refobj>
+			</expression>
+			<left>
+				<refobj>[ZIPI].[REPORT_REQ]</refobj>
+				<mincard>zero</mincard>
+				<maxcard>one</maxcard>
+			</left>
+			<right>
+				<refobj>[ZIPI].[LOGRECORDS]</refobj>
+				<mincard>one</mincard>
+				<maxcard>many</maxcard>
+			</right>
+		</relationship>
+	</namespace>
+	<dataSources>
+		<dataSource>
+			<name>IPADATA</name>
+			<cmDataSource>IPADATA</cmDataSource>
+			<type/>
+		</dataSource>
+	</dataSources>
+	<parameterMaps>
+		<parameterMap hidden="true">
+			<name>_env</name>
+			<!--This reserved map supplies default values for session variables.-->
+		</parameterMap>
+		<parameterMap hidden="true">
+			<name>_governor</name>
+			<!--This reserved map specifies query governor limits.-->
+			<parameterMapEntry>
+				<key>maxTablesPerQuery</key>
+				<value>0</value>
+			</parameterMapEntry>
+			<parameterMapEntry>
+				<key>maxRowsRetrieved</key>
+				<value>0</value>
+			</parameterMapEntry>
+			<parameterMapEntry>
+				<key>maxQueryExecutionTime</key>
+				<value>0</value>
+			</parameterMapEntry>
+			<parameterMapEntry>
+				<key>maxTextBlobCharacters</key>
+				<value>0</value>
+			</parameterMapEntry>
+			<parameterMapEntry>
+				<key>useMetadataCallback</key>
+				<value>true</value>
+			</parameterMapEntry>
+			<parameterMapEntry>
+				<key>localCache</key>
+				<value>false</value>
+			</parameterMapEntry>
+			<parameterMapEntry>
+				<key>dynamicDimensionInfo</key>
+				<value>false</value>
+			</parameterMapEntry>
+			<parameterMapEntry>
+				<key>useSQLWithClause</key>
+				<value>true</value>
+			</parameterMapEntry>
+			<parameterMapEntry>
+				<key>suppress</key>
+				<value>nulls</value>
+			</parameterMapEntry>
+			<parameterMapEntry>
+				<key>processAllModelWhenPublishing</key>
+				<value>false</value>
+			</parameterMapEntry>
+			<parameterMapEntry>
+				<key>maxPersonalDataSources</key>
+				<value>1</value>
+			</parameterMapEntry>
+			<parameterMapEntry>
+				<key>maxPersonalDataFileSize</key>
+				<value>2500</value>
+			</parameterMapEntry>
+			<parameterMapEntry>
+				<key>maxPersonalDataRowCount</key>
+				<value>1000</value>
+			</parameterMapEntry>
+			<parameterMapEntry>
+				<key>cachePolicyConnectionCommandBlocks</key>
+				<value>true</value>
+			</parameterMapEntry>
+			<parameterMapEntry>
+				<key>outerJoinAllowed</key>
+				<value>0</value>
+			</parameterMapEntry>
+			<parameterMapEntry>
+				<key>crossProductAllowed</key>
+				<value>2</value>
+			</parameterMapEntry>
+			<parameterMapEntry>
+				<key>shortcutProcessing</key>
+				<value>explicit</value>
+			</parameterMapEntry>
+			<parameterMapEntry>
+				<key>useSQLJoinSyntax</key>
+				<value>unknown</value>
+			</parameterMapEntry>
+			<parameterMapEntry>
+				<key>categorizeByMeasureDimensionQueryItems</key>
+				<value>unknown</value>
+			</parameterMapEntry>
+			<parameterMapEntry>
+				<key>SQLgenerationForLevelAttributes</key>
+				<value>ServerDetermined</value>
+			</parameterMapEntry>
+			<parameterMapEntry>
+				<key>SQLgenerationForDeterminantAttributes</key>
+				<value>ServerDetermined</value>
+			</parameterMapEntry>
+			<parameterMapEntry>
+				<key>useSQLParameters</key>
+				<value>unknown</value>
+			</parameterMapEntry>
+			<parameterMapEntry>
+				<key>exactNumericDivision</key>
+				<value>0</value>
+			</parameterMapEntry>
+			<parameterMapEntry>
+				<key>cachePolicyDBAccess</key>
+				<value>0</value>
+			</parameterMapEntry>
+			<parameterMapEntry>
+				<key>cachePolicyModelSecurity</key>
+				<value>0</value>
+			</parameterMapEntry>
+			<parameterMapEntry>
+				<key>contextSensitiveJoinSelection</key>
+				<value>disabled</value>
+			</parameterMapEntry>
+			<parameterMapEntry>
+				<key>localCachePolicy</key>
+				<value>0</value>
+			</parameterMapEntry>
+			<parameterMapEntry>
+				<key>cursorMode</key>
+				<value>0</value>
+			</parameterMapEntry>
+			<parameterMapEntry>
+				<key>masterDetailOptimization</key>
+				<value>0</value>
+			</parameterMapEntry>
+		</parameterMap>
+	</parameterMaps>
+	<securityViews>
+		
+	<securityView><name>ZIPI</name><definition><set includeRule="include"><refobj>[ZIPI]</refobj><refobj>[ZIPI].[ACTIVITY_ACTIONS].[ID]</refobj><refobj>[ZIPI].[ACTIVITY_ACTIONS].[ACTIONNAME]</refobj><refobj>[ZIPI].[ACTIVITY_ACTIONS].[ACTIONID]</refobj><refobj>[ZIPI].[ACTIVITY_ACTIONS].[OBJECTNAME]</refobj><refobj>[ZIPI].[ACTIVITY_ACTIONS].[OBJECTID]</refobj><refobj>[ZIPI].[ACTIVITY_ACTIONS].[SERVICENAME]</refobj><refobj>[ZIPI].[ACTIVITY_ACTIONS].[SERVICEID]</refobj><refobj>[ZIPI].[ACTIVITY_ACTIONS].[PROCESSNAME]</refobj><refobj>[ZIPI].[BUCKETS].[BUCKET_ID]</refobj><refobj>[ZIPI].[BUCKETS].[BUCKET_NAME]</refobj><refobj>[ZIPI].[BUCKETS].[BUCKET_TYPE]</refobj><refobj>[ZIPI].[BUCKETS].[FROM_VALUE]</refobj><refobj>[ZIPI].[BUCKETS].[TO_VALUE]</refobj><refobj>[ZIPI].[COGDATES].[ID]</refobj><refobj>[ZIPI].[COGDATES].[COGDATE]</refobj><refobj>[ZIPI].[COGDATES].[YEAR]</refobj><refobj>[ZIPI].[COGDATES].[MONTH]</refobj><refobj>[ZIPI].[COGDATES].[DAY]</refobj><refobj>[ZIPI].[COGDATES].[CALENDARQUARTER]</refobj><refobj>[ZIPI].[COGDATES].[CALENDARWEEK]</refobj><refobj>[ZIPI].[COGDATES].[CALENDARDAY]</refobj><refobj>[ZIPI].[COGDATES].[DAYOFTHEWEEK]</refobj><refobj>[ZIPI].[COGDATES].[DAYCAPTION]</refobj><refobj>[ZIPI].[COGDATES].[MONTHCAPTION]</refobj><refobj>[ZIPI].[COGTIMES].[ID]</refobj><refobj>[ZIPI].[COGTIMES].[HOUR]</refobj><refobj>[ZIPI].[COGTIMES].[MINUTE]</refobj><refobj>[ZIPI].[COGTIMES].[SECOND]</refobj><refobj>[ZIPI].[LOGRECORDS].[ZIPIID]</refobj><refobj>[ZIPI].[LOGRECORDS].[STEP]</refobj><refobj>[ZIPI].[LOGRECORDS].[STARTTIME]</refobj><refobj>[ZIPI].[LOGRECORDS].[ELAPSEDTIME]</refobj><refobj>[ZIPI].[LOGRECORDS].[SELFTIME]</refobj><refobj>[ZIPI].[LOGRECORDS].[ENDTIME]</refobj><refobj>[ZIPI].[LOGRECORDS].[ACTIVITYID]</refobj><refobj>[ZIPI].[LOGRECORDS].[ELAPSEDTIME_BUCKET_ID]</refobj><refobj>[ZIPI].[LOGRECORDS].[SELFTIME_BUCKET_ID]</refobj><refobj>[ZIPI].[LOGRECORDS].[THREAD]</refobj><refobj>[ZIPI].[LOGRECORDS].[PROCESSID]</refobj><refobj>[ZIPI].[LOGRECORDS].[SERVERNAMEID]</refobj><refobj>[ZIPI].[LOGRECORDS].[START_TIME_INT]</refobj><refobj>[ZIPI].[LOGRECORDS].[END_TIME_INT]</refobj><refobj>[ZIPI].[LOGRECORDS].[START_DATE]</refobj><refobj>[ZIPI].[LOGRECORDS].[END_DATE]</refobj><refobj>[ZIPI].[LOGRECORDS].[ELAPSEDTIME_MS]</refobj><refobj>[ZIPI].[RECORDETAILS].[ZIPIID]</refobj><refobj>[ZIPI].[RECORDETAILS].[USERID]</refobj><refobj>[ZIPI].[RECORDETAILS].[STARTTIME]</refobj><refobj>[ZIPI].[RECORDETAILS].[ENDTIME]</refobj><refobj>[ZIPI].[RECORDETAILS].[STARTDATE]</refobj><refobj>[ZIPI].[RECORDETAILS].[ENDDATE]</refobj><refobj>[ZIPI].[RECORDETAILS].[STARTDATETIME]</refobj><refobj>[ZIPI].[RECORDETAILS].[THRESHOLD]</refobj><refobj>[ZIPI].[REPORT_REQ].[REPORT_ID]</refobj><refobj>[ZIPI].[REPORT_REQ].[REPORT_NAME]</refobj><refobj>[ZIPI].[REPORT_REQ].[REPORT_FULL_NAME]</refobj><refobj>[ZIPI].[REPORT_REQ].[ZIPIID]</refobj><refobj>[ZIPI].[REPORT_REQ].[REPORT_GESTURE]</refobj><refobj>[ZIPI].[REPORT_REQ].[REPORT_TYPE]</refobj><refobj>[ZIPI].[SERVERS].[ID]</refobj><refobj>[ZIPI].[SERVERS].[SERVER]</refobj><refobj>[ZIPI].[USERS].[ID]</refobj><refobj>[ZIPI].[USERS].[USERNAME]</refobj><refobj>[ZIPI].[ACTIVITY_ACTIONS]</refobj><refobj>[ZIPI].[BUCKETS]</refobj><refobj>[ZIPI].[COGDATES]</refobj><refobj>[ZIPI].[COGTIMES]</refobj><refobj>[ZIPI].[LOGRECORDS]</refobj><refobj>[ZIPI].[RECORDETAILS]</refobj><refobj>[ZIPI].[REPORT_REQ]</refobj><refobj>[ZIPI].[SERVERS]</refobj><refobj>[ZIPI].[USERS]</refobj></set></definition><access/><functionSets><functionSet><functionSetID>V_Aster</functionSetID></functionSet><functionSet><functionSetID>V_DB2</functionSetID></functionSet><functionSet><functionSetID>V_Greenplum</functionSetID></functionSet><functionSet><functionSetID>V_Informix</functionSetID></functionSet><functionSet><functionSetID>V_MSAccess</functionSetID></functionSet><functionSet><functionSetID>V_MySQL</functionSetID></functionSet><functionSet><functionSetID>V_Netezza</functionSetID></functionSet><functionSet><functionSetID>V_Oracle</functionSetID></functionSet><functionSet><functionSetID>V_Paraccel</functionSetID></functionSet><functionSet><functionSetID>V_Postgres</functionSetID></functionSet><functionSet><functionSetID>V_Redbrick</functionSetID></functionSet><functionSet><functionSetID>V_SAPBW</functionSetID></functionSet><functionSet><functionSetID>V_SFDC</functionSetID></functionSet><functionSet><functionSetID>V_SQLServer</functionSetID></functionSet><functionSet><functionSetID>V_Sybase</functionSetID></functionSet><functionSet><functionSetID>V_Teradata</functionSetID></functionSet><functionSet><functionSetID>V_Vectorwise</functionSetID></functionSet><functionSet><functionSetID>V_Vertica</functionSetID></functionSet></functionSets><qosOverrides/></securityView></securityViews>
+	<packages>
+		<package>
+			<name locale="en">ZIPI</name>
+			<description locale="en"/>
+			<lastChanged>2023-03-23T06:38:16</lastChanged>
+			<lastChangedBy>Anonymous</lastChangedBy>
+			<screenTip locale="en"/>
+			<lastPublished>2023-03-22T18:27:18</lastPublished>
+			<lastPublishedCMPath>/content</lastPublishedCMPath>
+			<locales>
+				<locale>en</locale>
+			</locales>
+			<definition>
+				<viewref>[].[securityViews].[ZIPI]</viewref>
+			</definition>
+			<adminAccess/>
+			<useV5DataServer>false</useV5DataServer>
+		</package>
+	</packages>
+</project>

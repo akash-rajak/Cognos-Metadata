@@ -1,0 +1,398 @@
+<report xmlns="http://developer.cognos.com/schemas/report/15.5/"           expressionLocale="en-us"><!--RSU-SPC-0093 The report specification was upgraded from "http://developer.cognos.com/schemas/report/12.0/" to "http://developer.cognos.com/schemas/report/15.5/" at 2023-3-14. 14:2:44--><!--RSU-SPC-0093 The report specification was upgraded from "http://developer.cognos.com/schemas/report/11.0/" to "http://developer.cognos.com/schemas/report/12.0/" at 2017-3-24. 12:28:55--><!--RSU-SPC-0093 The report specification was upgraded from &quot;http://developer.cognos.com/schemas/report/9.0/&quot; to &quot;http://developer.cognos.com/schemas/report/11.0/&quot; at 2014-11-10. 13:24:30--><!--RSU-SPC-0093 The report specification was upgraded from &amp;amp;amp;amp;quot;http://developer.cognos.com/schemas/report/6.0/&amp;amp;amp;amp;quot; to &amp;amp;amp;amp;quot;http://developer.cognos.com/schemas/report/9.0/&amp;amp;amp;amp;quot; at 2013-4-11. 17:26:25-->
+				<modelPath>/content/package[@name=&apos;PassportDW&apos;]/model[@name=&apos;2022-11-16T20:25:59.739Z&apos;]</modelPath>
+				
+				<queries>
+					<query name="Main Query">
+						<source>
+							<model/>
+						</source>
+						<selection><dataItem aggregate="none" label="Organization" name="Organization" rollupAggregate="none"><expression>case when ([Matter Org KEY] is not missing) then([Business View].[BTMATTERORGANIZATION].[ORG_NAME])else null end</expression></dataItem><dataItem aggregate="none" label="Open Date" name="Open Date" rollupAggregate="none"><expression>[Business View].[BTMATTERORGANIZATION].[MATTER_OPEN_DATE]</expression></dataItem><dataItem aggregate="calculated" label="Days Open" name="Days Open"><expression>_days_between (case when ([Business View].[BTMATTERORGANIZATION].[MATTER_CLOSE_DATE] is not missing and [Business View].[BTMATTERORGANIZATION].[MATTER_CLOSE_DATE]&lt;=(current_date)) then
+([Business View].[BTMATTERORGANIZATION].[MATTER_CLOSE_DATE]) else (current_date) end,[Business View].[BTMATTERORGANIZATION].[MATTER_OPEN_DATE])</expression></dataItem><dataItem aggregate="none" label="Matter Name" name="Matter Name" rollupAggregate="none"><expression>[Business View].[BTMATTERORGANIZATION].[MATTER_NAME]</expression></dataItem><dataItem aggregate="none" label="Closed Date" name="Closed Date" rollupAggregate="none"><expression>[Business View].[BTMATTERORGANIZATION].[MATTER_CLOSE_DATE]</expression></dataItem><dataItem aggregate="none" name="Matter Org KEY" rollupAggregate="none"><expression>[Business View].[BTMATTERORGANIZATION].[MATTER_ORGANIZATION_KEY]</expression></dataItem><dataItem aggregate="calculated" name="Average(Days Open)" rollupAggregate="average"><expression>[Days Open]</expression></dataItem><dataItem aggregate="none" label="Org KEY" name="Org KEY" rollupAggregate="none"><expression>[Business View].[BTMATTERORGANIZATION].[ORGANIZATION_KEY]</expression></dataItem></selection>
+					<detailFilters>  <detailFilter><filterExpression>[Business View].[BTMATTERORGANIZATION].[MATTER_OPEN_DATE] &lt;=current_date </filterExpression></detailFilter><detailFilter use="optional"><filterExpression>([Business View].[BTMATTERORGANIZATION].[MATTER_OPEN_DATE] in_range ?Matter Open Date?)</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[BTMATTERORGANIZATION].[ORGANIZATION_KEY] in ?Organization Name?</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[BTMATTERORGANIZATION].[ORG_TYPE_CODE] =&apos;External&apos;</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[BTMATTERORGANIZATION].[MATTER_KEY] is not missing
+</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[BTMATTERORGANIZATION].[MATTER_KEY] in (?Matter?)</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[DIMPRATICEAREABUSINESSUNIT].[BUSINESS_UNIT_ID] in ?Business Unit?</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[DIMPRATICEAREABUSINESSUNIT].[PRACTICE_AREA_ID] in ?Practice Area?</filterExpression></detailFilter><detailFilter><filterExpression>[Business View].[BTMATTERORGANIZATION].[START_DATE]&lt;=current_date </filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[BTMATTERORGANIZATION].[MATTER_STATUS_ID] in ?Matter Status?</filterExpression></detailFilter></detailFilters></query>
+				<query name="Chart Query"><source><model/></source><selection><dataItem aggregate="none" label="Organization" name="Organization" rollupAggregate="none"><expression>if([Matter Org KEY] is not missing)then([Business View].[BTMATTERORGANIZATION].[ORG_NAME]) else null</expression></dataItem><dataItem label="Rank" name="Rank"><expression>rank([Average(Open days)])</expression></dataItem><dataItem aggregate="calculated" label="Days Open" name="Days Open"><expression>_days_between (case when ([Business View].[BTMATTERORGANIZATION].[MATTER_CLOSE_DATE] is not missing and [Business View].[BTMATTERORGANIZATION].[MATTER_CLOSE_DATE]&lt;=(current_date)) then
+([Business View].[BTMATTERORGANIZATION].[MATTER_CLOSE_DATE]) else (current_date) end,[Business View].[BTMATTERORGANIZATION].[MATTER_OPEN_DATE])</expression></dataItem><dataItem aggregate="calculated" name="Average(Open days)" sort="descending"><expression>average([Days Open] for [Organization])</expression></dataItem><dataItem aggregate="none" name="Matter Org KEY" rollupAggregate="none"><expression>[Business View].[BTMATTERORGANIZATION].[MATTER_ORGANIZATION_KEY]</expression></dataItem><dataItem aggregate="none" label="Org KEY" name="Org KEY" rollupAggregate="none"><expression>[Business View].[BTMATTERORGANIZATION].[ORGANIZATION_KEY]</expression></dataItem></selection><detailFilters><detailFilter postAutoAggregation="true"><filterExpression>[Rank]&lt;=?Top N?</filterExpression></detailFilter><detailFilter><filterExpression>[Business View].[BTMATTERORGANIZATION].[MATTER_OPEN_DATE] &lt;=current_date </filterExpression></detailFilter><detailFilter use="optional"><filterExpression>([Business View].[BTMATTERORGANIZATION].[MATTER_OPEN_DATE] in_range ?Matter Open Date?)</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[BTMATTERORGANIZATION].[ORGANIZATION_KEY] in ?Organization Name?</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[BTMATTERORGANIZATION].[ORG_TYPE_CODE] =&apos;External&apos;</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[BTMATTERORGANIZATION].[MATTER_KEY] is not missing
+</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[BTMATTERORGANIZATION].[MATTER_KEY] in (?Matter?)</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[DIMPRATICEAREABUSINESSUNIT].[BUSINESS_UNIT_ID] in ?Business Unit?</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[DIMPRATICEAREABUSINESSUNIT].[PRACTICE_AREA_ID] in ?Practice Area?</filterExpression></detailFilter><detailFilter><filterExpression>[Business View].[BTMATTERORGANIZATION].[START_DATE]&lt;=current_date </filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[BTMATTERORGANIZATION].[MATTER_STATUS_ID] in ?Matter Status?</filterExpression></detailFilter></detailFilters></query><query name="Matter Pmt">
+			<source>
+				<model/>
+			</source>
+			<selection><dataItem aggregate="none" label="key" name="key"><expression>[Business View].[DIMMATTER].[MATTER_KEY]</expression></dataItem><dataItem aggregate="none" name="Matter Name" rollupAggregate="none" sort="ascending"><expression>[Business View].[DIMMATTER].[MATTER_NUMBER]+&apos; - &apos;+[Business View].[DIMMATTER].[NAME]</expression></dataItem></selection>
+		</query><query name="Organization Pmt">
+			<source>
+				<model/>
+			</source>
+			<selection autoSummary="false"><dataItem aggregate="none" name="Name" rollupAggregate="none" sort="ascending"><expression>[Business View].[DIMORGANIZATION].[NAME]</expression></dataItem><dataItem aggregate="none" name="key" rollupAggregate="none"><expression>[Business View].[DIMORGANIZATION].[ORGANIZATION_KEY]</expression></dataItem></selection>
+		<detailFilters><detailFilter><filterExpression>[Business View].[DIMORGANIZATION].[NAME] is not missing</filterExpression></detailFilter><detailFilter><filterExpression>[Business View].[DIMORGANIZATION].[ORGANIZATION_TYPE_CODE]=&apos;External&apos;</filterExpression></detailFilter></detailFilters></query><query name="Business Unit Pmt"><source><model/></source><selection><dataItem aggregate="none" name="id" rollupAggregate="none"><expression>[Business View].[LKPBUSINESSUNIT].[ID]</expression></dataItem><dataItem aggregate="none" detail="false" name="Name" rollupAggregate="none" sort="ascending"><expression>[Business View].[LKPBUSINESSUNIT].[NAME]</expression></dataItem></selection></query><query name="Practice Area Pmt"><source><model/></source><selection autoSummary="false"><dataItem aggregate="none" detail="false" name="id" rollupAggregate="none"><expression>[Business View].[LKPPRACTICEAREA].[ID]</expression></dataItem><dataItem aggregate="none" detail="false" name="Name" rollupAggregate="none" sort="ascending"><expression>[Business View].[LKPPRACTICEAREA].[NAME]</expression></dataItem></selection></query><query name="Matter Status Pmt">
+			<source>
+				<model/>
+			</source>
+			<selection autoSummary="false"><dataItem aggregate="none" label="Matter Status ID" name="id" rollupAggregate="none"><expression>[Business View].[LKPMATTERSTATUS].[ID]</expression></dataItem><dataItem aggregate="none" name="Matter Status Name" rollupAggregate="none" sort="ascending"><expression>[Business View].[LKPMATTERSTATUS].[DISPLAY_NAME]</expression></dataItem></selection>
+		</query></queries>
+				<layouts>
+					<layout>
+						<reportPages>
+							<page name="Page1"><style><defaultStyles><defaultStyle refStyle="pg"/></defaultStyles></style>
+								<pageBody><style><defaultStyles><defaultStyle refStyle="pb"/></defaultStyles><CSS value="text-align:center"/></style>
+									<contents>
+										<block>
+			<contents><table><style><defaultStyles><defaultStyle refStyle="tb"/></defaultStyles><CSS value="border-collapse:collapse;width:100%"/></style><tableRows><tableRow><tableCells><tableCell><contents/><style><CSS value="text-align:left;vertical-align:top;padding-right:4px;padding-left:4px;font-weight:bold"/></style></tableCell><tableCell><contents/><style><CSS value="vertical-align:top;text-align:left;font-weight:bold"/></style></tableCell><tableCell><contents/><style><CSS value="vertical-align:top;text-align:left;padding-right:4px;padding-left:4px;font-weight:bold"/></style></tableCell><tableCell><contents/><style><CSS value="vertical-align:top;text-align:left;font-weight:bold;padding-top:4px;padding-bottom:4px"/></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><textItem><dataSource><staticValue>Matter Open Date</staticValue></dataSource><style><CSS value="font-weight:bold"/></style></textItem></contents><style><CSS value="font-weight:bold;vertical-align:top;text-align:left;padding-right:4px;padding-left:4px"/></style></tableCell><tableCell><contents><selectDate parameter="Matter Open Date" range="true" required="false" selectDateUI="editBox"/></contents><style><CSS value="text-align:left;vertical-align:top"/></style></tableCell><tableCell><contents><textItem><dataSource><staticValue>Top &apos;N&apos; Organizations by Days Open</staticValue></dataSource><style><CSS value="padding-right:4px;padding-left:4px;font-weight:bold"/></style></textItem></contents><style><CSS value="padding-right:4px;padding-left:4px;vertical-align:top;text-align:right"/></style></tableCell><tableCell><contents><selectValue parameter="Top N" required="false"><selectOptions><selectOption useValue="5"><displayValue>5</displayValue></selectOption><selectOption useValue="10"><displayValue>10</displayValue></selectOption><selectOption useValue="15"><displayValue>15</displayValue></selectOption><selectOption useValue="20"><displayValue>20</displayValue></selectOption></selectOptions></selectValue></contents><style><CSS value="text-align:center;vertical-align:top"/></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell colSpan="4"><contents><promptButton type="reprompt">
+			<contents><textItem><dataSource><staticValue>Refresh</staticValue></dataSource></textItem></contents>
+			<style>
+				<defaultStyles>
+					<defaultStyle refStyle="bp"/>
+				</defaultStyles>
+			<CSS value="font-weight:bold"/></style>
+		</promptButton></contents><style><CSS value="text-align:center;padding-top:3px;padding-bottom:3px"/></style></tableCell></tableCells></tableRow></tableRows></table></contents>
+		</block><block>
+			<contents><table><style><defaultStyles><defaultStyle refStyle="tb"/></defaultStyles><CSS value="border-collapse:collapse;width:100%"/></style><tableRows><tableRow><tableCells><tableCell><contents><combinationChart depth="50" maxHotspots="10000" name="Combination Chart2" orientation="horizontal" refQuery="Chart Query" showTooltips="true">
+								
+								<ordinalAxis>
+									<axisTitle refQuery="Chart Query">
+										<style>
+											<defaultStyles>
+												<defaultStyle refStyle="at"/>
+											</defaultStyles>
+										</style>
+									<chartContents><chartTextItem><dataSource><staticValue>Organization</staticValue></dataSource></chartTextItem></chartContents></axisTitle>
+									<axisLine/>
+									<style>
+										<defaultStyles>
+											<defaultStyle refStyle="al"/>
+										</defaultStyles>
+									</style>
+								</ordinalAxis>
+								<numericalAxisY1>
+									<axisTitle refQuery="Chart Query">
+										<style>
+											<defaultStyles>
+												<defaultStyle refStyle="at"/>
+											</defaultStyles>
+										</style>
+									<chartContents><chartTextItem><dataSource><staticValue>Average Open Days</staticValue></dataSource></chartTextItem></chartContents></axisTitle>
+									<gridlines color="#cccccc"/>
+									<axisLine/>
+									<style>
+										<defaultStyles>
+											<defaultStyle refStyle="al"/>
+										</defaultStyles>
+									</style>
+								</numericalAxisY1>
+								<combinationChartTypes>
+									<bar valueType="stacked"/>
+								</combinationChartTypes>
+								<style>
+									<defaultStyles>
+										<defaultStyle refStyle="ch"/>
+									</defaultStyles>
+								<CSS value="padding-top:30px;padding-bottom:20px;border:1pt solid black"/></style>
+								<commonClusters><chartNodes><chartNode><chartNodeMembers><chartNodeMember refDataItem="Organization"><chartContents><chartTextItem><dataSource><dataItemValue refDataItem="Organization"/></dataSource></chartTextItem></chartContents><propertyList><propertyItem refDataItem="Rank"/></propertyList><sortList><sortItem refDataItem="Average(Open days)" sortOrder="descending"/></sortList></chartNodeMember></chartNodeMembers></chartNode></chartNodes></commonClusters><chartTitle refQuery="Chart Query"><style><defaultStyles><defaultStyle refStyle="ct"/></defaultStyles></style><chartContents><chartTextItem><dataSource><staticValue>Average Days Matter Open By Top </staticValue></dataSource></chartTextItem><chartTextItem><dataSource><reportExpression>IF(ParamDisplayValue(&apos;Top N&apos;) is null) THEN (&apos;All&apos;) ELSE (ParamDisplayValue(&apos;Top N&apos;))</reportExpression></dataSource></chartTextItem><chartTextItem><dataSource><staticValue>  Organizations</staticValue></dataSource></chartTextItem></chartContents></chartTitle><defaultChartMeasure refDataItem="Average(Open days)"><style><dataFormat><numberFormat decimalSize="0"/></dataFormat></style></defaultChartMeasure><XMLAttributes><XMLAttribute name="titlesExpanded" output="no" value="true"/></XMLAttributes></combinationChart></contents><style><CSS value="text-align:center;padding-top:20px;padding-bottom:20px"/></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents/></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><list horizontalPagination="true" name="List1" refQuery="Main Query">
+											
+											
+											
+											<style>
+												<defaultStyles>
+													<defaultStyle refStyle="ls"/>
+												</defaultStyles>
+												<CSS value="border-collapse:collapse"/>
+											</style>
+										<listColumns><listColumn><listColumnTitle><style><defaultStyles><defaultStyle refStyle="lt"/></defaultStyles><CSS value="font-weight:bold"/></style><contents><textItem><dataSource><dataItemLabel refDataItem="Organization"/></dataSource></textItem></contents></listColumnTitle><listColumnBody><style><defaultStyles><defaultStyle refStyle="lc"/></defaultStyles><CSS value="text-align:left"/></style><contents><textItem><dataSource><dataItemValue refDataItem="Organization"/></dataSource></textItem></contents><listColumnRowSpan refDataItem="Organization"/></listColumnBody></listColumn><listColumn><listColumnTitle><style><defaultStyles><defaultStyle refStyle="lt"/></defaultStyles><CSS value="font-weight:bold"/></style><contents><textItem><dataSource><dataItemLabel refDataItem="Matter Name"/></dataSource></textItem></contents></listColumnTitle><listColumnBody><style><defaultStyles><defaultStyle refStyle="lc"/></defaultStyles><CSS value="text-align:left"/></style><contents><textItem><dataSource><dataItemValue refDataItem="Matter Name"/></dataSource></textItem></contents></listColumnBody></listColumn><listColumn><listColumnTitle><style><defaultStyles><defaultStyle refStyle="lt"/></defaultStyles><CSS value="font-weight:bold"/></style><contents><textItem><dataSource><dataItemLabel refDataItem="Open Date"/></dataSource></textItem></contents></listColumnTitle><listColumnBody><style><defaultStyles><defaultStyle refStyle="lc"/></defaultStyles><CSS value="text-align:left"/><dataFormat><dateFormat dateSeparator="/" dateStyle="short" showDays="2-digits" showMonths="2-digits" showYears="true"/></dataFormat></style><contents><textItem><dataSource><dataItemValue refDataItem="Open Date"/></dataSource></textItem></contents></listColumnBody></listColumn><listColumn><listColumnTitle><style><defaultStyles><defaultStyle refStyle="lt"/></defaultStyles><CSS value="font-weight:bold"/></style><contents><textItem><dataSource><dataItemLabel refDataItem="Closed Date"/></dataSource></textItem></contents></listColumnTitle><listColumnBody><style><defaultStyles><defaultStyle refStyle="lc"/></defaultStyles><CSS value="text-align:left"/><dataFormat><dateFormat dateSeparator="/" dateStyle="short" showDays="2-digits" showMonths="2-digits" showYears="true"/></dataFormat></style><contents><textItem><dataSource><dataItemValue refDataItem="Closed Date"/></dataSource></textItem></contents></listColumnBody></listColumn><listColumn><listColumnTitle><style><defaultStyles><defaultStyle refStyle="lt"/></defaultStyles><CSS value="font-weight:bold"/></style><contents><textItem><dataSource><dataItemLabel refDataItem="Days Open"/></dataSource></textItem></contents></listColumnTitle><listColumnBody><style><defaultStyles><defaultStyle refStyle="lm"/></defaultStyles><CSS value="text-align:right"/><dataFormat><numberFormat decimalSize="0"/></dataFormat></style><contents><textItem><dataSource><dataItemValue refDataItem="Days Open"/></dataSource></textItem></contents></listColumnBody></listColumn></listColumns><listGroups><listGroup refDataItem="Organization"><listFooter><listRows><listRow><rowCells><rowCell colSpan="4"><contents><textItem><dataSource><dataItemValue refDataItem="Organization"/></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="of"/></defaultStyles></style></rowCell><rowCell><contents><textItem><dataSource><dataItemValue refDataItem="Average(Days Open)"/></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="os"/></defaultStyles><dataFormat><numberFormat decimalSize="0"/></dataFormat></style></rowCell></rowCells></listRow></listRows></listFooter></listGroup></listGroups><listOverallGroup><listFooter><listRows><listRow><rowCells><rowCell colSpan="4"><contents><textItem><dataSource><staticValue>Summary</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="of"/></defaultStyles><CSS value="display:none"/></style></rowCell><rowCell><contents/><style><defaultStyles><defaultStyle refStyle="os"/></defaultStyles><CSS value="display:none"/></style></rowCell></rowCells></listRow><listRow><rowCells><rowCell colSpan="4"><contents><textItem><dataSource><staticValue>Average</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="of"/></defaultStyles></style></rowCell><rowCell><contents><textItem><dataSource><dataItemValue refDataItem="Average(Days Open)"/></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="os"/></defaultStyles><dataFormat><numberFormat decimalSize="0"/></dataFormat></style></rowCell></rowCells></listRow></listRows></listFooter></listOverallGroup><sortList><sortItem refDataItem="Days Open" sortOrder="descending"/></sortList></list></contents><style><CSS value="text-align:center;padding-bottom:20px"/></style></tableCell></tableCells></tableRow></tableRows></table></contents>
+		</block>
+							
+							
+									</contents>
+								</pageBody>
+								<pageHeader>
+									<contents>
+										<block><style><defaultStyles><defaultStyle refStyle="ta"/></defaultStyles></style>
+											<contents>
+												<textItem><style><defaultStyles><defaultStyle refStyle="tt"/></defaultStyles></style>
+													<dataSource>
+														
+													<reportExpression>IF ((substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/report[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName()) contains &quot;folder[@name=&quot;)  OR ((substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/reportView[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName()) contains &quot;folder[@name=&quot;)
+THEN
+(ReportName())
+ELSE
+(
+IF (ReportPath() contains &quot;reportView&quot;)
+THEN (substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/reportView[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName())
+
+ELSE
+(substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/report[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName())
+)
+
+
+
+</reportExpression></dataSource>
+												</textItem>
+											</contents>
+										</block>
+									<table><style><defaultStyles><defaultStyle refStyle="tb"/></defaultStyles><CSS value="border-collapse:collapse;width:100%"/></style><tableRows><tableRow><tableCells><tableCell><contents><textItem><dataSource><staticValue>Filters :</staticValue></dataSource><style><CSS value="font-weight:bold"/></style></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Top N&apos;)+ &apos;-&apos; +ParamDisplayValue(&apos;Top N&apos;)+&apos;;&apos;</reportExpression></dataSource></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Open Date&apos;)+ &apos; - &apos; +ParamDisplayValue(&apos;Open Date&apos;)+&apos;;&apos;</reportExpression></dataSource></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Business Unit&apos;)+ &apos;-&apos; +ParamDisplayValue(&apos;Business Unit&apos;)+&apos;;&apos;</reportExpression></dataSource></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Practice Area&apos;)+ &apos;-&apos; +ParamDisplayValue(&apos;Practice Area&apos;)+&apos;;&apos;</reportExpression></dataSource></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Matter Name&apos;)+ &apos;-&apos; +ParamDisplayValue(&apos;Matter Name&apos;)+&apos;;&apos;</reportExpression></dataSource></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Matter Number&apos;)+ &apos;-&apos; +ParamDisplayValue(&apos;Matter Number&apos;)+&apos;;&apos;</reportExpression></dataSource></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Matter Status&apos;)+ &apos;-&apos; +ParamDisplayValue(&apos;Matter Status&apos;)+&apos;;&apos;</reportExpression></dataSource></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Organization Name&apos;)+ &apos;-&apos; +ParamDisplayValue(&apos;Organization Name&apos;)+&apos;;&apos;</reportExpression></dataSource></textItem></contents><style><CSS value="text-align:center;font-style:italic"/></style></tableCell></tableCells></tableRow></tableRows></table></contents>
+									<style>
+										<defaultStyles>
+											<defaultStyle refStyle="ph"/>
+										</defaultStyles>
+										<CSS value="padding-bottom:10px"/>
+									</style>
+								</pageHeader>
+								<pageFooter>
+									<contents>
+										<table>
+											<tableRows>
+												<tableRow>
+													<tableCells>
+														<tableCell>
+															<contents>
+																<date>
+																	<style>
+																		<dataFormat>
+																			<dateFormat/>
+																		</dataFormat>
+																	</style>
+																</date>
+															</contents>
+															<style>
+																<CSS value="vertical-align:top;text-align:left;width:25%"/>
+															</style>
+														</tableCell>
+														<tableCell>
+															<contents>
+																<pageNumber/>
+															</contents>
+															<style>
+																<CSS value="vertical-align:top;text-align:center;width:50%"/>
+															</style>
+														</tableCell>
+														<tableCell>
+															<contents>
+																<time>
+																	<style>
+																		<dataFormat>
+																			<timeFormat/>
+																		</dataFormat>
+																	</style>
+																</time>
+															</contents>
+															<style>
+																<CSS value="vertical-align:top;text-align:right;width:25%"/>
+															</style>
+														</tableCell>
+													</tableCells>
+												</tableRow>
+											</tableRows>
+											<style>
+												<defaultStyles>
+													<defaultStyle refStyle="tb"/>
+												</defaultStyles>
+												<CSS value="border-collapse:collapse;width:100%"/>
+											</style>
+										</table>
+									</contents>
+									<style>
+										<defaultStyles>
+											<defaultStyle refStyle="pf"/>
+										</defaultStyles>
+										<CSS value="padding-top:10px"/>
+									</style>
+								</pageFooter>
+							</page>
+						</reportPages>
+					<promptPages><page name="StandardPromptPage">
+			<pageHeader>
+				<contents>
+					<block>
+						<contents>
+							<textItem>
+								<dataSource>
+									
+								<reportExpression>IF ((substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/report[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName()) contains &quot;folder[@name=&quot;)  OR ((substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/reportView[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName()) contains &quot;folder[@name=&quot;)
+THEN
+(ReportName())
+ELSE
+(
+IF (ReportPath() contains &quot;reportView&quot;)
+THEN (substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/reportView[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName())
+
+ELSE
+(substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/report[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName())
+)
+
+
+
+</reportExpression></dataSource>
+								<style>
+									<defaultStyles>
+										<defaultStyle refStyle="tt"/>
+									</defaultStyles>
+								</style>
+							</textItem>
+						</contents>
+						<style>
+							<defaultStyles>
+								<defaultStyle refStyle="ta"/>
+							</defaultStyles>
+						</style>
+					</block>
+				<block>
+			<contents><promptButton type="cancel">
+			<contents/>
+			<style>
+				<defaultStyles>
+					<defaultStyle refStyle="bp"/>
+				</defaultStyles>
+			</style>
+		</promptButton><promptButton type="finish">
+			<contents/>
+			<style>
+				<defaultStyles>
+					<defaultStyle refStyle="bp"/>
+				</defaultStyles>
+			</style>
+		</promptButton></contents>
+		<style><defaultStyles><defaultStyle refStyle="fp"/></defaultStyles></style></block></contents>
+				<style>
+					<defaultStyles>
+						<defaultStyle refStyle="hp"/>
+					</defaultStyles>
+				<CSS value="text-align:center"/></style>
+			</pageHeader>
+			<pageBody>
+				<contents><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;script type=&quot;text/javascript&quot; src=&quot;../ps/portal/js/dcStandardPromptPage.js&quot;&gt;&lt;/script&gt;</staticValue>
+			</dataSource>
+		</HTMLItem><block>
+			<contents><table><style><defaultStyles><defaultStyle refStyle="tb"/></defaultStyles><CSS value="border-collapse:collapse;width:100%"/></style><tableRows><tableRow><tableCells><tableCell colSpan="2"><contents><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;span id=&quot;Top10&quot; class=&quot;Collapsible&quot;&gt; &lt;/span&gt;
+&lt;img onclick=&apos;ExpandCollapse(this,0)&apos; src=&apos;../pat/hal/images/minus.gif&apos; style=&apos;cursor:hand;vertical-align:middle; margin-right:2px&apos;/&gt;
+&lt;span onclick=&apos;ExpandCollapse(this.previousSibling,0)&apos; style=&apos;cursor:hand&apos;&gt;</staticValue>
+			</dataSource>
+		</HTMLItem><textItem><dataSource><staticValue>Top N</staticValue></dataSource><style><CSS value="font-weight:bold"/></style></textItem><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;/span&gt;
+</staticValue>
+			</dataSource>
+		</HTMLItem></contents><style><defaultStyles><defaultStyle refStyle="sh"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell colSpan="2"><contents><textItem><dataSource><staticValue>Top N Organizations</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell colSpan="2"><contents><selectValue parameter="Top N"><defaultSelections><defaultSimpleSelection>10</defaultSimpleSelection></defaultSelections><selectOptions><selectOption useValue="5"><displayValue>5</displayValue></selectOption><selectOption useValue="10"><displayValue>10</displayValue></selectOption><selectOption useValue="15"><displayValue>15</displayValue></selectOption><selectOption useValue="25"><displayValue>25</displayValue></selectOption><selectOption useValue="50"><displayValue>50</displayValue></selectOption></selectOptions></selectValue></contents></tableCell></tableCells></tableRow></tableRows></table></contents>
+		</block><block>
+			<contents><table><style><defaultStyles><defaultStyle refStyle="tb"/></defaultStyles><CSS value="border-collapse:collapse;width:100%"/></style><tableRows><tableRow><tableCells><tableCell colSpan="2"><contents><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;span id=&quot;DateTable&quot; class=&quot;Collapsible&quot;&gt; &lt;/span&gt;
+&lt;img onclick=&apos;ExpandCollapse(this,1)&apos; src=&apos;../pat/hal/images/minus.gif&apos; style=&apos;cursor:hand;vertical-align:middle; margin-right:2px&apos;/&gt;
+&lt;span onclick=&apos;ExpandCollapse(this.previousSibling,1)&apos; style=&apos;cursor:hand&apos;&gt;</staticValue>
+			</dataSource>
+		</HTMLItem><textItem><dataSource><staticValue>Dates</staticValue></dataSource><style><CSS value="font-weight:bold"/></style></textItem><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;/span&gt;
+</staticValue>
+			</dataSource>
+		</HTMLItem></contents><style><defaultStyles><defaultStyle refStyle="sh"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell colSpan="2"><contents><textItem><dataSource><staticValue>Matter Open Date</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell colSpan="2"><contents><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;div id=&quot;Matter Open Date&quot;&gt;</staticValue>
+			</dataSource>
+		</HTMLItem><selectDate parameter="Matter Open Date" range="true" required="false" selectDateUI="editBox"/><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;/div&gt;
+&lt;script&gt;
+AssignDefaultDateValue(&quot;Matter Open Date&quot;);
+&lt;/script&gt;</staticValue>
+			</dataSource>
+		</HTMLItem></contents></tableCell></tableCells></tableRow></tableRows></table></contents>
+		<style/></block><block>
+			<contents><table><style><defaultStyles><defaultStyle refStyle="tb"/></defaultStyles><CSS value="border-collapse:collapse;width:100%"/></style><tableRows><tableRow><tableCells><tableCell colSpan="2"><contents><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;span id=&quot;PABUTable&quot; class=&quot;Collapsible Collapsed&quot;&gt; &lt;/span&gt;
+&lt;img onclick=&apos;ExpandCollapse(this,2)&apos; src=&apos;../pat/hal/images/plus.gif&apos; style=&apos;cursor:hand;vertical-align:middle; margin-right:2px&apos;/&gt;
+&lt;span onclick=&apos;ExpandCollapse(this.previousSibling,2)&apos; style=&apos;cursor:hand&apos;&gt;</staticValue>
+			</dataSource>
+		</HTMLItem><textItem><dataSource><staticValue>Business Unit / Practice Area</staticValue></dataSource><style><CSS value="font-weight:bold"/></style></textItem><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;/span&gt;
+</staticValue>
+			</dataSource>
+		</HTMLItem></contents><style><defaultStyles><defaultStyle refStyle="sh"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><textItem><dataSource><staticValue>Business Unit</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell><tableCell><contents><textItem><dataSource><staticValue>Practice Area</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><selectValue multiSelect="true" parameter="Business Unit" refQuery="Business Unit Pmt" required="false" selectValueUI="listBox"><useItem refDataItem="id"><displayItem refDataItem="Name"/></useItem></selectValue></contents></tableCell><tableCell><contents><selectValue multiSelect="true" parameter="Practice Area" refQuery="Practice Area Pmt" required="false" selectValueUI="listBox"><useItem refDataItem="id"><displayItem refDataItem="Name"/></useItem></selectValue></contents></tableCell></tableCells></tableRow></tableRows></table></contents>
+		<style/></block><block>
+			<contents><table><style><defaultStyles><defaultStyle refStyle="tb"/></defaultStyles><CSS value="border-collapse:collapse;width:100%"/></style><tableRows><tableRow><tableCells><tableCell colSpan="3"><contents><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;span id=&quot;MatterTable&quot; class=&quot;Collapsible Collapsed&quot;&gt; &lt;/span&gt;
+&lt;img onclick=&apos;ExpandCollapse(this,3)&apos; src=&apos;../pat/hal/images/plus.gif&apos; style=&apos;cursor:hand;vertical-align:middle; margin-right:2px&apos;/&gt;
+&lt;span onclick=&apos;ExpandCollapse(this.previousSibling,3)&apos; style=&apos;cursor:hand&apos;&gt;</staticValue>
+			</dataSource>
+		</HTMLItem><textItem><dataSource><staticValue>Matter</staticValue></dataSource><style><CSS value="font-weight:bold"/></style></textItem><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;/span&gt;
+</staticValue>
+			</dataSource>
+		</HTMLItem></contents><style><defaultStyles><defaultStyle refStyle="sh"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell colSpan="2"><contents><textItem><dataSource><staticValue>Matter Status</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell><tableCell><contents><textItem><dataSource><staticValue>Matter Number - Matter Name</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell colSpan="2"><contents><selectValue multiSelect="true" parameter="Matter Status" refQuery="Matter Status Pmt" required="false" selectValueUI="listBox"><useItem refDataItem="id"><displayItem refDataItem="Matter Status Name"/></useItem></selectValue></contents></tableCell><tableCell><contents><selectWithSearch multiSelect="true" parameter="Matter" refQuery="Matter Pmt" required="false"><useItem refDataItem="key"><displayItem refDataItem="Matter Name"/></useItem></selectWithSearch></contents></tableCell></tableCells><style><CSS value="text-align:left;vertical-align:top"/></style></tableRow></tableRows></table></contents>
+		<style/></block><block>
+			<contents><table><style><defaultStyles><defaultStyle refStyle="tb"/></defaultStyles><CSS value="border-collapse:collapse;width:100%"/></style><tableRows><tableRow><tableCells><tableCell><contents><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;span id=&quot;OrganizationTable&quot; class=&quot;Collapsible Collapsed&quot;&gt;  &lt;/span&gt;
+&lt;img onclick=&apos;ExpandCollapse(this,4)&apos; src=&apos;../pat/hal/images/plus.gif&apos; style=&apos;cursor:hand;vertical-align:middle; margin-right:2px&apos;/&gt;
+&lt;span onclick=&apos;ExpandCollapse(this.previousSibling,4)&apos; style=&apos;cursor:hand&apos;&gt;</staticValue>
+			</dataSource>
+		</HTMLItem><textItem><dataSource><staticValue>Organization</staticValue></dataSource><style><CSS value="font-weight:bold"/></style></textItem><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;/span&gt;
+</staticValue>
+			</dataSource>
+		</HTMLItem></contents><style><defaultStyles><defaultStyle refStyle="sh"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><textItem><dataSource><staticValue>Organization</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><selectWithSearch multiSelect="true" parameter="Organization Name" refQuery="Organization Pmt" required="false"><useItem refDataItem="key"><displayItem refDataItem="Name"/></useItem></selectWithSearch></contents></tableCell></tableCells></tableRow></tableRows></table><block>
+			<contents><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;script&gt;
+StartHidden(&quot;Top10&quot;,0,0);
+StartHidden(&quot;DateTable&quot;,1,0);
+StartHidden(&quot;PABUTable&quot;,2,1);
+StartHidden(&quot;MatterTable&quot;,3,1);
+StartHidden(&quot;OrganizationTable&quot;,4,1);
+setLocationHash();
+&lt;/script&gt;</staticValue>
+			</dataSource>
+		</HTMLItem></contents>
+		<style/></block></contents>
+		<style/></block></contents>
+				<style>
+					<defaultStyles>
+						<defaultStyle refStyle="py"/>
+					</defaultStyles>
+				</style>
+			</pageBody>
+			<pageFooter>
+				<contents>
+					<promptButton type="cancel">
+						<contents/>
+						<style>
+							<defaultStyles>
+								<defaultStyle refStyle="bp"/>
+							</defaultStyles>
+						</style>
+					</promptButton>
+					
+					
+					<promptButton type="finish">
+						<contents/>
+						<style>
+							<defaultStyles>
+								<defaultStyle refStyle="bp"/>
+							</defaultStyles>
+						</style>
+					</promptButton>
+				</contents>
+				<style>
+					<defaultStyles>
+						<defaultStyle refStyle="fp"/>
+					</defaultStyles>
+				</style>
+			</pageFooter>
+			<style>
+				<defaultStyles>
+					<defaultStyle refStyle="pp"/>
+				</defaultStyles>
+			</style>
+		</page></promptPages></layout>
+				</layouts>
+			<XMLAttributes><XMLAttribute name="RS_CreateExtendedDataItems" output="no" value="true"/><XMLAttribute name="listSeparator" output="no" value=","/><XMLAttribute output="no" name="RS_modelModificationTime" value="2022-11-16T20:25:59.783Z"/><XMLAttribute output="no" name="decimalSeparator" value="."/></XMLAttributes><drillBehavior/><reportVariables><reportVariable name="ShowOnlyForHtml" type="boolean">
+			<reportExpression>ReportOutput () = &apos;HTML&apos;</reportExpression>
+			<variableValues>
+				<variableValue value="1"/>
+			</variableValues>
+		</reportVariable></reportVariables><reportName>Average Days Matter Open By Organization</reportName></report>

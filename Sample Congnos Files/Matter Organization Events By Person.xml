@@ -1,0 +1,739 @@
+<report xmlns="http://developer.cognos.com/schemas/report/15.5/"           expressionLocale="en-us"><!--RSU-SPC-0093 The report specification was upgraded from "http://developer.cognos.com/schemas/report/11.0/" to "http://developer.cognos.com/schemas/report/15.0/" at 2020-4-30. 4:53:21--><!--RSU-SPC-0093 The report specification was upgraded from &amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;quot;http://developer.cognos.com/schemas/report/9.0/&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;quot; to &amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;quot;http://developer.cognos.com/schemas/report/11.0/&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;quot; at 2014-11-5. 15:15:0--><!--RSU-SPC-0093 The report specification was upgraded from &amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;quot;http://developer.cognos.com/schemas/report/6.0/&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;quot; to &amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;quot;http://developer.cognos.com/schemas/report/9.0/&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;quot; at 2013-4-4. 10:55:57-->
+				<modelPath>/content/package[@name=&apos;PassportDW&apos;]/model[@name=&apos;2022-11-16T20:25:59.739Z&apos;]</modelPath>
+				<drillBehavior/>
+				<queries>
+					
+				<query name="EventAsignee">
+			<source>
+				
+			<model/></source>
+			<selection><dataItem aggregate="none" label="Assignee" name="Assignee" rollupAggregate="none"><expression>[Business View].[MatterEvent People].[FULL_NAME]</expression></dataItem><dataItem aggregate="none" name="Assignee KEY" rollupAggregate="none"><expression>[Business View].[MatterEvent People].[PERSON_KEY]</expression></dataItem><dataItem aggregate="none" name="Event Start Date" rollupAggregate="none"><expression>[Business View].[MatterEvent].[START_DATE_TIME]</expression></dataItem><dataItem aggregate="none" name="Description" rollupAggregate="none"><expression>[Business View].[MatterEvent].[Description]</expression></dataItem><dataItem aggregate="none" name="Event Type" rollupAggregate="none"><expression>[Business View].[MatterEvent].[EVENT_TYPE_NAME]</expression></dataItem><dataItem aggregate="none" name="Event End Date" rollupAggregate="none"><expression>[Business View].[MatterEvent].[END_DATE_TIME]</expression></dataItem><dataItem aggregate="none" name="Event Name" rollupAggregate="none"><expression>[Business View].[MatterEvent].[NAME]</expression></dataItem><dataItem aggregate="none" name="Matter Event KEY" rollupAggregate="none"><expression>[Business View].[MatterEvent].[MATTER_EVENT_KEY]</expression></dataItem><dataItem aggregate="none" name="Due Date" rollupAggregate="none"><expression>[Business View].[MatterEvent].[DUE_DATE]</expression></dataItem><dataItem aggregate="none" name="Completed Date" rollupAggregate="none"><expression>[Business View].[MatterEvent].[COMPLETED_DATE]</expression></dataItem><dataItem aggregate="none" name="Matter Event Type ID" rollupAggregate="none"><expression>[Business View].[MatterEvent].[EVENT_TYPE_ID]</expression></dataItem><dataItem aggregate="none" name="Matter Id" rollupAggregate="none"><expression>[Business View].[MatterEvent].[MATTER_ID]</expression></dataItem><dataItem aggregate="none" name="Matter Key" rollupAggregate="none"><expression>[Business View].[DIMMATTER].[MATTER_KEY]</expression><XMLAttributes><XMLAttribute name="RS_dataType" output="no" value="1"/><XMLAttribute name="RS_dataUsage" output="no" value="identifier"/></XMLAttributes></dataItem><dataItem aggregate="none" name="Matter Name" rollupAggregate="none"><expression>[Business View].[DIMMATTER].[NAME]</expression><XMLAttributes><XMLAttribute name="RS_dataType" output="no" value="3"/><XMLAttribute name="RS_dataUsage" output="no" value="attribute"/></XMLAttributes></dataItem><dataItem aggregate="none" name="Sort Column" rollupAggregate="none"><expression>if ([Business View].[MatterEvent].[START_DATE_TIME] is null) then 
+([Business View].[MatterEvent].[DUE_DATE]) else
+([Business View].[MatterEvent].[START_DATE_TIME])
+</expression></dataItem></selection>
+		<detailFilters><detailFilter><filterExpression>[Matter Event KEY] is not missing</filterExpression></detailFilter><detailFilter><filterExpression>[Assignee KEY] is not missing</filterExpression></detailFilter><detailFilter><filterExpression>[Business View].[MatterEvent].[MATTER_EVENT_KEY] is not missing</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[MatterEvent].[EVENT_TYPE_ID]  in ?Event Type?</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>(cast([Business View].[MatterEvent].[START_DATE_TIME],date) in_range ?Event Date? )or
+(cast([Business View].[MatterEvent].[END_DATE_TIME],date) in_range ?Event Date? ) or ( cast([Business View].[MatterEvent].[DUE_DATE],date) in_range ?Event Date?)</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[MatterEvent].[MATTER_KEY] in (?Matter?)
+
+</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[DIMMATTER].[STATE_KEY] in (?Matter State?)</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[DIMMATTER].[CITY] in (?Matter City?)</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[DIMMATTER].[MATTER_KEY] in (?Matter?)</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[DIMMATTER].[MATTER_STATUS_ID] in (?Matter Status?)</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[DIMMATTER].[PRIMARY_INTERNAL_PERSON_KEY] in ?Primary Internal Contact?</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[DIMMATTER].[PRIMARY_MATTER_TYPE_ID] in (?Matter Type?)</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[DIMPRATICEAREABUSINESSUNIT].[PRACTICE_AREA_ID] in (?Practice Area?)
+</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[DIMPRATICEAREABUSINESSUNIT].[BUSINESS_UNIT_ID] in (?Business Unit?)</filterExpression></detailFilter></detailFilters></query><query name="Classification">
+			<source>
+				
+			<model/></source>
+			<selection>
+				
+				
+				
+				
+				
+			<dataItem aggregate="none" name="Person KEY" rollupAggregate="none"><expression>[Business View].[BTPERSONORGANIZATION].[PERSON_KEY]</expression></dataItem><dataItem aggregate="none" label="Classification" name="Classification" rollupAggregate="none"><expression>[Business View].[BTPERSONORGANIZATION].[TIMEKEEPER_LEVEL_NAME]</expression></dataItem><dataItem aggregate="none" label="Classification ID" name="Classification ID" rollupAggregate="none"><expression>[Business View].[BTPERSONORGANIZATION].[TIMEKEEPER_LEVEL_ID]</expression></dataItem></selection>
+		<detailFilters><detailFilter><filterExpression>[Business View].[BTPERSONORGANIZATION].[PERSON_KEY] is not missing</filterExpression></detailFilter></detailFilters><queryHints><queryProcessing value="databaseOnly"/></queryHints></query><query name="MatterQuery">
+			<source>
+				
+			<model/></source>
+			<selection><dataItem aggregate="none" label="Matter ID" name="Matter ID" rollupAggregate="none"><expression>[Business View].[DIMMATTER].[ID]</expression></dataItem><dataItem aggregate="none" name="Matter Name" rollupAggregate="none"><expression>[Business View].[DIMMATTER].[NAME]</expression></dataItem><dataItem aggregate="none" name="Matter Org KEY" rollupAggregate="none"><expression>[Business View].[BTMATTERORGANIZATION].[MATTER_ORGANIZATION_KEY]</expression></dataItem><dataItem aggregate="none" name="Organization" rollupAggregate="none"><expression>[Business View].[BTMATTERORGANIZATION].[ORG_NAME]
+</expression></dataItem><dataItem aggregate="none" label="Matter KEY" name="Matter KEY" rollupAggregate="none"><expression>[Business View].[DIMMATTER].[MATTER_KEY]</expression></dataItem><dataItem aggregate="none" name="Organization Key" rollupAggregate="none"><expression>[Business View].[BTMATTERORGANIZATION].[ORGANIZATION_KEY]</expression><XMLAttributes><XMLAttribute name="RS_dataType" output="no" value="1"/><XMLAttribute name="RS_dataUsage" output="no" value="identifier"/></XMLAttributes></dataItem></selection>
+		<detailFilters><detailFilter><filterExpression>[Business View].[BTMATTERORGANIZATION].[(Bit)Primary Org]=1</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[DIMMATTER].[MATTER_STATUS_ID] in ?Matter Status?</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[DIMMATTER].[PRIMARY_MATTER_TYPE_ID] in ?Matter Type?</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[DIMPRATICEAREABUSINESSUNIT].[BUSINESS_UNIT_ID] in ?Business Unit?</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[DIMPRATICEAREABUSINESSUNIT].[PRACTICE_AREA_ID] in (?Practice Area?)</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[BTMATTERORGANIZATION].[ORGANIZATION_KEY] in (?Primary Organization Name?)</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[DIMMATTER].[MATTER_KEY] in (?Matter?)</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[DIMMATTER].[PRIMARY_INTERNAL_PERSON_KEY] in ?Primary Internal Contact?</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[DIMMATTER].[STATE_KEY] in (?Matter State?) </filterExpression></detailFilter><detailFilter use="optional"><filterExpression>(case when [Business View].[DIMMATTER].[CITY] is missing then (&apos;Unspecified&apos;)else [Business View].[DIMMATTER].[CITY] end) in ?Matter City?</filterExpression></detailFilter></detailFilters></query><query name="Event">
+			<source>
+				
+			<joinOperation>
+			<joinOperands>
+				<joinOperand><queryRef refQuery="EventAsignee"/></joinOperand>
+				<joinOperand cardinality="0:1"><queryRef refQuery="Classification"/></joinOperand>
+			</joinOperands>
+			<joinFilter>
+				<filterExpression>[EventAsignee].[Assignee KEY] = [Classification].[Person KEY]</filterExpression>
+			</joinFilter>
+		</joinOperation></source>
+			<selection><dataItem name="Event Start Date"><expression>[EventAsignee].[Event Start Date]</expression></dataItem><dataItem name="Description"><expression>[EventAsignee].[Description]</expression></dataItem><dataItem name="Event Type"><expression>[EventAsignee].[Event Type]</expression></dataItem><dataItem name="Event End Date"><expression>[EventAsignee].[Event End Date]</expression></dataItem><dataItem name="Event Name"><expression>[EventAsignee].[Event Name]</expression></dataItem><dataItem name="Assignee"><expression>[EventAsignee].[Assignee]</expression></dataItem><dataItem name="Matter Event KEY"><expression>[EventAsignee].[Matter Event KEY]</expression></dataItem><dataItem name="Assignee KEY"><expression>[EventAsignee].[Assignee KEY]</expression></dataItem><dataItem name="Classification"><expression>[Classification].[Classification]</expression></dataItem><dataItem name="Classification ID"><expression>[Classification].[Classification ID]</expression></dataItem><dataItem name="Due Date"><expression>[EventAsignee].[Due Date]</expression></dataItem><dataItem name="Completed Date"><expression>[EventAsignee].[Completed Date]</expression></dataItem><dataItem name="Matter Id"><expression>[EventAsignee].[Matter Id]</expression></dataItem><dataItem name="Matter Name"><expression>[EventAsignee].[Matter Name]</expression></dataItem><dataItem name="Matter Key"><expression>[EventAsignee].[Matter Key]</expression></dataItem><dataItem aggregate="none" name="Sort Column" rollupAggregate="none"><expression>[EventAsignee].[Sort Column]</expression></dataItem></selection>
+		<detailFilters><detailFilter><filterExpression>[Matter Event KEY] is not missing</filterExpression></detailFilter><detailFilter><filterExpression>[Matter Id] is not missing</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Classification ID] in ?Classification?</filterExpression></detailFilter></detailFilters></query><query name="MatterEvent">
+			<source>
+				
+			<joinOperation>
+			<joinOperands>
+				<joinOperand><queryRef refQuery="Event"/></joinOperand>
+				<joinOperand cardinality="0:1"><queryRef refQuery="MatterQuery"/></joinOperand>
+			</joinOperands>
+			<joinFilter>
+				<filterExpression>[Event].[Matter Id] = [MatterQuery].[Matter ID]</filterExpression>
+			</joinFilter>
+		</joinOperation></source>
+			<selection><dataItem name="Matter Event KEY"><expression>[Event].[Matter Event KEY]</expression></dataItem><dataItem aggregate="none" label="Event Type" name="Event Type"><expression>[Event].[Event Type]</expression></dataItem><dataItem label="Event Name" name="Event Name"><expression>[Event].[Event Name]</expression></dataItem><dataItem aggregate="none" label="Event Count" name="Event Count" rollupAggregate="summarize"><expression>count(distinct([Matter Event KEY] )for [Unique])</expression></dataItem><dataItem name="Matter Name"><expression>[Event].[Matter Name]</expression></dataItem><dataItem name="Unique"><expression>[Event Type]+&apos;-&apos;+[Assignee]+&apos;-&apos;+[Matter Name]</expression></dataItem><dataItem aggregate="calculated" name="Event Total"><expression>total([Event Count] for [Assignee])</expression></dataItem><dataItem label="Person Name" name="Assignee"><expression>[Event].[Assignee]</expression></dataItem><dataItem label="Start Date Time" name="Start Date Time"><expression>[Event].[Event Start Date]</expression></dataItem><dataItem label="End Date Time " name="End Date Time"><expression>[Event].[Event End Date]</expression></dataItem><dataItem name="Due Date"><expression>[Event].[Due Date]</expression></dataItem><dataItem name="Completed Date"><expression>[Event].[Completed Date]</expression></dataItem><dataItem name="Classification"><expression>case when [Event].[Classification] is missing then &apos;Unspecified&apos; else [Event].[Classification] end</expression></dataItem><dataItem label="Event Description" name="Description"><expression>[Event].[Description]</expression></dataItem><dataItem label="Primary Organization Name" name="Organization"><expression>[MatterQuery].[Organization]</expression></dataItem><dataItem name="Application Url"><expression>[Business View].[Application Url]</expression></dataItem><dataItem name="id"><expression>cast([Event].[Matter Id],VARCHAR(10))</expression></dataItem><dataItem name="Organization Key"><expression>[MatterQuery].[Organization Key]</expression></dataItem><dataItem aggregate="none" name="Sort Column" rollupAggregate="none"><expression>[Event].[Sort Column]</expression></dataItem></selection>
+		<detailFilters><detailFilter><filterExpression>[Matter Event KEY] is not missing</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Organization Key] in ?Primary Organization Name?</filterExpression></detailFilter></detailFilters></query><query name="MatterEventChart">
+			<source>
+				
+			<joinOperation>
+			<joinOperands>
+				<joinOperand><queryRef refQuery="Event"/></joinOperand>
+				<joinOperand cardinality="0:1"><queryRef refQuery="MatterQuery"/></joinOperand>
+			</joinOperands>
+			<joinFilter>
+				<filterExpression>[Event].[Matter Id] = [MatterQuery].[Matter ID]</filterExpression>
+			</joinFilter>
+		</joinOperation></source>
+			<selection autoSummary="false"><dataItem name="Matter Event KEY"><expression>[Event].[Matter Event KEY]</expression></dataItem><dataItem aggregate="none" label="Event Type" name="Event Type"><expression>[Event].[Event Type]</expression></dataItem><dataItem name="Rank"><expression>rank([Event Total])</expression></dataItem><dataItem aggregate="none" label="Person Name" name="Assignee"><expression>[Event].[Assignee]</expression></dataItem><dataItem aggregate="none" label="Event Count" name="Event Count" rollupAggregate="summarize"><expression>count(distinct([Matter Event KEY] ) for [Event Type],[Assignee])</expression></dataItem><dataItem aggregate="none" name="Event Total" rollupAggregate="summarize"><expression>count(distinct([Matter Event KEY] ) for [Assignee])</expression></dataItem><dataItem name="Organization"><expression>[MatterQuery].[Organization]</expression></dataItem><dataItem name="Organization Key"><expression>[MatterQuery].[Organization Key]</expression></dataItem></selection>
+		<detailFilters><detailFilter><filterExpression>[Matter Event KEY] is not missing</filterExpression></detailFilter><detailFilter postAutoAggregation="true"><filterExpression>[Rank]&lt;=?Top N?</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Organization Key] in ?Primary Organization Name?</filterExpression></detailFilter></detailFilters></query><query name="Classification Pmt">
+			<source>
+				
+			<model/></source>
+			<selection>
+				
+				
+				
+				
+				
+			<dataItem aggregate="none" label="Classification" name="Classification" rollupAggregate="none" sort="ascending"><expression>([Business View].[LKPTIMEKEEPERLEVEL].[DISPLAY_NAME])</expression></dataItem><dataItem aggregate="none" label="Classification ID" name="Classification ID" rollupAggregate="none"><expression>case when [Business View].[LKPTIMEKEEPERLEVEL].[ID] is missing then 9999999 else [Business View].[LKPTIMEKEEPERLEVEL].[ID] end</expression></dataItem></selection>
+		<detailFilters><detailFilter><filterExpression>[Business View].[LKPTIMEKEEPERLEVEL].[ID] is not missing</filterExpression></detailFilter></detailFilters></query><query name="Business Unit Pmt"><source><model/></source><selection autoSummary="false"><dataItem aggregate="none" name="id" rollupAggregate="none"><expression>[Business View].[LKPBUSINESSUNIT].[ID]</expression></dataItem><dataItem aggregate="none" detail="false" name="Name" rollupAggregate="none" sort="ascending"><expression>[Business View].[LKPBUSINESSUNIT].[NAME]</expression></dataItem></selection></query><query name="Practice Area Pmt"><source><model/></source><selection autoSummary="false"><dataItem aggregate="none" detail="false" name="id" rollupAggregate="none"><expression>[Business View].[LKPPRACTICEAREA].[ID]</expression></dataItem><dataItem aggregate="none" detail="false" name="Name" rollupAggregate="none" sort="ascending"><expression>[Business View].[LKPPRACTICEAREA].[NAME]</expression></dataItem></selection></query><query name="Matter Pmt"><source><model/></source><selection autoSummary="false"><dataItem aggregate="none" label="key" name="key"><expression>[Business View].[DIMMATTER].[MATTER_KEY]</expression></dataItem><dataItem aggregate="none" name="Matter Name" rollupAggregate="none" sort="ascending"><expression>[Business View].[DIMMATTER].[MATTER_NUMBER]+&apos; - &apos;+[Business View].[DIMMATTER].[NAME]</expression></dataItem></selection></query><query name="Matter Type Pmt"><source><model/></source><selection autoSummary="false"><dataItem aggregate="none" name="id" rollupAggregate="none"><expression>[Business View].[LKPMATTERTYPE].[ID]</expression></dataItem><dataItem aggregate="none" detail="false" name="Matter Type Name" rollupAggregate="none" sort="ascending"><expression>[Business View].[LKPMATTERTYPE].[DISPLAY_NAME]</expression></dataItem></selection></query><query name="Primary Organization Pmt">
+			<source>
+				<model/>
+			</source>
+			<selection autoSummary="false"><dataItem aggregate="none" label="key" name="key" rollupAggregate="none"><expression>[Business View].[DIMORGANIZATION].[ORGANIZATION_KEY]</expression></dataItem><dataItem aggregate="none" name="Name" rollupAggregate="none" sort="ascending"><expression>[Business View].[DIMORGANIZATION].[NAME]</expression></dataItem></selection>
+		<detailFilters><detailFilter><filterExpression>[Business View].[DIMORGANIZATION].[ORGANIZATION_TYPE_CODE]=&apos;External&apos;</filterExpression></detailFilter></detailFilters></query><query name="Matter Status Pmt">
+			<source>
+				<model/>
+			</source>
+			<selection autoSummary="false"><dataItem aggregate="none" label="Matter Status ID" name="id" rollupAggregate="none"><expression>[Business View].[LKPMATTERSTATUS].[ID]</expression></dataItem><dataItem aggregate="none" name="Matter Status Name" rollupAggregate="none" sort="ascending"><expression>[Business View].[LKPMATTERSTATUS].[DISPLAY_NAME]</expression></dataItem></selection>
+		</query><query name="PIC Pmt">
+			<source>
+				<model/>
+			</source>
+			<selection autoSummary="false"><dataItem aggregate="none" label="Person Name" name="Person Name" rollupAggregate="none" sort="ascending"><expression>[Business View].[DIMMATTER].[PRIMARY_INTERNAL_PERSON_NM]</expression></dataItem><dataItem aggregate="none" label="Person KEY" name="Person KEY"><expression>[Business View].[DIMMATTER].[PRIMARY_INTERNAL_PERSON_KEY]</expression></dataItem></selection>
+		<detailFilters><detailFilter><filterExpression>[Person Name] is not null</filterExpression></detailFilter></detailFilters></query><query name="Matter City Pmt">
+			<source>
+				
+			<model/></source>
+			<selection>
+				
+				
+				
+				
+				
+			<dataItem aggregate="none" name="MatterCity" rollupAggregate="none" sort="ascending"><expression>[Business View].[DIMMATTER].[CITY]</expression></dataItem></selection>
+		<detailFilters><detailFilter use="prohibited"><filterExpression>[Org ID] is not missing</filterExpression></detailFilter><detailFilter><filterExpression>[MatterCity] is not missing</filterExpression></detailFilter></detailFilters></query><query name="Matter State Pmt">
+			<source>
+				
+			<model/></source>
+			<selection autoSummary="false">
+				
+				
+				
+				
+				
+			<dataItem aggregate="none" name="Matter State" rollupAggregate="none" sort="ascending"><expression>[Business View].[DIMSTATEPROVINCE].[STATE]</expression></dataItem><dataItem aggregate="none" name="key" rollupAggregate="none"><expression>[Business View].[DIMSTATEPROVINCE].[STATE_PROVINCE_KEY]</expression></dataItem></selection>
+		<detailFilters><detailFilter use="prohibited"><filterExpression>[Org ID] is not missing</filterExpression></detailFilter><detailFilter><filterExpression>[Matter State] is not missing</filterExpression></detailFilter></detailFilters></query><query name="Event Type Pmt">
+						<source>
+							<model/>
+						</source>
+						<selection><dataItem aggregate="none" label="Event Type ID" name="Event Type ID" rollupAggregate="none"><expression>[Business View].[LKPEVENTTYPE].[ID]</expression></dataItem><dataItem aggregate="none" name="Event Type Code" rollupAggregate="none"><expression>[Business View].[LKPEVENTTYPE].[CODE]</expression></dataItem><dataItem aggregate="none" name="Event Type Name" rollupAggregate="none"><expression>[Business View].[LKPEVENTTYPE].[DISPLAY_NAME]</expression></dataItem></selection>
+					</query></queries>
+				<layouts>
+					<layout>
+						<reportPages>
+							<page name="ReportPage"><style><defaultStyles><defaultStyle refStyle="pg"/></defaultStyles></style>
+								<pageBody><style><defaultStyles><defaultStyle refStyle="pb"/></defaultStyles><CSS value="text-align:center"/></style>
+									<contents>
+										
+									<block>
+			<contents><table><style><defaultStyles><defaultStyle refStyle="tb"/></defaultStyles><CSS value="border-collapse:collapse;width:100%"/></style><tableRows><tableRow><tableCells><tableCell><contents><textItem><dataSource><staticValue>Event Type  </staticValue></dataSource><style><CSS value="font-weight:bold"/></style></textItem></contents><style><CSS value="text-align:left;font-weight:bold;vertical-align:top;padding-right:4px;padding-left:4px"/></style></tableCell><tableCell><contents><selectValue parameter="Event Type" refQuery="Event Type Pmt" required="false"><useItem refDataItem="Event Type ID"><displayItem refDataItem="Event Type Name"/></useItem></selectValue></contents><style><CSS value="text-align:left;vertical-align:top;padding-top:4px;padding-bottom:4px"/></style></tableCell><tableCell><contents><textItem><dataSource><staticValue>Classification  </staticValue></dataSource><style><CSS value="font-weight:bold"/></style></textItem></contents><style><CSS value="text-align:left;font-weight:bold;vertical-align:top;padding-right:4px;padding-left:4px"/></style></tableCell><tableCell><contents><selectValue parameter="Classification" refQuery="Classification Pmt" required="false"><useItem refDataItem="Classification ID"><displayItem refDataItem="Classification"/></useItem></selectValue></contents><style><CSS value="text-align:left;vertical-align:top;padding-top:4px;padding-bottom:4px"/></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><textItem><dataSource><staticValue>Top N Events</staticValue></dataSource></textItem></contents><style><CSS value="text-align:left;font-weight:bold;vertical-align:top;padding-right:4px;padding-left:4px"/></style></tableCell><tableCell><contents><selectValue parameter="Top N" required="false"><selectOptions><selectOption useValue="5"><displayValue>5</displayValue></selectOption><selectOption useValue="10"><displayValue>10</displayValue></selectOption><selectOption useValue="15"><displayValue>15</displayValue></selectOption><selectOption useValue="25"><displayValue>25</displayValue></selectOption><selectOption useValue="50"><displayValue>50</displayValue></selectOption></selectOptions></selectValue></contents><style><CSS value="text-align:left;vertical-align:top;padding-top:3px;padding-bottom:3px"/></style></tableCell><tableCell><contents><textItem><dataSource><staticValue>Event Date</staticValue></dataSource><style><CSS value="font-weight:bold"/></style></textItem></contents><style><CSS value="text-align:left;font-weight:bold;vertical-align:top;padding-right:4px;padding-left:4px"/></style></tableCell><tableCell><contents><selectDate parameter="Event Date" range="true" required="false" selectDateUI="editBox"/></contents><style><CSS value="text-align:left;vertical-align:top;padding-top:3px;padding-bottom:3px"/></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell colSpan="4"><contents><promptButton name="Finish" type="reprompt">
+			<contents><textItem><dataSource><staticValue>Refresh</staticValue></dataSource></textItem></contents>
+			<style>
+				<defaultStyles>
+					<defaultStyle refStyle="bp"/>
+				</defaultStyles>
+			<CSS value="font-weight:bold;border:1pt solid black"/></style>
+		</promptButton></contents><style><CSS value="text-align:center;padding-top:3px;padding-bottom:3px;vertical-align:top"/></style></tableCell></tableCells></tableRow></tableRows></table></contents>
+		<conditionalRender refVariable="ShowOnlyForHtml"><renderFor refVariableValue="1"/></conditionalRender></block><block>
+			<contents/>
+		</block>
+							
+							
+						<table><style><defaultStyles><defaultStyle refStyle="tb"/></defaultStyles><CSS value="border-collapse:collapse;width:100%"/></style><tableRows><tableRow><tableCells><tableCell><contents><v2_combinationChart depth="50" maxHotspots="10000" name="Combination Chart2" refQuery="MatterEventChart">
+														<v2_legend>
+															<v2_legendPosition>
+																<v2_legendPreset/>
+															</v2_legendPosition>
+															<v2_legendTitle refQuery="MatterEventChart">
+																<v2_chartTextContents>
+																	<v2_chartTextItems><v2_chartTextItem><dataSource><staticValue>Event Type</staticValue></dataSource></v2_chartTextItem></v2_chartTextItems></v2_chartTextContents>
+																<style>
+																	<defaultStyles>
+																		<defaultStyle refStyle="lx"/>
+																	</defaultStyles>
+																</style>
+															</v2_legendTitle>
+															<style>
+																<defaultStyles>
+																	<defaultStyle refStyle="lg"/>
+																</defaultStyles>
+															</style>
+														</v2_legend>
+														<v2_commonAxis>
+															<v2_ordinalAxis>
+																<v2_axisTitle refQuery="MatterEventChart">
+																	<v2_chartTextContents>
+																		<v2_chartTextItems><v2_chartTextItem><dataSource><staticValue>Assignee</staticValue></dataSource></v2_chartTextItem></v2_chartTextItems></v2_chartTextContents>
+																	<style>
+																		<defaultStyles>
+																			<defaultStyle refStyle="at"/>
+																		</defaultStyles>
+																	</style>
+																</v2_axisTitle>
+																<v2_axisLine lineWeight="0"/>
+																<v2_axisLabels>
+																	<style>
+																		<defaultStyles>
+																			<defaultStyle refStyle="al"/>
+																		</defaultStyles>
+																	</style>
+																</v2_axisLabels>
+															</v2_ordinalAxis>
+															<chartNodes><chartNode><chartNodeMembers><chartNodeMember refDataItem="Assignee"><chartContents><chartTextItem><dataSource><memberCaption/></dataSource></chartTextItem></chartContents><sortList><sortItem refDataItem="Rank"/><sortItem refDataItem="Assignee"/></sortList></chartNodeMember></chartNodeMembers></chartNode></chartNodes></v2_commonAxis>
+														<v2_topLeftAxis>
+															<v2_combinationChartTypes>
+																<v2_bar barShape="box" borders="show" seriesType="stacked">
+																	<v2_solidPalette>
+																		<v2_solidPaletteEntries>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect defaultColor="#8599D3">
+																					<v2_linearGradient>
+																						<v2_gradientColor gradientColor="#8599D3"/>
+																						<v2_gradientColor colorPosition="100" gradientColor="#5876AE"/>
+																					</v2_linearGradient>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect defaultColor="#E3AE6C">
+																					<v2_linearGradient>
+																						<v2_gradientColor gradientColor="#E3AE6C"/>
+																						<v2_gradientColor colorPosition="100" gradientColor="#CD854E"/>
+																					</v2_linearGradient>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect defaultColor="#839862">
+																					<v2_linearGradient>
+																						<v2_gradientColor gradientColor="#839862"/>
+																						<v2_gradientColor colorPosition="100" gradientColor="#6C7F56"/>
+																					</v2_linearGradient>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect defaultColor="#B7C873">
+																					<v2_linearGradient>
+																						<v2_gradientColor gradientColor="#B7C873"/>
+																						<v2_gradientColor colorPosition="100" gradientColor="#AFB885"/>
+																					</v2_linearGradient>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect defaultColor="#8484A8">
+																					<v2_linearGradient>
+																						<v2_gradientColor gradientColor="#8484A8"/>
+																						<v2_gradientColor colorPosition="100" gradientColor="#525E7E"/>
+																					</v2_linearGradient>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect defaultColor="#C0CCED">
+																					<v2_linearGradient>
+																						<v2_gradientColor gradientColor="#C0CCED"/>
+																						<v2_gradientColor colorPosition="100" gradientColor="#B0C2E5"/>
+																					</v2_linearGradient>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect defaultColor="#8C5580">
+																					<v2_linearGradient>
+																						<v2_gradientColor gradientColor="#8C5580"/>
+																						<v2_gradientColor colorPosition="100" gradientColor="#794067"/>
+																					</v2_linearGradient>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect defaultColor="#C789BC">
+																					<v2_linearGradient>
+																						<v2_gradientColor gradientColor="#C789BC"/>
+																						<v2_gradientColor colorPosition="100" gradientColor="#BB72BC"/>
+																					</v2_linearGradient>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect defaultColor="#D5BAEF">
+																					<v2_linearGradient>
+																						<v2_gradientColor gradientColor="#D5BAEF"/>
+																						<v2_gradientColor colorPosition="100" gradientColor="#C29FD1"/>
+																					</v2_linearGradient>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect defaultColor="#83683F">
+																					<v2_linearGradient>
+																						<v2_gradientColor gradientColor="#83683F"/>
+																						<v2_gradientColor colorPosition="100" gradientColor="#604926"/>
+																					</v2_linearGradient>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect defaultColor="#DCB05A">
+																					<v2_linearGradient>
+																						<v2_gradientColor gradientColor="#DCB05A"/>
+																						<v2_gradientColor colorPosition="100" gradientColor="#C09C52"/>
+																					</v2_linearGradient>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect defaultColor="#F4DF9E">
+																					<v2_linearGradient>
+																						<v2_gradientColor gradientColor="#F4DF9E"/>
+																						<v2_gradientColor colorPosition="100" gradientColor="#E4CF87"/>
+																					</v2_linearGradient>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect defaultColor="#5F8A8C">
+																					<v2_linearGradient>
+																						<v2_gradientColor gradientColor="#5F8A8C"/>
+																						<v2_gradientColor colorPosition="100" gradientColor="#537579"/>
+																					</v2_linearGradient>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect defaultColor="#96C4B2">
+																					<v2_linearGradient>
+																						<v2_gradientColor gradientColor="#96C4B2"/>
+																						<v2_gradientColor colorPosition="100" gradientColor="#89B0A0"/>
+																					</v2_linearGradient>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect defaultColor="#CBE8E7">
+																					<v2_linearGradient>
+																						<v2_gradientColor gradientColor="#CBE8E7"/>
+																						<v2_gradientColor colorPosition="100" gradientColor="#BDD6D5"/>
+																					</v2_linearGradient>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect defaultColor="#AE6564">
+																					<v2_linearGradient>
+																						<v2_gradientColor gradientColor="#AE6564"/>
+																						<v2_gradientColor colorPosition="100" gradientColor="#875352"/>
+																					</v2_linearGradient>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect defaultColor="#D88C6F">
+																					<v2_linearGradient>
+																						<v2_gradientColor gradientColor="#D88C6F"/>
+																						<v2_gradientColor colorPosition="100" gradientColor="#C47D61"/>
+																					</v2_linearGradient>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect defaultColor="#E3C9B0">
+																					<v2_linearGradient>
+																						<v2_gradientColor gradientColor="#E3C9B0"/>
+																						<v2_gradientColor colorPosition="100" gradientColor="#D2B2A5"/>
+																					</v2_linearGradient>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect defaultColor="#848484">
+																					<v2_linearGradient>
+																						<v2_gradientColor gradientColor="#848484"/>
+																						<v2_gradientColor colorPosition="100" gradientColor="#555555"/>
+																					</v2_linearGradient>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect defaultColor="#a4a4a4">
+																					<v2_linearGradient>
+																						<v2_gradientColor gradientColor="#a4a4a4"/>
+																						<v2_gradientColor colorPosition="100" gradientColor="#909090"/>
+																					</v2_linearGradient>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect defaultColor="#C7C7C7">
+																					<v2_linearGradient>
+																						<v2_gradientColor gradientColor="#C7C7C7"/>
+																						<v2_gradientColor colorPosition="100" gradientColor="#c1c1c1"/>
+																					</v2_linearGradient>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																		</v2_solidPaletteEntries>
+																	</v2_solidPalette>
+																	<!-- v2_solidPaletteRef ref=&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;quot;gDefaultSolid&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;quot;/ -->
+																	<chartNodes><chartNode><chartNodeMembers><chartNodeMember refDataItem="Event Type"><chartContents><chartTextItem><dataSource><memberCaption/></dataSource></chartTextItem></chartContents></chartNodeMember></chartNodeMembers></chartNode></chartNodes></v2_bar>
+															</v2_combinationChartTypes>
+															<v2_axis>
+																<v2_axisTitle refQuery="MatterEventChart">
+																	<v2_chartTextContents>
+																		<v2_chartTextItems><v2_chartTextItem><dataSource><staticValue>Event Count</staticValue></dataSource></v2_chartTextItem></v2_chartTextItems></v2_chartTextContents>
+																	<style>
+																		<defaultStyles>
+																			<defaultStyle refStyle="at"/>
+																		</defaultStyles>
+																	</style>
+																</v2_axisTitle>
+																<v2_axisLine lineWeight="0"/>
+																<v2_axisRange>
+																	<v2_automaticRange/>
+																</v2_axisRange>
+																<v2_axisLabels>
+																	<style>
+																		<defaultStyles>
+																			<defaultStyle refStyle="al"/>
+																		</defaultStyles>
+																		<dataFormat><numberFormat decimalSize="0"/></dataFormat></style>
+																</v2_axisLabels>
+																<v2_majorGridlines lineColor="#CCCCCC" lineWeight="0"/>
+																<v2_majorBackgroundColors>
+																	<v2_firstBackgroundColor color="#D2D2D2" transparency="50"/>
+																	<v2_secondBackgroundColor color="#E2E2E2" transparency="50"/>
+																</v2_majorBackgroundColors>
+															</v2_axis>
+														</v2_topLeftAxis>
+														<style>
+															<CSS value="margin-top:20px;margin-bottom:10px;border:1pt solid black"/><defaultStyles><defaultStyle refStyle="ch"/></defaultStyles></style>
+														<noDataHandler>
+															<contents>
+																<block>
+																	<contents>
+																		<textItem>
+																			<dataSource>
+																				<staticValue>No Data Available</staticValue>
+																			</dataSource>
+																			<style>
+																				<CSS value="padding:10px 18px;"/>
+																			</style>
+																		</textItem>
+																	</contents>
+																</block>
+															</contents>
+														</noDataHandler>
+														<v2_defaultChartMeasure refDataItem="Event Count"/><XMLAttributes><XMLAttribute name="titlesExpanded" output="no" value="true"/></XMLAttributes><v2_combinationTypeTooltips/><v2_chartTitle refQuery="MatterEventChart"><style><defaultStyles><defaultStyle refStyle="ct"/></defaultStyles></style><v2_chartTextItems><v2_chartTextItem><dataSource><staticValue>Top  </staticValue></dataSource></v2_chartTextItem><v2_chartTextItem><dataSource><reportExpression>if (ParamDisplayValue(&apos;Top N&apos;) is null) then (&apos;ALL&apos;) else (ParamDisplayValue(&apos;Top N&apos;))</reportExpression></dataSource></v2_chartTextItem><v2_chartTextItem><dataSource><staticValue> Count of Events and Tasks based on Person </staticValue></dataSource></v2_chartTextItem></v2_chartTextItems></v2_chartTitle></v2_combinationChart>
+												</contents><style><CSS value="text-align:center;vertical-align:top;padding-top:20px;padding-bottom:20px"/></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents/></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><list horizontalPagination="true" name="List1" refQuery="MatterEvent">
+			
+			
+			
+			<style>
+				<CSS value="border-collapse:collapse;margin-top:10px;margin-bottom:20px"/>
+				<defaultStyles>
+					<defaultStyle refStyle="ls"/>
+				</defaultStyles>
+			</style>
+		<listColumns><listColumn><listColumnTitle><style><defaultStyles><defaultStyle refStyle="lt"/></defaultStyles><CSS value="font-weight:bold"/></style><contents><textItem><dataSource><dataItemLabel refDataItem="Assignee"/></dataSource></textItem></contents></listColumnTitle><listColumnBody><style><defaultStyles><defaultStyle refStyle="lm"/></defaultStyles><CSS value="text-align:left"/></style><contents><textItem><dataSource><dataItemValue refDataItem="Assignee"/></dataSource></textItem></contents><listColumnRowSpan refDataItem="Assignee"/></listColumnBody></listColumn><listColumn><listColumnTitle><style><defaultStyles><defaultStyle refStyle="lt"/></defaultStyles><CSS value="font-weight:bold"/></style><contents><textItem><dataSource><dataItemLabel refDataItem="Classification"/></dataSource></textItem></contents></listColumnTitle><listColumnBody><style><defaultStyles><defaultStyle refStyle="lm"/></defaultStyles><CSS value="text-align:left"/></style><contents><textItem><dataSource><dataItemValue refDataItem="Classification"/></dataSource></textItem></contents><listColumnRowSpan refDataItem="Classification"/></listColumnBody></listColumn><listColumn><listColumnTitle><style><defaultStyles><defaultStyle refStyle="lt"/></defaultStyles><CSS value="font-weight:bold"/></style><contents><textItem><dataSource><dataItemLabel refDataItem="Event Type"/></dataSource></textItem></contents></listColumnTitle><listColumnBody><style><defaultStyles><defaultStyle refStyle="lm"/></defaultStyles><CSS value="text-align:left"/></style><contents><textItem><dataSource><dataItemValue refDataItem="Event Type"/></dataSource></textItem></contents><listColumnRowSpan refDataItem="Event Type"/></listColumnBody></listColumn><listColumn><listColumnTitle><style><defaultStyles><defaultStyle refStyle="lt"/></defaultStyles><CSS value="font-weight:bold"/></style><contents><textItem><dataSource><dataItemLabel refDataItem="Event Name"/></dataSource></textItem></contents></listColumnTitle><listColumnBody><style><defaultStyles><defaultStyle refStyle="lm"/></defaultStyles><CSS value="text-align:left"/></style><contents><textItem><dataSource><dataItemValue refDataItem="Event Name"/></dataSource></textItem></contents></listColumnBody></listColumn><listColumn><listColumnTitle><style><defaultStyles><defaultStyle refStyle="lt"/></defaultStyles><CSS value="font-weight:bold"/></style><contents><textItem><dataSource><dataItemLabel refDataItem="Start Date Time"/></dataSource></textItem></contents></listColumnTitle><listColumnBody><style><defaultStyles><defaultStyle refStyle="lm"/></defaultStyles><CSS value="text-align:left"/><dataFormat><dateTimeFormat dateStyle="short" showDays="2-digits" showMonths="2-digits" showYears="true" timeStyle="short"/></dataFormat></style><contents><textItem><dataSource><dataItemValue refDataItem="Start Date Time"/></dataSource></textItem></contents></listColumnBody></listColumn><listColumn><listColumnTitle><style><defaultStyles><defaultStyle refStyle="lt"/></defaultStyles><CSS value="font-weight:bold"/></style><contents><textItem><dataSource><dataItemLabel refDataItem="End Date Time"/></dataSource></textItem></contents></listColumnTitle><listColumnBody><style><defaultStyles><defaultStyle refStyle="lm"/></defaultStyles><CSS value="text-align:left"/><dataFormat><dateTimeFormat dateStyle="short" showDays="2-digits" showMonths="2-digits" showYears="true" timeStyle="short"/></dataFormat></style><contents><textItem><dataSource><dataItemValue refDataItem="End Date Time"/></dataSource></textItem></contents></listColumnBody></listColumn><listColumn><listColumnTitle><style><defaultStyles><defaultStyle refStyle="lt"/></defaultStyles><CSS value="font-weight:bold"/></style><contents><textItem><dataSource><dataItemLabel refDataItem="Due Date"/></dataSource></textItem></contents></listColumnTitle><listColumnBody><style><defaultStyles><defaultStyle refStyle="lm"/></defaultStyles><CSS value="text-align:left"/><dataFormat><dateFormat dateStyle="short" showDays="2-digits" showMonths="2-digits" showYears="true"/></dataFormat></style><contents><textItem><dataSource><dataItemValue refDataItem="Due Date"/></dataSource></textItem></contents></listColumnBody></listColumn><listColumn><listColumnTitle><style><defaultStyles><defaultStyle refStyle="lt"/></defaultStyles><CSS value="font-weight:bold"/></style><contents><textItem><dataSource><dataItemLabel refDataItem="Completed Date"/></dataSource></textItem></contents></listColumnTitle><listColumnBody><style><defaultStyles><defaultStyle refStyle="lm"/></defaultStyles><CSS value="text-align:left"/><dataFormat><dateFormat dateStyle="short" showDays="2-digits" showMonths="2-digits" showYears="true"/></dataFormat></style><contents><textItem><dataSource><dataItemValue refDataItem="Completed Date"/></dataSource></textItem></contents></listColumnBody></listColumn><listColumn><listColumnTitle><style><defaultStyles><defaultStyle refStyle="lt"/></defaultStyles><CSS value="font-weight:bold"/></style><contents><textItem><dataSource><dataItemLabel refDataItem="Description"/></dataSource></textItem></contents></listColumnTitle><listColumnBody><style><defaultStyles><defaultStyle refStyle="lm"/></defaultStyles><CSS value="text-align:left"/></style><contents><textItem><dataSource><dataItemValue refDataItem="Description"/></dataSource></textItem></contents></listColumnBody></listColumn><listColumn><listColumnTitle><style><defaultStyles><defaultStyle refStyle="lt"/></defaultStyles><CSS value="font-weight:bold"/></style><contents><textItem><dataSource><dataItemLabel refDataItem="Matter Name"/></dataSource></textItem></contents></listColumnTitle><listColumnBody><style><defaultStyles><defaultStyle refStyle="lm"/></defaultStyles><CSS value="text-align:left"/></style><contents><HTMLItem>
+			<dataSource>
+				
+			<reportExpression>&quot;&lt;a href=&apos;&quot; + [MatterEvent].[Application Url] +&quot;enduser/itemscreens/show.do?screenName=DefaultMatterSearchResult&amp;mode=show&amp;referringAttributeId=&amp;entityInstanceId=&quot;+ trim(&quot;BOTH&quot;,&quot;&quot;,[MatterEvent].[id])+&quot;&amp;parentEntityId=&amp;parentInstanceId=&amp;parentFieldName=&quot;+ &quot;&apos; target=_blank&gt;&quot; + &quot;&lt;img border=0 src=&apos;../common/images/magnifier.png&apos;&gt;&quot; + &quot;&lt;/a&gt;&quot;</reportExpression></dataSource>
+		</HTMLItem><textItem><dataSource><dataItemValue refDataItem="Matter Name"/></dataSource></textItem></contents></listColumnBody></listColumn><listColumn><listColumnTitle><style><defaultStyles><defaultStyle refStyle="lt"/></defaultStyles><CSS value="font-weight:bold"/></style><contents><textItem><dataSource><dataItemLabel refDataItem="Organization"/></dataSource></textItem></contents></listColumnTitle><listColumnBody><style><defaultStyles><defaultStyle refStyle="lm"/></defaultStyles><CSS value="text-align:left"/></style><contents><textItem><dataSource><dataItemValue refDataItem="Organization"/></dataSource></textItem></contents></listColumnBody></listColumn></listColumns><listGroups><listGroup refDataItem="Assignee"/><listGroup refDataItem="Classification"/><listGroup refDataItem="Event Type"/></listGroups><propertyList><propertyItem refDataItem="Application Url"/><propertyItem refDataItem="id"/><propertyItem refDataItem="Sort Column"/></propertyList><sortList><sortItem refDataItem="Sort Column"/></sortList></list></contents><style><CSS value="text-align:center;vertical-align:top;padding-top:10px;padding-bottom:20px"/></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents/></tableCell></tableCells></tableRow></tableRows></table></contents>
+								</pageBody>
+								<pageHeader>
+									<contents>
+										<block><style><defaultStyles><defaultStyle refStyle="ta"/></defaultStyles></style>
+											<contents>
+												<textItem><style><defaultStyles><defaultStyle refStyle="tt"/></defaultStyles></style>
+													<dataSource>
+														
+													<reportExpression>IF ((substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/report[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName()) contains &quot;folder[@name=&quot;)  OR ((substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/reportView[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName()) contains &quot;folder[@name=&quot;)
+THEN
+(ReportName())
+ELSE
+(
+IF (ReportPath() contains &quot;reportView&quot;)
+THEN (substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/reportView[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName())
+
+ELSE
+(substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/report[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName())
+)
+
+
+
+</reportExpression></dataSource>
+												</textItem>
+											</contents>
+										</block>
+									<block>
+			<contents><block>
+			<contents><textItem><dataSource><staticValue>Filters: </staticValue></dataSource><style><CSS value="font-weight:bold"/></style></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Top N&apos;) + &apos;- &apos; + ParamDisplayValue(&apos;Top N&apos;)+&apos;; &apos;</reportExpression></dataSource></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Event Type&apos;) + &apos;-&apos; + ParamDisplayValue(&apos;Event Type&apos;)+&apos;;&apos;</reportExpression></dataSource></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Event Date&apos;)+&apos; - &apos;+ParamDisplayValue(&apos;Event Date&apos;)+&apos;; &apos;</reportExpression></dataSource></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Business Unit&apos;)+&apos; - &apos;+ParamDisplayValue(&apos;Business Unit&apos;)+&apos;;&apos;</reportExpression></dataSource></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Practice Area&apos;)+&apos; - &apos;+ParamDisplayValue(&apos;Practice Area&apos;)+&apos;;&apos;</reportExpression></dataSource></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Matter Type&apos;) + &apos;- &apos; + ParamDisplayValue(&apos;Matter Type&apos;)+&apos;; &apos;</reportExpression></dataSource></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Matter Status&apos;)+&apos; - &apos;+ParamDisplayValue(&apos;Matter Status&apos;)+&apos;;&apos;</reportExpression></dataSource></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Matter State&apos;)+&apos; - &apos;+ParamDisplayValue(&apos;Matter State&apos;)+&apos;;&apos;</reportExpression></dataSource></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Matter City&apos;)+&apos; - &apos;+ParamDisplayValue(&apos;Matter City&apos;)+&apos;;&apos;</reportExpression></dataSource></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Matter&apos;)+&apos; - &apos;+ParamDisplayValue(&apos;Matter&apos;)+&apos;;&apos;</reportExpression></dataSource></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Primary Organization Name&apos;) + &apos;- &apos; + ParamDisplayValue(&apos;Primary Organization Name&apos;)+&apos;; &apos;</reportExpression></dataSource></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Primary Internal Contact&apos;) + &apos;- &apos; + ParamDisplayValue(&apos;Primary Internal Contact&apos;)+&apos;; &apos;</reportExpression></dataSource></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Classification&apos;) + &apos;- &apos; + ParamDisplayValue(&apos;Classification&apos;)+&apos;; &apos;</reportExpression></dataSource></textItem></contents>
+		<style><CSS value="font-size:10pt;font-style:italic;text-align:center"/></style></block></contents>
+		<style><CSS value="font-size:8pt;font-style:italic;text-align:center"/></style></block></contents>
+									<style>
+										<defaultStyles>
+											<defaultStyle refStyle="ph"/>
+										</defaultStyles>
+										<CSS value="padding-bottom:10px"/>
+									</style>
+								</pageHeader>
+								<pageFooter>
+									<contents>
+										<table>
+											<tableRows>
+												<tableRow>
+													<tableCells>
+														<tableCell>
+															<contents>
+																<date>
+																	<style>
+																		<dataFormat>
+																			<dateFormat/>
+																		</dataFormat>
+																	</style>
+																</date>
+															</contents>
+															<style>
+																<CSS value="vertical-align:top;text-align:left;width:25%"/>
+															</style>
+														</tableCell>
+														<tableCell>
+															<contents>
+																<pageNumber/>
+															</contents>
+															<style>
+																<CSS value="vertical-align:top;text-align:center;width:50%"/>
+															</style>
+														</tableCell>
+														<tableCell>
+															<contents>
+																<time>
+																	<style>
+																		<dataFormat>
+																			<timeFormat/>
+																		</dataFormat>
+																	</style>
+																</time>
+															</contents>
+															<style>
+																<CSS value="vertical-align:top;text-align:right;width:25%"/>
+															</style>
+														</tableCell>
+													</tableCells>
+												</tableRow>
+											</tableRows>
+											<style>
+												<defaultStyles>
+													<defaultStyle refStyle="tb"/>
+												</defaultStyles>
+												<CSS value="border-collapse:collapse;width:100%"/>
+											</style>
+										</table>
+									</contents>
+									<style>
+										<defaultStyles>
+											<defaultStyle refStyle="pf"/>
+										</defaultStyles>
+										<CSS value="padding-top:10px"/>
+									</style>
+								</pageFooter>
+							</page>
+						</reportPages>
+					<promptPages><page name="StandardPromptPage">
+			<pageHeader>
+				<contents>
+					<block>
+						<contents>
+							<textItem>
+								<dataSource>
+									
+								<reportExpression>IF ((substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/report[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName()) contains &quot;folder[@name=&quot;)  OR ((substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/reportView[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName()) contains &quot;folder[@name=&quot;)
+THEN
+(ReportName())
+ELSE
+(
+IF (ReportPath() contains &quot;reportView&quot;)
+THEN (substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/reportView[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName())
+
+ELSE
+(substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/report[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName())
+)
+
+
+
+</reportExpression></dataSource>
+								<style>
+									<defaultStyles>
+										<defaultStyle refStyle="tt"/>
+									</defaultStyles>
+								</style>
+							</textItem>
+						</contents>
+						<style>
+							<defaultStyles>
+								<defaultStyle refStyle="ta"/>
+							</defaultStyles>
+						</style>
+					</block>
+				<block>
+			<contents><promptButton type="cancel">
+			<contents/>
+			<style>
+				<defaultStyles>
+					<defaultStyle refStyle="bp"/>
+				</defaultStyles>
+			</style>
+		</promptButton><promptButton type="finish">
+			<contents/>
+			<style>
+				<defaultStyles>
+					<defaultStyle refStyle="bp"/>
+				</defaultStyles>
+			</style>
+		</promptButton><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;script type=&quot;text/javascript&quot; src=&quot;../ps/portal/js/dcStandardPromptPage.js&quot;&gt;&lt;/script&gt;</staticValue>
+			</dataSource>
+		</HTMLItem></contents>
+		<style><defaultStyles><defaultStyle refStyle="fp"/></defaultStyles></style></block></contents>
+				<style>
+					<defaultStyles>
+						<defaultStyle refStyle="hp"/>
+					</defaultStyles>
+				</style>
+			</pageHeader>
+			<pageBody>
+				<contents><table><style><defaultStyles><defaultStyle refStyle="tb"/></defaultStyles><CSS value="border-collapse:collapse;width:100%"/></style><tableRows><tableRow><tableCells><tableCell colSpan="2"><contents><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;span id=&quot;Top10Table&quot; class=&quot;Collapsible&quot;&gt; &lt;/span&gt;
+&lt;img onclick=&apos;ExpandCollapse(this,0)&apos; src=&apos;../pat/hal/images/minus.gif&apos; style=&apos;cursor:hand;vertical-align:middle; margin-right:2px&apos;/&gt;
+&lt;span onclick=&apos;ExpandCollapse(this.previousSibling,0)&apos; style=&apos;cursor:hand&apos;&gt;</staticValue>
+			</dataSource>
+		</HTMLItem><textItem><dataSource><staticValue>Top N </staticValue></dataSource><style><CSS value="font-weight:bold"/></style></textItem><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;/span&gt;
+</staticValue>
+			</dataSource>
+		</HTMLItem></contents><style><defaultStyles><defaultStyle refStyle="sh"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><textItem><dataSource><staticValue>Top N Events</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell><tableCell><contents><textItem><dataSource><staticValue>Event Type</staticValue></dataSource></textItem></contents><style><CSS value="font-weight:bold"/></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><selectValue parameter="Top N"><defaultSelections><defaultSimpleSelection>10</defaultSimpleSelection></defaultSelections><selectOptions><selectOption useValue="5"><displayValue>5</displayValue></selectOption><selectOption useValue="10"><displayValue>10</displayValue></selectOption><selectOption useValue="15"><displayValue>15</displayValue></selectOption><selectOption useValue="25"><displayValue>25</displayValue></selectOption><selectOption useValue="50"><displayValue>50</displayValue></selectOption></selectOptions></selectValue></contents></tableCell><tableCell><contents><selectValue parameter="Event Type" refQuery="Event Type Pmt"><useItem refDataItem="Event Type ID"><displayItem refDataItem="Event Type Name"/></useItem></selectValue></contents></tableCell></tableCells></tableRow></tableRows></table><block>
+			<contents><table><style><defaultStyles><defaultStyle refStyle="tb"/></defaultStyles><CSS value="border-collapse:collapse;width:100%"/></style><tableRows><tableRow><tableCells><tableCell colSpan="2"><contents><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;span id=&quot;DateTable&quot; class=&quot;Collapsible&quot;&gt; &lt;/span&gt;
+&lt;img onclick=&apos;ExpandCollapse(this,1)&apos; src=&apos;../pat/hal/images/minus.gif&apos; style=&apos;cursor:hand;vertical-align:middle; margin-right:2px&apos;/&gt;
+&lt;span onclick=&apos;ExpandCollapse(this.previousSibling,1)&apos; style=&apos;cursor:hand&apos;&gt;</staticValue>
+			</dataSource>
+		</HTMLItem><textItem><dataSource><staticValue>Dates</staticValue></dataSource><style><CSS value="font-weight:bold"/></style></textItem><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;/span&gt;
+</staticValue>
+			</dataSource>
+		</HTMLItem></contents><style><defaultStyles><defaultStyle refStyle="sh"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><textItem><dataSource><staticValue>Event Date</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell><tableCell><contents/><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;div id=&quot;Event Date&quot;&gt;</staticValue>
+			</dataSource>
+		</HTMLItem><selectDate parameter="Event Date" range="true" required="false" selectDateUI="editBox"/><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;/div&gt;
+&lt;script&gt;
+AssignDefaultDateValue(&quot;Event Date&quot;);
+&lt;/script&gt;</staticValue>
+			</dataSource>
+		</HTMLItem></contents></tableCell><tableCell><contents/></tableCell></tableCells></tableRow></tableRows></table></contents>
+		<style/></block><block>
+			<contents><table><style><defaultStyles><defaultStyle refStyle="tb"/></defaultStyles><CSS value="border-collapse:collapse;width:100%"/></style><tableRows><tableRow><tableCells><tableCell colSpan="2"><contents><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;span id=&quot;PABUTable&quot; class=&quot;Collapsible Collapsed&quot;&gt; &lt;/span&gt;
+&lt;img onclick=&apos;ExpandCollapse(this,2)&apos; src=&apos;../pat/hal/images/plus.gif&apos; style=&apos;cursor:hand;vertical-align:middle; margin-right:2px&apos;/&gt;
+&lt;span onclick=&apos;ExpandCollapse(this.previousSibling,2)&apos; style=&apos;cursor:hand&apos;&gt;</staticValue>
+			</dataSource>
+		</HTMLItem><textItem><dataSource><staticValue>Business Unit / Practice Area</staticValue></dataSource><style><CSS value="font-weight:bold"/></style></textItem><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;/span&gt;
+</staticValue>
+			</dataSource>
+		</HTMLItem></contents><style><defaultStyles><defaultStyle refStyle="sh"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><textItem><dataSource><staticValue>Business Unit</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell><tableCell><contents><textItem><dataSource><staticValue>Practice Area</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><selectValue multiSelect="true" parameter="Business Unit" refQuery="Business Unit Pmt" required="false" selectValueUI="listBox"><useItem refDataItem="id"><displayItem refDataItem="Name"/></useItem></selectValue></contents></tableCell><tableCell><contents><selectValue multiSelect="true" parameter="Practice Area" refQuery="Practice Area Pmt" required="false" selectValueUI="listBox"><useItem refDataItem="id"><displayItem refDataItem="Name"/></useItem></selectValue></contents></tableCell></tableCells></tableRow></tableRows></table></contents>
+		<style/></block><block>
+			<contents><table><style><defaultStyles><defaultStyle refStyle="tb"/></defaultStyles><CSS value="border-collapse:collapse;width:100%"/></style><tableRows><tableRow><tableCells><tableCell colSpan="5"><contents><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;span id=&quot;MatterTable&quot; class=&quot;Collapsible Collapsed&quot;&gt; &lt;/span&gt;
+&lt;img onclick=&apos;ExpandCollapse(this,3)&apos; src=&apos;../pat/hal/images/plus.gif&apos; style=&apos;cursor:hand;vertical-align:middle; margin-right:2px&apos;/&gt;
+&lt;span onclick=&apos;ExpandCollapse(this.previousSibling,3)&apos; style=&apos;cursor:hand&apos;&gt;</staticValue>
+			</dataSource>
+		</HTMLItem><textItem><dataSource><staticValue>Matter</staticValue></dataSource><style><CSS value="font-weight:bold"/></style></textItem><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;/span&gt;
+</staticValue>
+			</dataSource>
+		</HTMLItem></contents><style><defaultStyles><defaultStyle refStyle="sh"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><textItem><dataSource><staticValue>Matter Type</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell><tableCell><contents><textItem><dataSource><staticValue>Matter Status</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell><tableCell><contents><textItem><dataSource><staticValue>Matter State</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell><tableCell><contents><textItem><dataSource><staticValue>Matter City</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell><tableCell><contents><textItem><dataSource><staticValue>Matter Number - Matter Name</staticValue></dataSource><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></textItem></contents></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><selectValue multiSelect="true" parameter="Matter Type" refQuery="Matter Type Pmt" required="false" selectValueUI="listBox"><useItem refDataItem="id"><displayItem refDataItem="Matter Type Name"/></useItem></selectValue></contents></tableCell><tableCell><contents><selectValue multiSelect="true" parameter="Matter Status" refQuery="Matter Status Pmt" required="false" selectValueUI="listBox"><useItem refDataItem="id"><displayItem refDataItem="Matter Status Name"/></useItem></selectValue></contents></tableCell><tableCell><contents><selectValue multiSelect="true" parameter="Matter State" refQuery="Matter State Pmt" required="false" selectValueUI="listBox"><useItem refDataItem="key"><displayItem refDataItem="Matter State"/></useItem></selectValue></contents></tableCell><tableCell><contents><selectValue multiSelect="true" parameter="Matter City" refQuery="Matter City Pmt" required="false" selectValueUI="listBox"><useItem refDataItem="MatterCity"><displayItem refDataItem="MatterCity"/></useItem></selectValue></contents></tableCell><tableCell><contents><selectWithSearch multiSelect="true" parameter="Matter" refQuery="Matter Pmt" required="false"><useItem refDataItem="key"><displayItem refDataItem="Matter Name"/></useItem></selectWithSearch></contents></tableCell></tableCells><style><CSS value="text-align:left;vertical-align:top"/></style></tableRow></tableRows></table><table><style><defaultStyles><defaultStyle refStyle="tb"/></defaultStyles><CSS value="border-collapse:collapse;width:100%"/></style><tableRows><tableRow><tableCells><tableCell><contents><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;span id=&quot;OrganizationTable&quot; class=&quot;Collapsible Collapsed&quot;&gt;  &lt;/span&gt;
+&lt;img onclick=&apos;ExpandCollapse(this,4)&apos; src=&apos;../pat/hal/images/plus.gif&apos; style=&apos;cursor:hand;vertical-align:middle; margin-right:2px&apos;/&gt;
+&lt;span onclick=&apos;ExpandCollapse(this.previousSibling,4)&apos; style=&apos;cursor:hand&apos;&gt;</staticValue>
+			</dataSource>
+		</HTMLItem><textItem><dataSource><staticValue>Organization</staticValue></dataSource></textItem><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;/span&gt;
+</staticValue>
+			</dataSource>
+		</HTMLItem></contents><style><defaultStyles><defaultStyle refStyle="sh"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><textItem><dataSource><staticValue>Primary Organization</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><selectWithSearch multiSelect="true" parameter="Primary Organization Name" refQuery="Primary Organization Pmt" required="false"><useItem refDataItem="key"><displayItem refDataItem="Name"/></useItem></selectWithSearch></contents></tableCell></tableCells></tableRow></tableRows></table><table><style><defaultStyles><defaultStyle refStyle="tb"/></defaultStyles><CSS value="border-collapse:collapse;width:100%"/></style><tableRows><tableRow><tableCells><tableCell colSpan="2"><contents><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;span id=&quot;PeopleTable&quot; class=&quot;Collapsible Collapsed&quot;&gt;  &lt;/span&gt;
+&lt;img onclick=&apos;ExpandCollapse(this,5)&apos; src=&apos;../pat/hal/images/plus.gif&apos; style=&apos;cursor:hand;vertical-align:middle; margin-right:2px&apos;/&gt;
+&lt;span onclick=&apos;ExpandCollapse(this.previousSibling,5)&apos; style=&apos;cursor:hand&apos;&gt;</staticValue>
+			</dataSource>
+		</HTMLItem><textItem><dataSource><staticValue>People</staticValue></dataSource></textItem><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;/span&gt;
+</staticValue>
+			</dataSource>
+		</HTMLItem></contents><style><defaultStyles><defaultStyle refStyle="sh"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><textItem><dataSource><staticValue>Primary Internal Contact</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell><tableCell><contents><textItem><dataSource><staticValue>Classification</staticValue></dataSource></textItem></contents><style><CSS value="font-weight:bold"/><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><selectWithSearch multiSelect="true" parameter="Primary Internal Contact" refQuery="PIC Pmt" required="false"><useItem refDataItem="Person KEY"><displayItem refDataItem="Person Name"/></useItem></selectWithSearch></contents></tableCell><tableCell><contents><selectValue multiSelect="true" parameter="Classification" refQuery="Classification Pmt" required="false" selectValueUI="listBox"><useItem refDataItem="Classification ID"><displayItem refDataItem="Classification"/></useItem></selectValue></contents><style><CSS value="vertical-align:top"/></style></tableCell></tableCells></tableRow></tableRows></table></contents>
+		<style/></block><block>
+			<contents><block>
+			<contents><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;script&gt;
+StartHidden(&quot;Top10Table&quot;,0,0);
+StartHidden(&quot;DateTable&quot;,1,0);
+StartHidden(&quot;PABUTable&quot;,2,1);
+StartHidden(&quot;MatterTable&quot;,3,1);
+StartHidden(&quot;OrganizationTable&quot;,4,1);
+StartHidden(&quot;PeopleTable&quot;,5,1);
+setLocationHash();
+&lt;/script&gt;</staticValue>
+			</dataSource>
+		</HTMLItem></contents>
+		<style/></block></contents>
+		<style/></block></contents>
+				<style>
+					<defaultStyles>
+						<defaultStyle refStyle="py"/>
+					</defaultStyles>
+				</style>
+			</pageBody>
+			<pageFooter>
+				<contents>
+					<promptButton type="cancel">
+						<contents/>
+						<style>
+							<defaultStyles>
+								<defaultStyle refStyle="bp"/>
+							</defaultStyles>
+						</style>
+					</promptButton>
+					
+					
+					<promptButton type="finish">
+						<contents/>
+						<style>
+							<defaultStyles>
+								<defaultStyle refStyle="bp"/>
+							</defaultStyles>
+						</style>
+					</promptButton>
+				</contents>
+				<style>
+					<defaultStyles>
+						<defaultStyle refStyle="fp"/>
+					</defaultStyles>
+				</style>
+			</pageFooter>
+			<style>
+				<defaultStyles>
+					<defaultStyle refStyle="pp"/>
+				</defaultStyles>
+			</style>
+		</page></promptPages></layout>
+				</layouts>
+			<XMLAttributes><XMLAttribute name="RS_CreateExtendedDataItems" output="no" value="true"/><XMLAttribute name="listSeparator" output="no" value=","/><XMLAttribute name="decimalSeparator" value="." output="no"/><XMLAttribute output="no" name="RS_modelModificationTime" value="2022-11-16T20:25:59.783Z"/></XMLAttributes><reportVariables><reportVariable name="ShowOnlyForHtml" type="boolean">
+			<reportExpression>ReportOutput () = &apos;HTML&apos;</reportExpression>
+			<variableValues>
+				<variableValue value="1"/>
+			</variableValues>
+		</reportVariable></reportVariables><reportName>Matter Organization Events By Person</reportName></report>

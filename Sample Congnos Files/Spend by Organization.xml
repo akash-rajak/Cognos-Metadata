@@ -1,0 +1,628 @@
+<report xmlns="http://developer.cognos.com/schemas/report/15.5/"           expressionLocale="en-us"><!--RSU-SPC-0093 The report specification was upgraded from "http://developer.cognos.com/schemas/report/12.0/" to "http://developer.cognos.com/schemas/report/15.0/" at 2020-4-30. 4:49:43--><!--RSU-SPC-0093 The report specification was upgraded from "http://developer.cognos.com/schemas/report/11.0/" to "http://developer.cognos.com/schemas/report/12.0/" at 2018-5-17. 11:39:5--><!--RSU-SPC-0093 The report specification was upgraded from &amp;amp;amp;quot;http://developer.cognos.com/schemas/report/9.0/&amp;amp;amp;quot; to &amp;amp;amp;quot;http://developer.cognos.com/schemas/report/11.0/&amp;amp;amp;quot; at 2014-11-5. 15:15:0--><!--RSU-SPC-0093 The report specification was upgraded from &amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;quot;http://developer.cognos.com/schemas/report/6.0/&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;quot; to &amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;quot;http://developer.cognos.com/schemas/report/9.0/&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;quot; at 2013-4-10. 15:19:45-->
+				<modelPath>/content/package[@name=&apos;PassportDW&apos;]/model[@name=&apos;2022-11-16T20:25:59.739Z&apos;]</modelPath>
+				<drillBehavior/>
+				<queries>
+					
+				<query name="Matter Pmt"><source><model/></source><selection><dataItem aggregate="none" label="key" name="key"><expression>[Business View].[DIMMATTER].[MATTER_KEY]</expression></dataItem><dataItem aggregate="none" name="Matter Name" rollupAggregate="none" sort="ascending"><expression>[Business View].[DIMMATTER].[MATTER_NUMBER]+&apos; - &apos;+[Business View].[DIMMATTER].[NAME]</expression></dataItem></selection></query><query name="Business Unit Pmt"><source><model/></source><selection><dataItem aggregate="none" name="id" rollupAggregate="none"><expression>[Business View].[LKPBUSINESSUNIT].[ID]</expression></dataItem><dataItem aggregate="none" detail="false" name="Business Unit" rollupAggregate="none" sort="ascending"><expression>[Business View].[LKPBUSINESSUNIT].[NAME]</expression></dataItem></selection></query><query name="Practice Area Pmt"><source><model/></source><selection><dataItem aggregate="none" detail="false" name="id" rollupAggregate="none"><expression>[Business View].[LKPPRACTICEAREA].[ID]</expression></dataItem><dataItem aggregate="none" detail="false" name="Practice Area" rollupAggregate="none" sort="ascending"><expression>[Business View].[LKPPRACTICEAREA].[NAME]</expression></dataItem></selection></query><query name="PIC Pmt">
+			<source>
+				<model/>
+			</source>
+			<selection><dataItem aggregate="none" label="Person Name" name="Person Name" rollupAggregate="none" sort="ascending"><expression>[Business View].[DIMMATTER].[PRIMARY_INTERNAL_PERSON_NM]</expression></dataItem><dataItem aggregate="none" label="Person KEY" name="Person KEY"><expression>[Business View].[DIMMATTER].[PRIMARY_INTERNAL_PERSON_KEY]</expression></dataItem></selection>
+		<detailFilters><detailFilter><filterExpression>[Business View].[BTMATTERPERSON].[ROLE_INVOLVEMENT_CODE] = &apos;Primary Internal Contact&apos;
+
+</filterExpression></detailFilter><detailFilter><filterExpression>[Person Name] is not null</filterExpression></detailFilter></detailFilters></query><query name="Invoice State Pmt">
+			<source>
+				<model/>
+			</source>
+			<selection><dataItem aggregate="none" detail="false" name="id" rollupAggregate="none"><expression>[Business View].[LKPDISPOSITION].[ID]
+</expression></dataItem><dataItem aggregate="none" detail="false" name="Invoice State" rollupAggregate="none" sort="ascending"><expression>[Business View].[LKPDISPOSITION].[DISPLAY_NAME]</expression></dataItem></selection>
+		<detailFilters><detailFilter><filterExpression>[Invoice State] not in (&apos;New&apos;)</filterExpression></detailFilter></detailFilters></query><query name="Organization Pmt">
+			<source>
+				<model/>
+			</source>
+			<selection><dataItem aggregate="none" name="key" rollupAggregate="none"><expression>[Business View].[DIMORGANIZATION].[ORGANIZATION_KEY]</expression></dataItem><dataItem aggregate="none" name="Organization" rollupAggregate="none" sort="ascending"><expression>[Business View].[DIMORGANIZATION].[NAME]</expression></dataItem></selection>
+		<detailFilters><detailFilter><filterExpression>[Business View].[DIMORGANIZATION].[ORGANIZATION_TYPE_CODE]=&apos;External&apos;
+</filterExpression></detailFilter></detailFilters></query><query name="Matter Type Pmt"><source><model/></source><selection><dataItem aggregate="none" name="id" rollupAggregate="none"><expression>[Business View].[LKPMATTERTYPE].[ID]</expression></dataItem><dataItem aggregate="none" detail="false" name="Matter Type" rollupAggregate="none" sort="ascending"><expression>[Business View].[LKPMATTERTYPE].[DISPLAY_NAME]</expression></dataItem></selection></query><query name="Matter Status Pmt">
+			<source>
+				<model/>
+			</source>
+			<selection><dataItem aggregate="none" label="Matter Status ID" name="id" rollupAggregate="none"><expression>[Business View].[LKPMATTERSTATUS].[ID]</expression></dataItem><dataItem aggregate="none" name="Matter Status" rollupAggregate="none" sort="ascending"><expression>[Business View].[LKPMATTERSTATUS].[DISPLAY_NAME]</expression></dataItem></selection>
+		</query><query name="User Currency"><source><model/></source><selection><dataItem aggregate="none" name="User Currency" rollupAggregate="none"><expression>[Business View].[User Currency]</expression></dataItem></selection><detailFilters><detailFilter><filterExpression>[User Currency] is not missing</filterExpression></detailFilter></detailFilters></query><query name="Main Query1">
+			<source>
+				
+			<model/></source>
+			<selection><dataItem aggregate="none" label="Name" name="Organization Name"><expression>[Business View].[W_INVOICE_LEVEL_SUMMARY].[ORGANIZATION_NAME]</expression></dataItem><dataItem aggregate="none" label="Organization ID" name="Vendor ID"><expression>[Business View].[W_INVOICE_LEVEL_SUMMARY].[VENDOR_ID]</expression></dataItem><dataItem label="Fees" name="Fees" aggregate="total"><expression>[Business View].[W_INVOICE_LEVEL_SUMMARY].[User Fee Total Gross Amount]</expression></dataItem><dataItem label="Hours/Units" name="Hours/Units" aggregate="total"><expression>[Business View].[W_INVOICE_LEVEL_SUMMARY].[FEE_BILLED_NUMBER_OF_UNITS]</expression></dataItem><dataItem label="Average Rate" name="Average Rate" aggregate="calculated"><expression>case when (case when [Hours/Units] is missing then 0 else [Hours/Units] end=0)then(0)else(case when [Fees] is missing then 0 else [Fees] end/case when [Hours/Units] is missing then 0 else [Hours/Units] end) end</expression></dataItem><dataItem label="Expenses" name="Expenses" aggregate="total"><expression>[Business View].[W_INVOICE_LEVEL_SUMMARY].[User Expense Total Gross Amount]</expression></dataItem><dataItem label="Discounts" name="Discounts" aggregate="total"><expression>[Business View].[W_INVOICE_LEVEL_SUMMARY].[User Total Discount Amount]</expression></dataItem><dataItem label="Submitted Adjustments" name="Submitted Adjustments" aggregate="total"><expression>[Business View].[W_INVOICE_LEVEL_SUMMARY].[User Total Submitted Adjustments Amount] </expression></dataItem><dataItem name="User Total Adjustment Amount" aggregate="total"><expression>[Business View].[W_INVOICE_LEVEL_SUMMARY].[User Total Net Adjustment Amount Savings Amount] </expression></dataItem><dataItem name="Adjustments" aggregate="calculated"><expression>[User Total Adjustment Amount]-[Submitted Adjustments]</expression></dataItem><dataItem label="Taxes" name="Total Tax Amount" aggregate="total"><expression>[Business View].[W_INVOICE_LEVEL_SUMMARY].[User Total Tax Amount] </expression></dataItem><dataItem label="Net Amount" name="Net Amount" rollupAggregate="summarize" aggregate="total"><expression>[Business View].[W_INVOICE_LEVEL_SUMMARY].[User Total Net amount Post tax Amount]</expression></dataItem><dataItem aggregate="none" name="Application Url"><expression>[Business View].[Application Url]</expression></dataItem><dataItem aggregate="none" name="Org KEY" rollupAggregate="none"><expression>[Business View].[W_INVOICE_LEVEL_SUMMARY].[ORGANIZATION_KEY]</expression></dataItem><dataItem name="Total User Adjustment Amount" aggregate="calculated"><expression>total([User Total Adjustment Amount] for report)</expression></dataItem><dataItem aggregate="none" name="o_id1"><expression>cast([Business View].[W_INVOICE_LEVEL_SUMMARY].[ORGANIZATION_ID],VARCHAR(10))</expression></dataItem><dataItem name="Org Count" aggregate="calculated"><expression>count(distinct [Org KEY] for report)</expression></dataItem><dataItem aggregate="calculated" name="Total Fees"><expression>total([Fees] for report)</expression></dataItem><dataItem aggregate="calculated" name="Total Hours"><expression>total([Hours/Units] for report)</expression></dataItem><dataItem aggregate="calculated" name="Total Expense"><expression>total([Expenses] for report)</expression></dataItem><dataItem aggregate="calculated" name="Total Discount"><expression>total([Discounts] for report)</expression></dataItem><dataItem aggregate="calculated" name="Total Submitted"><expression>total([Submitted Adjustments] for report)</expression></dataItem><dataItem name="Total Adjustment" aggregate="calculated"><expression>total([Adjustments] for report)</expression></dataItem><dataItem aggregate="calculated" name="Total Taxes"><expression>total([Total Tax Amount] for report)</expression></dataItem><dataItem aggregate="calculated" name="Total Net Amount"><expression>total([Net Amount] for report)</expression></dataItem><dataItem name="Average(Fees)" aggregate="calculated" rollupAggregate="none"><expression>[Total Fees]/[Org Count]</expression></dataItem><dataItem aggregate="calculated" name="Report Average Rate" rollupAggregate="average"><expression>case when (case when [Total Hours]  is missing then 0 else   [Total Hours]end=0)then(0)else(case when [Total Fees] is missing then 0 else [Total Fees]end/case when  [Total Hours] is missing then 0 else  [Total Hours]end) end</expression></dataItem><dataItem aggregate="calculated" name="Average(Expenses)" rollupAggregate="none"><expression>[Total Expense]/[Org Count]</expression></dataItem><dataItem aggregate="calculated" name="Average(Discounts)" rollupAggregate="none"><expression>[Total Discount]/[Org Count]</expression></dataItem><dataItem aggregate="calculated" name="Report Discount"><expression>case when  (case when [Total Fees]  is missing then 0 else [Total Fees] end +case when [Total Expense] is missing then 0 else  [Total Expense] end) = 0 then 0 else
+(
+(case when [Total Discount] is missing then 0 else  [Total Discount] end)/(case when  [Total Fees]is missing then 0 else [Total Fees] end +case when  [Total Expense] is missing then 0 else  [Total Expense] end) )end</expression></dataItem><dataItem aggregate="calculated" name="Average(Submitted Adjustments)" rollupAggregate="none"><expression>[Total Submitted]/[Org Count]</expression></dataItem><dataItem name="Average(Adjustments)" aggregate="calculated" rollupAggregate="none"><expression>[Total Adjustment]/[Org Count]</expression></dataItem><dataItem aggregate="calculated" name="Report Adjustment"><expression>case when  ((case when  [Total Fees] is missing then 0 else [Total Fees] end) +(case when  [Total Expense] is missing then 0 else [Total Expense] end)+(case when [Total Discount] is missing then 0 else [Total Discount] end))=0  then 0 else ((case when [Total User Adjustment Amount] is missing then 0 else [Total User Adjustment Amount] end) /
+
+((case when [Total Fees] is missing then 0 else [Total Fees] end )+(case when [Total Expense]  is missing then 0 else [Total Expense] end)+(case when [Total Discount] is missing then 0 else  [Total Discount] end) ))end
+
+
+
+</expression></dataItem><dataItem aggregate="calculated" name="Average(Total Tax Amount)" rollupAggregate="none"><expression>[Total Taxes]/[Org Count]</expression></dataItem><dataItem aggregate="calculated" name="Average(Net Amount)" rollupAggregate="none"><expression>[Total Net Amount]/[Org Count]</expression></dataItem><dataItem aggregate="calculated" name="Discount %"><expression>case when  (case when [Fees] is missing then 0 else [Fees] end +case when [Expenses] is missing then 0 else [Expenses] end) = 0 then 0 else
+(
+(case when [Discounts] is missing then 0 else [Discounts] end)/(case when [Fees] is missing then 0 else [Fees] end +case when [Expenses] is missing then 0 else [Expenses] end) )end</expression></dataItem><dataItem aggregate="calculated" name="Total Adjustments %"><expression>case when  (case when [Fees] is missing then 0 else [Fees] end +case when [Expenses] is missing then 0 else [Expenses] end+case when [Discounts] is missing then 0 else [Discounts]end)=0  then 0 else ((case when [User Total Adjustment Amount]  is missing then 0 else [User Total Adjustment Amount] end) /
+
+((case when [Fees] is missing then 0 else [Fees] end )+(case when [Expenses] is missing then 0 else [Expenses] end)+(case when [Discounts] is missing then 0 else [Discounts] end) ))end
+
+</expression></dataItem></selection>
+		<detailFilters><detailFilter postAutoAggregation="true" use="optional"><filterExpression>[Net Amount] in_range ?Net Amount? </filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[W_INVOICE_LEVEL_SUMMARY].[MATTER_STATUS_ID] in ?Matter Status?
+
+</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[W_INVOICE_LEVEL_SUMMARY].[PRIMARY_MATTER_TYPE_ID] in ?Matter Type?</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[W_INVOICE_LEVEL_SUMMARY].[PRACTICE_AREA_ID] in (?Practice Area?)</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[W_INVOICE_LEVEL_SUMMARY].[BUSINESS_UNIT_ID] in ?Business Unit?</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[W_INVOICE_LEVEL_SUMMARY].[MATTER_KEY]in (?Matter?)</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>([Business View].[W_INVOICE_LEVEL_SUMMARY].[MATTER_OPEN_DATE] in_range ?Matter Open Date?)</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[W_INVOICE_LEVEL_SUMMARY].[PRIMARY_INTERNAL_PERSON_NAME] in ?Primary Internal Contact?</filterExpression></detailFilter><detailFilter><filterExpression>[Business View].[W_INVOICE_LEVEL_SUMMARY].[(Bit)Has Errors]&lt;&gt; 1</filterExpression></detailFilter><detailFilter><filterExpression>[Business View].[W_INVOICE_LEVEL_SUMMARY].[CURRENT_INVOICE_STATE_ID] in ?Invoice State?</filterExpression></detailFilter><detailFilter><filterExpression>[Business View].[W_INVOICE_LEVEL_SUMMARY].[ORGANIZATION_TYPE_CODE]=&apos;External&apos;</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>[Business View].[W_INVOICE_LEVEL_SUMMARY].[ORGANIZATION_KEY] in ?Organization Name?</filterExpression></detailFilter><detailFilter use="optional"><filterExpression>case when (?Date Type? = &apos;Invoice Date&apos;)
+then ([Business View].[W_INVOICE_LEVEL_SUMMARY].[INVOICE_DATE] in_range ?Invoice Fiscal Date?)
+else
+([Business View].[W_INVOICE_LEVEL_SUMMARY].[FISCAL_DATE] in_range ?Invoice Fiscal Date?)
+end</filterExpression></detailFilter></detailFilters></query><query name="MainGraphQuery">
+			<source>
+				
+			<queryRef refQuery="Main Query1"/></source>
+			<selection><dataItem label="Organization KEY" name="Organization KEY" aggregate="none" rollupAggregate="none"><expression>[Main Query1].[Org KEY]</expression></dataItem><dataItem label="Organization Name" name="Organization Name" aggregate="none" rollupAggregate="none"><expression>[Main Query1].[Organization Name]</expression></dataItem><dataItem label="Net Amount" name="Net Amount" rollupAggregate="summarize" aggregate="none"><expression>[Main Query1].[Net Amount]</expression></dataItem><dataItem name="Rank" sort="ascending"><expression>rank([Net Amount])</expression></dataItem></selection>
+		<detailFilters><detailFilter postAutoAggregation="true" use="prohibited"><filterExpression>[MatterInvoice].[Net Amount] in_range ?Net Amount? </filterExpression></detailFilter><detailFilter postAutoAggregation="true"><filterExpression>[Rank]&lt;=?Top N?</filterExpression></detailFilter></detailFilters></query></queries>
+				<layouts>
+					<layout>
+						<reportPages>
+							<page name="Report Page"><style><defaultStyles><defaultStyle refStyle="pg"/></defaultStyles></style>
+								<pageBody><style><defaultStyles><defaultStyle refStyle="pb"/></defaultStyles><CSS value="text-align:center"/></style>
+									<contents>
+										
+									<block>
+			<contents><table><style><defaultStyles><defaultStyle refStyle="tb"/></defaultStyles><CSS value="border-collapse:collapse;width:100%"/></style><tableRows><tableRow><tableCells><tableCell><contents><textItem><dataSource><staticValue>Net Amount  </staticValue></dataSource><style><CSS value="font-weight:bold"/></style></textItem></contents><style><CSS value="text-align:left;vertical-align:top;padding-right:4px;padding-left:4px"/></style></tableCell><tableCell><contents><textBox numbersOnly="true" parameter="Net Amount" range="true" required="false"/></contents><style><CSS value="padding-top:3px;padding-bottom:3px;vertical-align:top;text-align:left"/></style></tableCell><tableCell><contents><textItem><dataSource><staticValue>Matter Status  </staticValue></dataSource><style><CSS value="font-weight:bold"/></style></textItem></contents><style><CSS value="text-align:left;vertical-align:top;padding-right:4px;padding-left:4px"/></style></tableCell><tableCell><contents><selectValue parameter="Matter Status" refQuery="Matter Status Pmt" required="false"><useItem refDataItem="id"><displayItem refDataItem="Matter Status"/></useItem></selectValue></contents><style><CSS value="text-align:left;padding-top:3px;padding-bottom:3px;vertical-align:top"/></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><textItem><dataSource><staticValue>Top N Spend by Organization</staticValue></dataSource><style><CSS value="font-weight:bold"/></style></textItem></contents><style><CSS value="padding-right:4px;padding-left:4px;text-align:left;vertical-align:top"/></style></tableCell><tableCell><contents><selectValue cascadeOn="" parameter="Top N"><defaultSelections><defaultSimpleSelection>10</defaultSimpleSelection></defaultSelections><selectOptions><selectOption useValue="5"><displayValue>5</displayValue></selectOption><selectOption useValue="10"><displayValue>10</displayValue></selectOption><selectOption useValue="15"><displayValue>15</displayValue></selectOption><selectOption useValue="25"><displayValue>25</displayValue></selectOption><selectOption useValue="50"><displayValue>50</displayValue></selectOption></selectOptions></selectValue></contents><style><CSS value="text-align:left;padding-top:3px;padding-bottom:3px;vertical-align:top"/></style></tableCell><tableCell><contents><textItem><dataSource><staticValue>Matter Type  </staticValue></dataSource><style><CSS value="font-weight:bold"/></style></textItem></contents><style><CSS value="text-align:left;vertical-align:top;padding-right:4px;padding-left:4px"/></style></tableCell><tableCell><contents><selectValue parameter="Matter Type" refQuery="Matter Type Pmt" required="false"><useItem refDataItem="id"><displayItem refDataItem="Matter Type"/></useItem></selectValue></contents><style><CSS value="text-align:left;padding-top:3px;padding-bottom:3px;vertical-align:top"/></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents/><style><CSS value="vertical-align:top;text-align:left;padding-right:4px;padding-left:4px"/></style></tableCell><tableCell><contents/><style><CSS value="vertical-align:top;text-align:left;padding-top:3px;padding-bottom:3px"/></style></tableCell><tableCell><contents/><style><CSS value="vertical-align:top;text-align:left;padding-right:4px;padding-left:4px"/></style></tableCell><tableCell><contents/><style><CSS value="vertical-align:top;text-align:left;padding-top:3px;padding-bottom:3px"/></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell colSpan="4"><contents><promptButton type="finish">
+			<contents><textItem><dataSource><staticValue>Refresh</staticValue></dataSource></textItem></contents>
+			<style>
+				<defaultStyles>
+					<defaultStyle refStyle="bp"/>
+				</defaultStyles>
+			<CSS value="font-weight:bold;padding-top:2px;padding-bottom:2px;border:1pt solid black"/></style>
+		</promptButton></contents><style><CSS value="text-align:center;padding-top:3px;padding-bottom:3px"/></style></tableCell></tableCells></tableRow></tableRows><conditionalRender refVariable="ShowOnly-roHtml"><renderFor refVariableValue="Yes"/></conditionalRender></table></contents>
+		<conditionalRender refVariable="ShowOnly-roHtml"><renderFor refVariableValue="Yes"/></conditionalRender></block><table><style><defaultStyles><defaultStyle refStyle="tb"/></defaultStyles><CSS value="border-collapse:collapse;width:100%"/></style><tableRows><tableRow><tableCells><tableCell><contents/><style><CSS value="display:none"/></style></tableCell></tableCells></tableRow></tableRows></table><table><style><defaultStyles><defaultStyle refStyle="tb"/></defaultStyles><CSS value="border-collapse:collapse;width:100%"/></style><tableRows><tableRow><tableCells><tableCell><contents/></tableCell><tableCell><contents/></tableCell></tableCells></tableRow></tableRows></table><table><style><defaultStyles><defaultStyle refStyle="tb"/></defaultStyles><CSS value="border-collapse:collapse;width:100%"/></style><tableRows><tableRow><tableCells><tableCell><contents>
+												<v2_combinationChart maxHotspots="10000" name="Combination Chart1" orientation="horizontal" refQuery="MainGraphQuery">
+														<v2_combinationTypeTooltips/>
+														<v2_commonAxis>
+															<v2_ordinalAxis>
+																<v2_axisTitle refQuery="MainGraphQuery">
+																	<v2_chartTextContents>
+																		<v2_automaticText/>
+																	</v2_chartTextContents>
+																	<style>
+																	<defaultStyles>
+																		<defaultStyle refStyle="at"/>
+																	</defaultStyles>
+																</style></v2_axisTitle>
+																<v2_axisLine lineWeight="0pt" majorTickMarkLocation="none"/>
+																<v2_axisLabels>
+																	<style>
+																		<defaultStyles>
+																			<defaultStyle refStyle="al"/>
+																		</defaultStyles>
+																	</style>
+																</v2_axisLabels>
+															</v2_ordinalAxis>
+															<chartNodes><chartNode><chartNodeMembers><chartNodeMember refDataItem="Organization Name"><chartContents><chartTextItem><dataSource><memberCaption/></dataSource></chartTextItem></chartContents><sortList><sortItem sortOrder="descending" refDataItem="Rank"/></sortList></chartNodeMember></chartNodeMembers></chartNode></chartNodes></v2_commonAxis>
+														<v2_topLeftAxis>
+															<v2_combinationChartTypes>
+																<v2_bar>
+																	<v2_solidPalette>
+																		<v2_solidPaletteEntries>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect>
+																					<v2_solidColor color="#333399"/>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect>
+																					<v2_solidColor color="#CC9933"/>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect>
+																					<v2_solidColor color="#993333"/>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect>
+																					<v2_solidColor color="#CCCC00"/>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect>
+																					<v2_solidColor color="#336633"/>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect>
+																					<v2_solidColor color="#6699CC"/>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect>
+																					<v2_solidColor color="#FF0033"/>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect>
+																					<v2_solidColor color="#FF6633"/>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect>
+																					<v2_solidColor color="#CC0099"/>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect>
+																					<v2_solidColor color="#66CC00"/>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect>
+																					<v2_solidColor color="#0033FF"/>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect>
+																					<v2_solidColor color="#6666FF"/>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect>
+																					<v2_solidColor color="#9900FF"/>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect>
+																					<v2_solidColor color="#339966"/>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect>
+																					<v2_solidColor color="#FFCC00"/>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect>
+																					<v2_solidColor color="#6633CC"/>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																			<v2_solidPaletteEntry>
+																				<v2_fillEffect>
+																					<v2_solidColor color="#999999"/>
+																				</v2_fillEffect>
+																			</v2_solidPaletteEntry>
+																		</v2_solidPaletteEntries>
+																	</v2_solidPalette>
+																</v2_bar>
+															</v2_combinationChartTypes>
+															<v2_axis>
+																<v2_axisTitle refQuery="MainGraphQuery">
+																	<v2_chartTextContents>
+																		<v2_automaticText/>
+																	</v2_chartTextContents>
+																	<style>
+																	<defaultStyles>
+																		<defaultStyle refStyle="at"/>
+																	</defaultStyles>
+																</style></v2_axisTitle>
+																<v2_axisLine lineWeight="0pt" majorTickMarkLocation="none"/>
+																<v2_axisRange>
+																	<v2_automaticRange/>
+																</v2_axisRange>
+																<v2_axisLabels>
+																	<style>
+																		<defaultStyles>
+																			<defaultStyle refStyle="al"/>
+																		</defaultStyles>
+																	</style>
+																</v2_axisLabels>
+																<v2_majorGridlines lineColor="#cccccc" lineWeight="0pt"/>
+															</v2_axis>
+														</v2_topLeftAxis>
+														<style>
+															<CSS value=""/><defaultStyles><defaultStyle refStyle="ch"/></defaultStyles></style>
+														<noDataHandler>
+															<contents>
+																<block>
+																	<contents>
+																		<textItem>
+																			<dataSource>
+																				<staticValue>No Data Available</staticValue>
+																			</dataSource>
+																			<style>
+																				<CSS value="padding:10px 18px;"/>
+																			</style>
+																		</textItem>
+																	</contents>
+																</block>
+															</contents>
+														</noDataHandler>
+														<v2_defaultChartMeasure refDataItem="Net Amount"><style><dataFormat><numberFormat decimalSize="2"/></dataFormat></style></v2_defaultChartMeasure><v2_legend><v2_legendPosition><v2_legendPreset/></v2_legendPosition><v2_legendTitle refQuery="MainGraphQuery"><v2_chartTextContents><v2_automaticText/></v2_chartTextContents><style>
+																	<defaultStyles>
+																		<defaultStyle refStyle="lx"/>
+																	</defaultStyles>
+																</style></v2_legendTitle><style>
+																<defaultStyles>
+																	<defaultStyle refStyle="lg"/>
+																</defaultStyles>
+															</style></v2_legend><v2_chartTitle refQuery="MainGraphQuery"><style><defaultStyles><defaultStyle refStyle="ct"/></defaultStyles></style><v2_chartTextItems><v2_chartTextItem><dataSource><staticValue>Top </staticValue></dataSource></v2_chartTextItem><v2_chartTextItem><dataSource><reportExpression>if(ParamDisplayValue(&apos;Top N&apos;)= &apos;0&apos;) then &apos;All&apos; else (ParamDisplayValue(&apos;Top N&apos;))</reportExpression></dataSource></v2_chartTextItem><v2_chartTextItem><dataSource><staticValue>  Spend By Organization</staticValue></dataSource></v2_chartTextItem></v2_chartTextItems></v2_chartTitle></v2_combinationChart>
+												</contents><style><CSS value="text-align:center"/></style></tableCell><tableCell><contents><pieChart avoidLabelCollision="true" maxHotspots="10000" name="Pie Chart1" refQuery="MainGraphQuery" showPieValues="outsideWithLines" showTooltips="true" showValuesAsPercent="true">
+														<legend>
+															<legendPosition>
+																<relativePosition/>
+															</legendPosition>
+															<legendTitle refQuery="MainGraphQuery">
+																<style>
+																	<defaultStyles>
+																		<defaultStyle refStyle="lx"/>
+																	</defaultStyles>
+																</style>
+															</legendTitle>
+															<style>
+																<defaultStyles>
+																	<defaultStyle refStyle="lg"/>
+																</defaultStyles>
+															</style>
+														</legend>
+														<axisTitle refQuery="MainGraphQuery">
+															<style>
+																<defaultStyles>
+																	<defaultStyle refStyle="at"/>
+																</defaultStyles>
+															</style>
+														</axisTitle>
+														<pieLabels>
+															<style>
+																<defaultStyles>
+																	<defaultStyle refStyle="al"/>
+																</defaultStyles>
+															</style>
+														</pieLabels>
+														<style>
+															<defaultStyles>
+																<defaultStyle refStyle="ch"/>
+															</defaultStyles>
+														</style>
+														<defaultChartMeasure refDataItem="Net Amount"><style><dataFormat><percentFormat decimalSize="2"/></dataFormat></style></defaultChartMeasure><pieSlices><chartNodes><chartNode><chartNodeMembers><chartNodeMember refDataItem="Organization Name"><chartContents><chartTextItem><dataSource><memberCaption/></dataSource></chartTextItem></chartContents><sortList><sortItem refDataItem="Rank"/><sortItem refDataItem="Net Amount"/></sortList></chartNodeMember></chartNodeMembers></chartNode></chartNodes></pieSlices><chartTitle refQuery="MainGraphQuery"><style><defaultStyles><defaultStyle refStyle="ct"/></defaultStyles></style><chartContents><chartTextItem><dataSource><staticValue>Top </staticValue></dataSource></chartTextItem><chartTextItem><dataSource><reportExpression>if(ParamDisplayValue(&apos;Top N&apos;)= &apos;0&apos;) then &apos;All&apos; else (ParamDisplayValue(&apos;Top N&apos;))</reportExpression></dataSource></chartTextItem><chartTextItem><dataSource><staticValue> Spend By Organization</staticValue></dataSource></chartTextItem></chartContents></chartTitle></pieChart>
+												</contents><style><CSS value="text-align:center"/></style></tableCell></tableCells></tableRow></tableRows></table><table><style><defaultStyles><defaultStyle refStyle="tb"/></defaultStyles><CSS value="border-collapse:collapse;width:100%"/></style><tableRows><tableRow><tableCells><tableCell><contents><list horizontalPagination="true" name="List2" refQuery="Main Query1">
+			
+			
+			
+			<style>
+				<CSS value="border-collapse:collapse"/>
+				<defaultStyles>
+					<defaultStyle refStyle="ls"/>
+				</defaultStyles>
+			</style>
+		<listColumns><listColumn><listColumnTitle><style><defaultStyles><defaultStyle refStyle="lt"/></defaultStyles><CSS value="font-weight:bold"/></style><contents><textItem><dataSource><dataItemLabel refDataItem="Organization Name"/></dataSource></textItem></contents></listColumnTitle><listColumnBody><style><defaultStyles><defaultStyle refStyle="lm"/></defaultStyles><CSS value="text-align:left"/></style><contents><HTMLItem>
+			<dataSource>
+				
+			<reportExpression>&quot;&lt;a href=&apos;&quot; +[Main Query1].[Application Url] +&quot;enduser/itemscreens/show.do?screenName=DefaultOrganizationSearchResult&amp;mode=show&amp;referringAttributeId=&amp;entityInstanceId=&quot;+trim(&quot;BOTH&quot;,&quot;&quot;,[Main Query1].[o_id1])+&quot;&amp;parentEntityId=&amp;parentInstanceId=&amp;parentFieldName=&quot;+ &quot;&apos; target=_blank&gt;&quot; + 
+&quot;&lt;img border=0 src=&apos;../common/images/magnifier.png&apos;&gt;&quot; + 
+&quot;&lt;/a&gt;&quot;</reportExpression></dataSource>
+		</HTMLItem><textItem><dataSource><dataItemValue refDataItem="Organization Name"/></dataSource></textItem></contents></listColumnBody></listColumn><listColumn><listColumnTitle><style><defaultStyles><defaultStyle refStyle="lt"/></defaultStyles><CSS value="font-weight:bold"/></style><contents><textItem><dataSource><dataItemLabel refDataItem="Vendor ID"/></dataSource></textItem></contents></listColumnTitle><listColumnBody><style><defaultStyles><defaultStyle refStyle="lm"/></defaultStyles><CSS value="text-align:left"/></style><contents><textItem><dataSource><dataItemValue refDataItem="Vendor ID"/></dataSource></textItem></contents></listColumnBody></listColumn><listColumn><listColumnTitle><style><defaultStyles><defaultStyle refStyle="lt"/></defaultStyles><CSS value="font-weight:bold"/></style><contents><textItem><dataSource><dataItemLabel refDataItem="Fees"/></dataSource></textItem></contents></listColumnTitle><listColumnBody><style><defaultStyles><defaultStyle refStyle="lm"/></defaultStyles><CSS value="text-align:right"/><dataFormat><numberFormat decimalSize="2" sign="()"/></dataFormat></style><contents><textItem><dataSource><dataItemValue refDataItem="Fees"/></dataSource></textItem></contents></listColumnBody></listColumn><listColumn><listColumnTitle><style><defaultStyles><defaultStyle refStyle="lt"/></defaultStyles><CSS value="font-weight:bold"/></style><contents><textItem><dataSource><dataItemLabel refDataItem="Hours/Units"/></dataSource></textItem></contents></listColumnTitle><listColumnBody><style><defaultStyles><defaultStyle refStyle="lm"/></defaultStyles><CSS value="text-align:right"/><dataFormat><numberFormat decimalSize="2" sign="()" useGrouping="false"/></dataFormat></style><contents><textItem><dataSource><dataItemValue refDataItem="Hours/Units"/></dataSource></textItem></contents></listColumnBody></listColumn><listColumn><listColumnTitle><style><defaultStyles><defaultStyle refStyle="lt"/></defaultStyles><CSS value="font-weight:bold"/></style><contents><textItem><dataSource><dataItemLabel refDataItem="Average Rate"/></dataSource></textItem></contents></listColumnTitle><listColumnBody><style><defaultStyles><defaultStyle refStyle="lm"/></defaultStyles><CSS value="text-align:right"/><dataFormat><numberFormat decimalSize="2" sign="()"/></dataFormat></style><contents><textItem><dataSource><dataItemValue refDataItem="Average Rate"/></dataSource></textItem></contents></listColumnBody></listColumn><listColumn><listColumnTitle><style><defaultStyles><defaultStyle refStyle="lt"/></defaultStyles><CSS value="font-weight:bold"/></style><contents><textItem><dataSource><dataItemLabel refDataItem="Expenses"/></dataSource></textItem></contents></listColumnTitle><listColumnBody><style><defaultStyles><defaultStyle refStyle="lm"/></defaultStyles><CSS value="text-align:right"/><dataFormat><numberFormat decimalSize="2" sign="()"/></dataFormat></style><contents><textItem><dataSource><dataItemValue refDataItem="Expenses"/></dataSource></textItem></contents></listColumnBody></listColumn><listColumn><listColumnTitle><style><defaultStyles><defaultStyle refStyle="lt"/></defaultStyles><CSS value="font-weight:bold"/></style><contents><textItem><dataSource><dataItemLabel refDataItem="Discounts"/></dataSource></textItem></contents></listColumnTitle><listColumnBody><style><defaultStyles><defaultStyle refStyle="lm"/></defaultStyles><CSS value="text-align:right"/><dataFormat><numberFormat decimalSize="2" sign="()"/></dataFormat></style><contents><textItem><dataSource><dataItemValue refDataItem="Discounts"/></dataSource></textItem></contents></listColumnBody></listColumn><listColumn><listColumnTitle><style><defaultStyles><defaultStyle refStyle="lt"/></defaultStyles><CSS value="font-weight:bold"/></style><contents><textItem><dataSource><dataItemLabel refDataItem="Discount %"/></dataSource></textItem></contents></listColumnTitle><listColumnBody><style><defaultStyles><defaultStyle refStyle="lm"/></defaultStyles><dataFormat><percentFormat decimalSize="2"/></dataFormat></style><contents><textItem><dataSource><dataItemValue refDataItem="Discount %"/></dataSource></textItem></contents></listColumnBody></listColumn><listColumn><listColumnTitle><style><defaultStyles><defaultStyle refStyle="lt"/></defaultStyles><CSS value="font-weight:bold"/></style><contents><textItem><dataSource><dataItemLabel refDataItem="Submitted Adjustments"/></dataSource></textItem></contents></listColumnTitle><listColumnBody><style><defaultStyles><defaultStyle refStyle="lm"/></defaultStyles><CSS value="text-align:right"/><dataFormat><numberFormat decimalSize="2" sign="()"/></dataFormat></style><contents><textItem><dataSource><dataItemValue refDataItem="Submitted Adjustments"/></dataSource></textItem></contents></listColumnBody></listColumn><listColumn><listColumnTitle><style><defaultStyles><defaultStyle refStyle="lt"/></defaultStyles><CSS value="font-weight:bold"/></style><contents><textItem><dataSource><dataItemLabel refDataItem="Adjustments"/></dataSource></textItem></contents></listColumnTitle><listColumnBody><style><defaultStyles><defaultStyle refStyle="lm"/></defaultStyles><CSS value="text-align:right"/><dataFormat><numberFormat decimalSize="2" sign="()"/></dataFormat></style><contents><textItem><dataSource><dataItemValue refDataItem="Adjustments"/></dataSource></textItem></contents></listColumnBody></listColumn><listColumn><listColumnTitle><style><defaultStyles><defaultStyle refStyle="lt"/></defaultStyles><CSS value="font-weight:bold"/></style><contents><textItem><dataSource><dataItemLabel refDataItem="Total Adjustments %"/></dataSource></textItem></contents></listColumnTitle><listColumnBody><style><defaultStyles><defaultStyle refStyle="lm"/></defaultStyles><dataFormat><percentFormat decimalSize="2"/></dataFormat></style><contents><textItem><dataSource><dataItemValue refDataItem="Total Adjustments %"/></dataSource></textItem></contents></listColumnBody></listColumn><listColumn><listColumnTitle><style><defaultStyles><defaultStyle refStyle="lt"/></defaultStyles><CSS value="font-weight:bold"/></style><contents><textItem><dataSource><dataItemLabel refDataItem="Total Tax Amount"/></dataSource></textItem></contents></listColumnTitle><listColumnBody><style><defaultStyles><defaultStyle refStyle="lm"/></defaultStyles><CSS value="text-align:right"/><dataFormat><numberFormat decimalSize="2" sign="()"/></dataFormat></style><contents><textItem><dataSource><dataItemValue refDataItem="Total Tax Amount"/></dataSource></textItem></contents></listColumnBody></listColumn><listColumn><listColumnTitle><style><defaultStyles><defaultStyle refStyle="lt"/></defaultStyles><CSS value="font-weight:bold"/></style><contents><textItem><dataSource><dataItemLabel refDataItem="Net Amount"/></dataSource></textItem></contents></listColumnTitle><listColumnBody><style><defaultStyles><defaultStyle refStyle="lm"/></defaultStyles><CSS value="text-align:right"/><dataFormat><numberFormat decimalSize="2" sign="()"/></dataFormat></style><contents><textItem><dataSource><dataItemValue refDataItem="Net Amount"/></dataSource></textItem></contents></listColumnBody></listColumn></listColumns><propertyList><propertyItem refDataItem="o_id1"/><propertyItem refDataItem="Application Url"/></propertyList><listOverallGroup><listFooter><listRows><listRow><rowCells><rowCell><contents><textItem><dataSource><staticValue>Total</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="of"/></defaultStyles></style></rowCell><rowCell><contents/><style><defaultStyles><defaultStyle refStyle="of"/></defaultStyles></style></rowCell><rowCell><contents><textItem><dataSource><dataItemValue refDataItem="Total Fees"/></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="os"/></defaultStyles><CSS value="text-align:right"/><dataFormat><numberFormat decimalSize="2" sign="()"/></dataFormat></style></rowCell><rowCell><contents><textItem><dataSource><dataItemValue refDataItem="Total Hours"/></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="of"/></defaultStyles><CSS value="text-align:right"/><dataFormat><numberFormat decimalSize="2" sign="()"/></dataFormat></style></rowCell><rowCell><contents/><style><defaultStyles><defaultStyle refStyle="of"/></defaultStyles></style></rowCell><rowCell><contents><textItem><dataSource><dataItemValue refDataItem="Total Expense"/></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="of"/></defaultStyles><CSS value="text-align:right"/><dataFormat><numberFormat decimalSize="2" sign="()"/></dataFormat></style></rowCell><rowCell><contents><textItem><dataSource><dataItemValue refDataItem="Total Discount"/></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="of"/></defaultStyles><CSS value="text-align:right"/><dataFormat><numberFormat decimalSize="2" sign="()"/></dataFormat></style></rowCell><rowCell><contents/><style><defaultStyles><defaultStyle refStyle="of"/></defaultStyles></style></rowCell><rowCell><contents><textItem><dataSource><dataItemValue refDataItem="Total Submitted"/></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="of"/></defaultStyles><CSS value="text-align:right"/><dataFormat><numberFormat decimalSize="2" sign="()"/></dataFormat></style></rowCell><rowCell><contents><textItem><dataSource><dataItemValue refDataItem="Total Adjustment"/></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="of"/></defaultStyles><CSS value="text-align:right"/><dataFormat><numberFormat decimalSize="2" sign="()"/></dataFormat></style></rowCell><rowCell><contents/><style><defaultStyles><defaultStyle refStyle="of"/></defaultStyles></style></rowCell><rowCell><contents><textItem><dataSource><dataItemValue refDataItem="Total Taxes"/></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="of"/></defaultStyles><CSS value="text-align:right"/><dataFormat><numberFormat decimalSize="2" sign="()"/></dataFormat></style></rowCell><rowCell><contents><textItem><dataSource><dataItemValue refDataItem="Total Net Amount"/></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="of"/></defaultStyles><CSS value="text-align:right"/><dataFormat><numberFormat decimalSize="2" sign="()"/></dataFormat></style></rowCell></rowCells></listRow><listRow><rowCells><rowCell><contents><textItem><dataSource><staticValue>Average</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="of"/></defaultStyles></style></rowCell><rowCell><contents/><style><defaultStyles><defaultStyle refStyle="of"/></defaultStyles></style></rowCell><rowCell><contents><textItem><dataSource><dataItemValue refDataItem="Average(Fees)"/></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="os"/></defaultStyles><dataFormat><numberFormat decimalSize="2" sign="()"/></dataFormat></style></rowCell><rowCell><contents/><style><defaultStyles><defaultStyle refStyle="of"/></defaultStyles></style></rowCell><rowCell><contents><textItem><dataSource><dataItemValue refDataItem="Report Average Rate"/></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="os"/></defaultStyles><CSS value="text-align:right"/><dataFormat><numberFormat decimalSize="2" sign="()"/></dataFormat></style></rowCell><rowCell><contents><textItem><dataSource><dataItemValue refDataItem="Average(Expenses)"/></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="os"/></defaultStyles><dataFormat><numberFormat decimalSize="2" sign="()"/></dataFormat></style></rowCell><rowCell><contents><textItem><dataSource><dataItemValue refDataItem="Average(Discounts)"/></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="os"/></defaultStyles><dataFormat><numberFormat decimalSize="2" sign="()"/></dataFormat></style></rowCell><rowCell><contents><textItem><dataSource><dataItemValue refDataItem="Report Discount"/></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="of"/></defaultStyles><CSS value="text-align:right"/><dataFormat><percentFormat decimalSize="2"/></dataFormat></style></rowCell><rowCell><contents><textItem><dataSource><dataItemValue refDataItem="Average(Submitted Adjustments)"/></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="os"/></defaultStyles><dataFormat><numberFormat decimalSize="2" sign="()"/></dataFormat></style></rowCell><rowCell><contents><textItem><dataSource><dataItemValue refDataItem="Average(Adjustments)"/></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="os"/></defaultStyles><dataFormat><numberFormat decimalSize="2" sign="()"/></dataFormat></style></rowCell><rowCell><contents><textItem><dataSource><dataItemValue refDataItem="Report Adjustment"/></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="of"/></defaultStyles><CSS value="text-align:right"/><dataFormat><percentFormat decimalSize="2"/></dataFormat></style></rowCell><rowCell><contents><textItem><dataSource><dataItemValue refDataItem="Average(Total Tax Amount)"/></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="os"/></defaultStyles><dataFormat><numberFormat decimalSize="2" sign="()"/></dataFormat></style></rowCell><rowCell><contents><textItem><dataSource><dataItemValue refDataItem="Average(Net Amount)"/></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="os"/></defaultStyles><dataFormat><numberFormat decimalSize="2" sign="()"/></dataFormat></style></rowCell></rowCells></listRow></listRows></listFooter></listOverallGroup><sortList><sortItem refDataItem="Organization Name"/></sortList></list></contents><style><CSS value="text-align:center"/></style></tableCell></tableCells></tableRow></tableRows></table></contents>
+								</pageBody>
+								<pageHeader>
+									<contents>
+										<block><style><defaultStyles><defaultStyle refStyle="ta"/></defaultStyles></style>
+											<contents>
+												<textItem><style><defaultStyles><defaultStyle refStyle="tt"/></defaultStyles></style>
+													<dataSource>
+														
+													<reportExpression>IF ((substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/report[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName()) contains &quot;folder[@name=&quot;)  OR ((substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/reportView[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName()) contains &quot;folder[@name=&quot;)
+THEN
+(ReportName())
+ELSE
+(
+IF (ReportPath() contains &quot;reportView&quot;)
+THEN (substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/reportView[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName())
+
+ELSE
+(substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/report[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName())
+)
+
+
+
+</reportExpression></dataSource>
+												</textItem>
+											</contents>
+										</block>
+									<table><style><defaultStyles><defaultStyle refStyle="tb"/></defaultStyles><CSS value="border-collapse:collapse;width:100%"/></style><tableRows><tableRow><tableCells><tableCell><contents><textItem><dataSource><staticValue>Filters: </staticValue></dataSource><style><CSS value="font-weight:bold"/></style></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Top N&apos;) + &apos;- &apos; +ParamDisplayValue(&apos;Top N&apos;) +&apos;; &apos;</reportExpression></dataSource></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Matter Open Date&apos;) + &apos;- &apos; +ParamDisplayValue(&apos;Matter Open Date&apos;) +&apos;; &apos;</reportExpression></dataSource></textItem><textItem><dataSource><reportExpression>ParamDisplayValue(&apos;Date Type&apos;) + &apos;- &apos; +ParamDisplayValue(&apos;Invoice Fiscal Date&apos;) +&apos;; &apos;</reportExpression></dataSource></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Business Unit&apos;)+&apos;- &apos;+ParamDisplayValue(&apos;Business Unit&apos;)+&apos;; &apos;</reportExpression></dataSource></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Practice Area&apos;)+&apos;- &apos;+ParamDisplayValue(&apos;Practice Area&apos;)+&apos;; &apos;</reportExpression></dataSource></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Matter Type&apos;)+&apos;- &apos;+ParamDisplayValue(&apos;Matter Type&apos;)+&apos;; &apos;</reportExpression></dataSource></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Matter Status&apos;)+&apos;- &apos;+ParamDisplayValue(&apos;Matter Status&apos;)+&apos;; &apos;</reportExpression></dataSource></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Matter&apos;)+&apos;- &apos;+ParamDisplayValue(&apos;Matter&apos;)+&apos;; &apos;</reportExpression></dataSource></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Organization Name&apos;)+&apos;- &apos;+ParamDisplayValue(&apos;Organization Name&apos;)+&apos;; &apos;</reportExpression></dataSource></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Primary Internal Contact&apos;)+&apos;- &apos;+ParamDisplayValue(&apos;Primary Internal Contact&apos;)+&apos;; &apos;</reportExpression></dataSource></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Invoice State&apos;)+&apos;- &apos;+ParamDisplayValue(&apos;Invoice State&apos;)+&apos;; &apos;</reportExpression></dataSource></textItem><textItem><dataSource><reportExpression>ParamName(&apos;Net Amount&apos;)+&apos;- &apos;+ParamDisplayValue(&apos;Net Amount&apos;)+&apos;; &apos;</reportExpression></dataSource></textItem><textItem><dataSource><staticValue> User Currency - </staticValue></dataSource></textItem><singleton name="Singleton1" refQuery="User Currency">
+			<contents><textItem><dataSource><dataItemValue refDataItem="User Currency"/></dataSource></textItem></contents>
+		</singleton></contents><style><CSS value="text-align:center;font-style:italic"/></style></tableCell></tableCells></tableRow></tableRows></table></contents>
+									<style>
+										<defaultStyles>
+											<defaultStyle refStyle="ph"/>
+										</defaultStyles>
+										<CSS value="padding-bottom:10px"/>
+									</style>
+								</pageHeader>
+								<pageFooter>
+									<contents>
+										<table>
+											<tableRows>
+												<tableRow>
+													<tableCells>
+														<tableCell>
+															<contents>
+																<date>
+																	<style>
+																		<dataFormat>
+																			<dateFormat/>
+																		</dataFormat>
+																	</style>
+																</date>
+															</contents>
+															<style>
+																<CSS value="vertical-align:top;text-align:left;width:25%"/>
+															</style>
+														</tableCell>
+														<tableCell>
+															<contents>
+																<pageNumber/>
+															</contents>
+															<style>
+																<CSS value="vertical-align:top;text-align:center;width:50%"/>
+															</style>
+														</tableCell>
+														<tableCell>
+															<contents>
+																<time>
+																	<style>
+																		<dataFormat>
+																			<timeFormat/>
+																		</dataFormat>
+																	</style>
+																</time>
+															</contents>
+															<style>
+																<CSS value="vertical-align:top;text-align:right;width:25%"/>
+															</style>
+														</tableCell>
+													</tableCells>
+												</tableRow>
+											</tableRows>
+											<style>
+												<defaultStyles>
+													<defaultStyle refStyle="tb"/>
+												</defaultStyles>
+												<CSS value="border-collapse:collapse;width:100%"/>
+											</style>
+										</table>
+									</contents>
+									<style>
+										<defaultStyles>
+											<defaultStyle refStyle="pf"/>
+										</defaultStyles>
+										<CSS value="padding-top:10px"/>
+									</style>
+								</pageFooter>
+							</page>
+						</reportPages>
+					<promptPages><page name="StandardPromptPage">
+			<pageHeader>
+				<contents>
+					<block>
+						<contents>
+							<textItem>
+								<dataSource>
+									
+								<reportExpression>IF ((substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/report[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName()) contains &quot;folder[@name=&quot;)  OR ((substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/reportView[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName()) contains &quot;folder[@name=&quot;)
+THEN
+(ReportName())
+ELSE
+(
+IF (ReportPath() contains &quot;reportView&quot;)
+THEN (substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/reportView[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName())
+
+ELSE
+(substring(ReportPath(),position(&quot;folder[@name=&quot;,ReportPath())+14,position(&quot;]/report[@name&quot;,ReportPath())-position(&quot;folder[@name=&quot;,ReportPath())-15)+&apos;-&apos;+ReportName())
+)
+
+
+
+</reportExpression></dataSource>
+								<style>
+									<defaultStyles>
+										<defaultStyle refStyle="tt"/>
+									</defaultStyles>
+								</style>
+							</textItem>
+						</contents>
+						<style>
+							<defaultStyles>
+								<defaultStyle refStyle="ta"/>
+							</defaultStyles>
+						</style>
+					</block>
+				<block>
+			<contents><promptButton type="cancel">
+			<contents/>
+			<style>
+				<defaultStyles>
+					<defaultStyle refStyle="bp"/>
+				</defaultStyles>
+			</style>
+		</promptButton><promptButton type="finish">
+			<contents/>
+			<style>
+				<defaultStyles>
+					<defaultStyle refStyle="bp"/>
+				</defaultStyles>
+			</style>
+		</promptButton><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;script type=&quot;text/javascript&quot; src=&quot;../ps/portal/js/dcStandardPromptPage.js&quot;&gt;&lt;/script&gt;</staticValue>
+			</dataSource>
+		</HTMLItem></contents>
+		<style><defaultStyles><defaultStyle refStyle="fp"/></defaultStyles></style></block></contents>
+				<style>
+					<defaultStyles>
+						<defaultStyle refStyle="hp"/>
+					</defaultStyles>
+				</style>
+			</pageHeader>
+			<pageBody>
+				<contents><table><style><defaultStyles><defaultStyle refStyle="tb"/></defaultStyles><CSS value="border-collapse:collapse;width:100%"/></style><tableRows><tableRow><tableCells><tableCell colSpan="2"><contents><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;span id=&quot;Top10Table&quot; class=&quot;Collapsible&quot;&gt; &lt;/span&gt;
+&lt;img onclick=&apos;ExpandCollapse(this,0)&apos; src=&apos;../pat/hal/images/minus.gif&apos; style=&apos;cursor:hand;vertical-align:middle; margin-right:2px&apos;/&gt;
+&lt;span onclick=&apos;ExpandCollapse(this.previousSibling,0)&apos; style=&apos;cursor:hand&apos;&gt;</staticValue>
+			</dataSource>
+		</HTMLItem><textItem><dataSource><staticValue>Top N </staticValue></dataSource><style><CSS value="font-weight:bold"/></style></textItem><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;/span&gt;
+</staticValue>
+			</dataSource>
+		</HTMLItem></contents><style><defaultStyles><defaultStyle refStyle="sh"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell colSpan="2"><contents><textItem><dataSource><staticValue>Top N Spend by Organization</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell colSpan="2"><contents><selectValue parameter="Top N"><defaultSelections><defaultSimpleSelection>10</defaultSimpleSelection></defaultSelections><selectOptions><selectOption useValue="5"><displayValue>5</displayValue></selectOption><selectOption useValue="10"><displayValue>10</displayValue></selectOption><selectOption useValue="15"><displayValue>15</displayValue></selectOption><selectOption useValue="25"><displayValue>25</displayValue></selectOption><selectOption useValue="50"><displayValue>50</displayValue></selectOption></selectOptions></selectValue></contents></tableCell></tableCells></tableRow></tableRows></table><block>
+			<contents><table><style><defaultStyles><defaultStyle refStyle="tb"/></defaultStyles><CSS value="border-collapse:collapse;width:100%"/></style><tableRows><tableRow><tableCells><tableCell colSpan="2"><contents><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;span id=&quot;DateTable&quot; class=&quot;Collapsible&quot;&gt; &lt;/span&gt;
+&lt;img onclick=&apos;ExpandCollapse(this,1)&apos; src=&apos;../pat/hal/images/minus.gif&apos; style=&apos;cursor:hand;vertical-align:middle; margin-right:2px&apos;/&gt;
+&lt;span onclick=&apos;ExpandCollapse(this.previousSibling,1)&apos; style=&apos;cursor:hand&apos;&gt;</staticValue>
+			</dataSource>
+		</HTMLItem><textItem><dataSource><staticValue>Dates</staticValue></dataSource><style><CSS value="font-weight:bold"/></style></textItem><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;/span&gt;
+</staticValue>
+			</dataSource>
+		</HTMLItem></contents><style><defaultStyles><defaultStyle refStyle="sh"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><textItem><dataSource><staticValue>Matter Open Date</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell><tableCell><contents><textItem><dataSource><staticValue>Fiscal Date / Invoice Date</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;div id=&quot;Matter Open Date&quot;&gt;</staticValue>
+			</dataSource>
+		</HTMLItem><selectDate parameter="Matter Open Date" range="true" required="false" selectDateUI="editBox"/><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;/div&gt;
+&lt;script&gt;
+AssignDefaultDateValue(&quot;Matter Open Date&quot;);
+&lt;/script&gt;</staticValue>
+			</dataSource>
+		</HTMLItem></contents></tableCell><tableCell><contents><table><style><defaultStyles><defaultStyle refStyle="tb"/></defaultStyles><CSS value="border-collapse:collapse;text-align:left"/></style><tableRows><tableRow><tableCells><tableCell><contents><textItem><dataSource><staticValue>Date Type</staticValue></dataSource><style><defaultStyles><defaultStyle refStyle="pc"/></defaultStyles></style></textItem></contents><style><defaultStyles><defaultStyle refStyle="pc"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><selectValue parameter="Date Type" required="false"><defaultSelections><defaultSimpleSelection>Fiscal Date</defaultSimpleSelection></defaultSelections><selectOptions><selectOption useValue="Fiscal Date"><displayValue>Fiscal Date</displayValue></selectOption><selectOption useValue="Invoice Date"><displayValue>Invoice Date</displayValue></selectOption></selectOptions></selectValue></contents></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents/><style><CSS value="width:15px"/></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;div id=&quot;Invoice Fiscal Date&quot;&gt;</staticValue>
+			</dataSource>
+		</HTMLItem><selectDate parameter="Invoice Fiscal Date" range="true" required="false" selectDateUI="editBox"/><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;/div&gt;
+&lt;script&gt;
+AssignDefaultDateValue(&quot;Invoice Fiscal Date&quot;);
+&lt;/script&gt;</staticValue>
+			</dataSource>
+		</HTMLItem></contents></tableCell></tableCells></tableRow></tableRows></table></contents></tableCell></tableCells></tableRow></tableRows></table></contents>
+		<style/></block><block>
+			<contents><table><style><defaultStyles><defaultStyle refStyle="tb"/></defaultStyles><CSS value="border-collapse:collapse;width:100%"/></style><tableRows><tableRow><tableCells><tableCell colSpan="2"><contents><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;span id=&quot;PABUTable&quot; class=&quot;Collapsible Collapsed&quot;&gt; &lt;/span&gt;
+&lt;img onclick=&apos;ExpandCollapse(this,2)&apos; src=&apos;../pat/hal/images/plus.gif&apos; style=&apos;cursor:hand;vertical-align:middle; margin-right:2px&apos;/&gt;
+&lt;span onclick=&apos;ExpandCollapse(this.previousSibling,2)&apos; style=&apos;cursor:hand&apos;&gt;</staticValue>
+			</dataSource>
+		</HTMLItem><textItem><dataSource><staticValue>Business Unit / Practice Area</staticValue></dataSource><style><CSS value="font-weight:bold"/></style></textItem><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;/span&gt;
+</staticValue>
+			</dataSource>
+		</HTMLItem></contents><style><defaultStyles><defaultStyle refStyle="sh"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><textItem><dataSource><staticValue>Business Unit</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell><tableCell><contents><textItem><dataSource><staticValue>Practice Area</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><selectValue multiSelect="true" parameter="Business Unit" refQuery="Business Unit Pmt" required="false" selectValueUI="listBox"><useItem refDataItem="id"><displayItem refDataItem="Business Unit"/></useItem></selectValue></contents></tableCell><tableCell><contents><selectValue multiSelect="true" parameter="Practice Area" refQuery="Practice Area Pmt" required="false" selectValueUI="listBox"><useItem refDataItem="id"><displayItem refDataItem="Practice Area"/></useItem></selectValue></contents></tableCell></tableCells></tableRow></tableRows></table></contents>
+		<style/></block><block>
+			<contents><table><style><defaultStyles><defaultStyle refStyle="tb"/></defaultStyles><CSS value="border-collapse:collapse;width:100%"/></style><tableRows><tableRow><tableCells><tableCell colSpan="5"><contents><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;span id=&quot;MatterTable&quot; class=&quot;Collapsible Collapsed&quot;&gt; &lt;/span&gt;
+&lt;img onclick=&apos;ExpandCollapse(this,3)&apos; src=&apos;../pat/hal/images/plus.gif&apos; style=&apos;cursor:hand;vertical-align:middle; margin-right:2px&apos;/&gt;
+&lt;span onclick=&apos;ExpandCollapse(this.previousSibling,3)&apos; style=&apos;cursor:hand&apos;&gt;</staticValue>
+			</dataSource>
+		</HTMLItem><textItem><dataSource><staticValue>Matter</staticValue></dataSource><style><CSS value="font-weight:bold"/></style></textItem><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;/span&gt;
+</staticValue>
+			</dataSource>
+		</HTMLItem></contents><style><defaultStyles><defaultStyle refStyle="sh"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><textItem><dataSource><staticValue>Matter Type</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell><tableCell colSpan="3"><contents><textItem><dataSource><staticValue>Matter Status</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell><tableCell><contents><textItem><dataSource><staticValue>Matter Number - Matter Name</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><selectValue multiSelect="true" parameter="Matter Type" refQuery="Matter Type Pmt" required="false" selectValueUI="listBox"><useItem refDataItem="id"><displayItem refDataItem="Matter Type"/></useItem></selectValue></contents></tableCell><tableCell colSpan="3"><contents><selectValue multiSelect="true" parameter="Matter Status" refQuery="Matter Status Pmt" required="false" selectValueUI="listBox"><useItem refDataItem="id"><displayItem refDataItem="Matter Status"/></useItem></selectValue></contents></tableCell><tableCell><contents><selectWithSearch multiSelect="true" parameter="Matter" refQuery="Matter Pmt" required="false"><useItem refDataItem="key"><displayItem refDataItem="Matter Name"/></useItem></selectWithSearch></contents></tableCell></tableCells><style><CSS value="text-align:left;vertical-align:top"/></style></tableRow></tableRows></table><table><style><defaultStyles><defaultStyle refStyle="tb"/></defaultStyles><CSS value="border-collapse:collapse;width:100%"/></style><tableRows><tableRow><tableCells><tableCell><contents><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;span id=&quot;OrganizationTable&quot; class=&quot;Collapsible Collapsed&quot;&gt;  &lt;/span&gt;
+&lt;img onclick=&apos;ExpandCollapse(this,4)&apos; src=&apos;../pat/hal/images/plus.gif&apos; style=&apos;cursor:hand;vertical-align:middle; margin-right:2px&apos;/&gt;
+&lt;span onclick=&apos;ExpandCollapse(this.previousSibling,4)&apos; style=&apos;cursor:hand&apos;&gt;</staticValue>
+			</dataSource>
+		</HTMLItem><textItem><dataSource><staticValue>Organization</staticValue></dataSource></textItem><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;/span&gt;
+</staticValue>
+			</dataSource>
+		</HTMLItem></contents><style><defaultStyles><defaultStyle refStyle="sh"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><textItem><dataSource><staticValue>Organization</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><selectWithSearch multiSelect="true" parameter="Organization Name" refQuery="Organization Pmt" required="false"><useItem refDataItem="key"><displayItem refDataItem="Organization"/></useItem></selectWithSearch></contents></tableCell></tableCells></tableRow></tableRows></table><table><style><defaultStyles><defaultStyle refStyle="tb"/></defaultStyles><CSS value="border-collapse:collapse;width:100%"/></style><tableRows><tableRow><tableCells><tableCell><contents><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;span id=&quot;PeopleTable&quot; class=&quot;Collapsible Collapsed&quot;&gt;  &lt;/span&gt;
+&lt;img onclick=&apos;ExpandCollapse(this,5)&apos; src=&apos;../pat/hal/images/plus.gif&apos; style=&apos;cursor:hand;vertical-align:middle; margin-right:2px&apos;/&gt;
+&lt;span onclick=&apos;ExpandCollapse(this.previousSibling,5)&apos; style=&apos;cursor:hand&apos;&gt;</staticValue>
+			</dataSource>
+		</HTMLItem><textItem><dataSource><staticValue>People</staticValue></dataSource></textItem><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;/span&gt;
+</staticValue>
+			</dataSource>
+		</HTMLItem></contents><style><defaultStyles><defaultStyle refStyle="sh"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><textItem><dataSource><staticValue>Primary Internal Contact</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><selectWithSearch multiSelect="true" parameter="Primary Internal Contact" refQuery="PIC Pmt" required="false"><useItem refDataItem="Person KEY"><displayItem refDataItem="Person Name"/></useItem></selectWithSearch></contents></tableCell></tableCells></tableRow></tableRows></table></contents>
+		<style/></block><block>
+			<contents><block>
+			<contents><table><style><defaultStyles><defaultStyle refStyle="tb"/></defaultStyles><CSS value="border-collapse:collapse;width:100%"/></style><tableRows><tableRow><tableCells><tableCell colSpan="2"><contents><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;span id=&quot;InvoiceTable&quot; class=&quot;Collapsible&quot;&gt; &lt;/span&gt;
+&lt;img onclick=&apos;ExpandCollapse(this,6)&apos; src=&apos;../pat/hal/images/minus.gif&apos; style=&apos;cursor:hand;vertical-align:middle; margin-right:2px&apos;/&gt;
+&lt;span onclick=&apos;ExpandCollapse(this.previousSibling,6)&apos; style=&apos;cursor:hand&apos;&gt;</staticValue>
+			</dataSource>
+		</HTMLItem><textItem><dataSource><staticValue>Invoice</staticValue></dataSource><style><CSS value="font-weight:bold"/></style></textItem><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;/span&gt;
+</staticValue>
+			</dataSource>
+		</HTMLItem></contents><style><defaultStyles><defaultStyle refStyle="sh"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><textItem><dataSource><staticValue>Invoice State</staticValue></dataSource></textItem></contents><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell><tableCell><contents><textItem><dataSource><staticValue>Net Amount</staticValue></dataSource><style><CSS value="font-weight:bold"/></style></textItem></contents><style><defaultStyles><defaultStyle refStyle="sk"/></defaultStyles></style></tableCell></tableCells></tableRow><tableRow><tableCells><tableCell><contents><selectValue multiSelect="true" parameter="Invoice State" refQuery="Invoice State Pmt" selectValueUI="listBox"><defaultSelections><defaultSimpleSelection>Approved</defaultSimpleSelection><defaultSimpleSelection>Pending</defaultSimpleSelection></defaultSelections><useItem refDataItem="id"><displayItem refDataItem="Invoice State"/></useItem></selectValue></contents><style/></tableCell><tableCell><contents><textBox numbersOnly="true" parameter="Net Amount" range="true" required="false"/></contents><style/></tableCell></tableCells></tableRow></tableRows></table><HTMLItem>
+			<dataSource>
+				<staticValue>&lt;script&gt;
+StartHidden(&quot;Top10Table&quot;,0,0);
+StartHidden(&quot;DateTable&quot;,1,0);
+StartHidden(&quot;PABUTable&quot;,2,1);
+StartHidden(&quot;MatterTable&quot;,3,1);
+StartHidden(&quot;OrganizationTable&quot;,4,1);
+StartHidden(&quot;PeopleTable&quot;,5,1);
+StartHidden(&quot;InvoiceTable&quot;,6,0);
+setLocationHash();
+&lt;/script&gt;</staticValue>
+			</dataSource>
+		</HTMLItem></contents>
+		<style/></block></contents>
+		<style/></block></contents>
+				<style>
+					<defaultStyles>
+						<defaultStyle refStyle="py"/>
+					</defaultStyles>
+				</style>
+			</pageBody>
+			<pageFooter>
+				<contents>
+					<promptButton type="cancel">
+						<contents/>
+						<style>
+							<defaultStyles>
+								<defaultStyle refStyle="bp"/>
+							</defaultStyles>
+						</style>
+					</promptButton>
+					
+					
+					<promptButton type="finish">
+						<contents/>
+						<style>
+							<defaultStyles>
+								<defaultStyle refStyle="bp"/>
+							</defaultStyles>
+						</style>
+					</promptButton>
+				</contents>
+				<style>
+					<defaultStyles>
+						<defaultStyle refStyle="fp"/>
+					</defaultStyles>
+				</style>
+			</pageFooter>
+			<style>
+				<defaultStyles>
+					<defaultStyle refStyle="pp"/>
+				</defaultStyles>
+			</style>
+		</page></promptPages></layout>
+				</layouts>
+			<XMLAttributes><XMLAttribute name="RS_CreateExtendedDataItems" output="no" value="true"/><XMLAttribute name="listSeparator" output="no" value=","/><XMLAttribute name="decimalSeparator" value="." output="no"/><XMLAttribute output="no" name="RS_modelModificationTime" value="2022-11-16T20:25:59.783Z"/></XMLAttributes><reportVariables><reportVariable name="ShowOnly-roHtml" type="string">
+			<reportExpression>if(ReportOutput ()=&apos;HTML&apos;)then(&apos;Yes&apos;)else(&apos;No&apos;)</reportExpression>
+		<variableValues><variableValue value="Yes"/><variableValue value="No"/></variableValues></reportVariable></reportVariables><reportName>Spend By Organization</reportName></report>
